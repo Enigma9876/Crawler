@@ -1,0 +1,1 @@
+path_start(pth_enemy1, 12,path_action_reverse,true);
