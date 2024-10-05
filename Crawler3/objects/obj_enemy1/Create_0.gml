@@ -1,1 +1,2 @@
-path_start(pth_enemy1, 12,path_action_reverse,true);
+distance = 64;
+last_turn_num = global.turn;
