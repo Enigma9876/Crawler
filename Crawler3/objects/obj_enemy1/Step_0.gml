@@ -10,16 +10,21 @@ if(global.turn != last_turn_num)
 	
 	while(!foundpath)
 	{
-		var free_x = (x div 64) + 1;
-		if (mp_grid_get_cell(global.grid, free_x, (y div 64)) == 0 &&  x < obj_player.x)
+		//need to check to see if the grids i'm checking are not out of bounds before i check them
+		var free_x = (x div 64);
+		if (global.grid_contents[(y div 64)][free_x] == "null" &&  x < obj_player.x)
 		{
 			ds_list_add(path_x,1);
 		}
-		else if(mp_grid_get_cell(global.grid, free_x - 2, (y div 64)) == 0 &&  x > obj_player.x)
+		else if(global.grid_contents[y div 64][free_x] == "null" &&  x > obj_player.x)
 		{
 			ds_list_add(path_x,-1);
 		}
 		else if(x == obj_player.x)
+		{
+			foundpath = true;
+		}
+		else
 		{
 			foundpath = true;
 		}
