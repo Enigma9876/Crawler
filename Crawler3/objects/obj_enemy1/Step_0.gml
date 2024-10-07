@@ -1,3 +1,5 @@
+var pos_in_list_x = x;
+var pos_in_list_y = y;
 if(global.turn != last_turn_num)
 {
 	
@@ -12,11 +14,11 @@ if(global.turn != last_turn_num)
 	{
 		//need to check to see if the grids i'm checking are not out of bounds before i check them
 		var free_x = (x div 64);
-		if (global.grid_contents[(y div 64)][free_x] == "null" &&  x < obj_player.x)
+		if (global.grid_contents[(y div 64)][free_x + 1] == "null" &&  x < obj_player.x)
 		{
 			ds_list_add(path_x,1);
 		}
-		else if(global.grid_contents[y div 64][free_x] == "null" &&  x > obj_player.x)
+		else if(x div 64 != 1 && global.grid_contents[(y div 64)][free_x - 1] == "null" &&  x > obj_player.x)
 		{
 			ds_list_add(path_x,-1);
 		}
@@ -41,5 +43,4 @@ if(global.turn != last_turn_num)
 	}
 	
 }
-
 last_turn_num = global.turn;

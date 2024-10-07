@@ -35,13 +35,13 @@ while(true)
 num_width = free_x * 64 + 32;
 num_height = free_y * 64 + 32;
 
-instance_create_layer(num_width, num_height, "Instances_Characters", obj_player);
+instance_create_layer(num_width, num_height, "Instances_Objects", obj_player);
 global.grid_contents[free_y][free_x] = "player";
 
 
 //enemy 1
 spawn_enemy1 = true;
-spawn_enemy1_amount = 10;
+spawn_enemy1_amount = 1;
 
 if (spawn_enemy1)
 {
@@ -63,20 +63,7 @@ if (spawn_enemy1)
         num_height = free_y * 64 + 32;
 
         // Spawn enemy at this position
-        instance_create_layer(num_width, num_height, "Instances_Characters", obj_enemy1);
-		global.grid_contents[free_y][free_x] = "enemey";
+        instance_create_layer(num_width, num_height, "Instances_Objects", obj_enemy1);
+		global.grid_contents[free_y][free_x] = "enemy";
     }
 }
-
-//prints grid for testing
-for (var w = 0; w < array_length(global.grid_contents); w++) {
-    var row = "";
-    
-    // Loop through each column in the row
-    for (var h = 0; h < array_length(global.grid_contents[0]); h++) {
-        row += string(global.grid_contents[w][h]) + " "; // Add each element to the row string
-    }
-    
-    show_debug_message(row); // Print the row
-}
-
