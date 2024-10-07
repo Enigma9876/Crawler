@@ -19,6 +19,19 @@ for(var h = 0; h < array_length(global.grid_contents); h++)
 	}
 }
 
+//spawn walls (intitial border)
+for(var h = 0; h < array_length(global.grid_contents); h++)
+{
+	for(var w = 0; w < array_length(global.grid_contents[0]); w++)
+	{
+		if((h == 0 || h == array_length(global.grid_contents) - 1) || (w == 0 || w == array_length(global.grid_contents[0]) - 1))
+		{
+			instance_create_layer(w * 64 + 32, h * 64 + 32, "Instances_Objects", obj_wall);
+			global.grid_contents[h][w] = "wall";
+		}
+	}
+}
+ 
 
 //player spawn
 var free_x, free_y;
