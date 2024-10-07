@@ -2,7 +2,6 @@ var pos_in_list_x = x;
 var pos_in_list_y = y;
 if(global.turn != last_turn_num)
 {
-	
 	//find path
 	var foundpath = false;
 	
@@ -18,15 +17,15 @@ if(global.turn != last_turn_num)
 		{
 			ds_list_add(path_x,1);
 		}
-		else if(x div 64 != 1 && global.grid_contents[(y div 64)][free_x - 1] == "null" &&  x > obj_player.x)
+		else if(global.grid_contents[(y div 64)][free_x - 1] == "null" &&  x > obj_player.x)
 		{
 			ds_list_add(path_x,-1);
 		}
-		else if(x == obj_player.x)
+		else if(x == obj_player.x) //temporary until y is working
 		{
 			foundpath = true;
 		}
-		else
+		else 
 		{
 			foundpath = true;
 		}
@@ -42,5 +41,10 @@ if(global.turn != last_turn_num)
 		x += ds_list_find_value(path_x, 0) * 64;
 	}
 	
+}
+if(xprevious != x || yprevious != y)
+{
+	array_set(global.grid_contents[yprevious div 64], xprevious div 64, "null"); 
+	array_set(global.grid_contents[y div 64], x div 64, "enemy");
 }
 last_turn_num = global.turn;
