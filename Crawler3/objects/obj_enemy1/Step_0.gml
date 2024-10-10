@@ -3,7 +3,8 @@ var pos_in_list_y = y;
 if(global.turn != last_turn_num)
 {
 	//find path
-	var foundpath = false;
+	var foundpath_y = false;
+	var foundpath_x = false;
 	
 	//paths
 	var path_x = ds_list_create();
@@ -12,8 +13,8 @@ if(global.turn != last_turn_num)
 	var current_x = x div 64;
 	var current_y = y div 64;
 	
-	//actual path finding
-	while(!foundpath)
+	//path finding
+	while(!foundpath_y)
 	{
 		//x value
 		if (global.grid_contents[current_y][current_x + 1] == "null" &&  current_x < (obj_player.x div 64))
@@ -29,18 +30,44 @@ if(global.turn != last_turn_num)
 		else if(current_x == (obj_player.x div 64))
 		{
 			ds_list_add(path_x,0);
-			foundpath = true;
+			foundpath_x = true;
 		}
 		else
 		{
-			foundpath = true;
+			foundpath_x = true;
+		}
+		
+		//y value
+		if(foundpath_x)
+		{
+			if (global.grid_contents[current_y + 1][current_x] == "null" &&  current_x > (obj_player.x div 64))
+			{
+				ds_list_add(path_y,1);
+				current_y = current_y + 1;
+			}
+			else if(global.grid_contents[current_y - 1][current_x] == "null" &&  current_x < (obj_player.x div 64))
+			{
+				ds_list_add(path_y,-1);
+				current_y = current_y - 1;
+			}
+			else if(current_y == (obj_player.x div 64))
+			{
+				ds_list_add(path_y,0);
+				foundpath_y = true;
+			}
+			else
+			{
+				foundpath_y = true;
+				show_debug_message(path_y);
+			}
 		}
 		
 
 	}
-	
-	if(ds_list_size(path_x) != 0)
+	if(ds_list_size(path_x) != 0 && ds_list_find_value(path_x, 0) != 0)
 		x += ds_list_find_value(path_x, 0) * 64;
+	else
+		y += ds_list_find_value(path_y, 0) * 64;
 
 	
 }
