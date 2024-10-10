@@ -40,17 +40,17 @@ if(global.turn != last_turn_num)
 		//y value
 		if(foundpath_x)
 		{
-			if (global.grid_contents[current_y + 1][current_x] == "null" &&  current_x > (obj_player.x div 64))
+			if (global.grid_contents[current_y + 1][current_x] == "null" &&  current_y > (obj_player.y div 64))
 			{
 				ds_list_add(path_y,1);
 				current_y = current_y + 1;
 			}
-			else if(global.grid_contents[current_y - 1][current_x] == "null" &&  current_x < (obj_player.x div 64))
+			else if(global.grid_contents[current_y - 1][current_x] == "null" &&  current_y < (obj_player.y div 64))
 			{
 				ds_list_add(path_y,-1);
 				current_y = current_y - 1;
 			}
-			else if(current_y == (obj_player.x div 64))
+			else if(current_y == (obj_player.y div 64))
 			{
 				ds_list_add(path_y,0);
 				foundpath_y = true;
@@ -58,7 +58,7 @@ if(global.turn != last_turn_num)
 			else
 			{
 				foundpath_y = true;
-				show_debug_message(path_y);
+				show_debug_message(ds_list_find_value(path_y, 0));
 			}
 		}
 		
