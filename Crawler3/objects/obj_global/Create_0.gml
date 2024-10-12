@@ -33,6 +33,7 @@ for(var h = 0; h < array_length(global.grid_contents); h++)
 }
 
 //random walls
+var numWalls = 30;
 var free_x, free_y;
 while(true)
 {
@@ -40,15 +41,18 @@ while(true)
 	free_y = irandom(room_height div 64 - 1);
 	if (global.grid_contents[free_y][free_x] == "null") // Check if the spot is free
 	{
-		break;
+		numWalls -= 1;
+		num_width = free_x * 64 + 32;
+		num_height = free_y * 64 + 32;
+
+		instance_create_layer(num_width, num_height, "Instances_Objects", obj_wall);
+		global.grid_contents[free_y][free_x] = "wall";
+		if(numWalls <= 0)
+		{
+			break;
+		}
 	}
 }
-
-num_width = free_x * 64 + 32;
-num_height = free_y * 64 + 32;
-
-instance_create_layer(num_width, num_height, "Instances_Objects", obj_wall);
-global.grid_contents[free_y][free_x] = "wall";
  
 
 //player spawn
