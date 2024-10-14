@@ -29,13 +29,20 @@ for(var h = 0; h < array_length(global.grid_contents); h++)
 			instance_create_layer(w * 64 + 32, h * 64 + 32, "Instances_Objects", obj_wall);
 			global.grid_contents[h][w] = "wall";
 		}
+		
+		//test only
+		if(w != 3 && (h == 10 && w < 10) || (h < 11 && w == 10) && h != 6)
+		{
+			instance_create_layer(w * 64 + 32, h * 64 + 32, "Instances_Objects", obj_wall);
+			global.grid_contents[h][w] = "wall";
+		}
 	}
 }
 
 //random walls
-var numWalls = 30;
+var numWalls = 0;
 var free_x, free_y;
-while(true)
+while(numWalls > 0)
 {
 	free_x = irandom(room_width div 64 - 1);
 	free_y = irandom(room_height div 64 - 1);
