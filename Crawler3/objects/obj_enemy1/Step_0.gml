@@ -1,8 +1,3 @@
-//need to add system so if its not null it will choose another direction from current x and y
-
-
-
-
 var pos_in_list_x = x;
 var pos_in_list_y = y;
 if(global.turn != last_turn_num)
@@ -18,6 +13,15 @@ if(global.turn != last_turn_num)
 	var player_position_x = obj_player.x div 64;
 	var player_position_y = obj_player.y div 64;
 	
+	
+	//add these to the loop for next time
+	
+	//direction values
+	var null_left = false;
+	var null_right = false;
+	var null_up = false;
+	var null_down = false;
+	
 	while(true)
 	{
 		//get which way to go
@@ -29,43 +33,60 @@ if(global.turn != last_turn_num)
 			if(current_position_x < player_position_x)
 			{
 				//check if its open
-				if(grid[current_position_y][current_position_x + 1] == "null")
+				if(grid[current_position_y][current_position_x + 1] != "null")
 				{
-					//update a path to that locaiton and stuff
+					//update a path to that locaiton, stuff and restart the loop
+				}
+				else
+				{
+					//restart the loop and find a away to redo calculations
+					
 				}
 			}
 			
 			//go left
-			else if(current_position_x > player_position_x)
+			if(current_position_x > player_position_x)
 			{
 				//check if its open
-				if(grid[current_position_y][current_position_x - 1] == "null")
+				if(grid[current_position_y][current_position_x - 1] != "null")
 				{
 					//update a path to that locaiton and stuff
+				}
+				else
+				{
+					//restart the loop
 				}
 			}
 		}
 		
 		//cost is better to go y
-		else if(abs(current_position_x - player_position_x) > abs(current_position_y - player_position_y))
+		if(abs(current_position_x - player_position_x) > abs(current_position_y - player_position_y))
 		{
 			//go up		
 			if(current_position_y > player_position_y)
 			{
 				//check if its open
-				if(grid[current_position_y - 1][current_position_x] == "null")
+				if(grid[current_position_y - 1][current_position_x] != "null")
 				{
 					//update a path to that locaiton and stuff
+				}
+				else
+				{
+					//restart the loop
 				}
 			}
 			
 			//go down
-			else if(current_position_y < player_position_y)
+			if(current_position_y < player_position_y)
 			{
 				//check if its open
-				if(grid[current_position_y + 1][current_position_x] == "null")
+				if(grid[current_position_y + 1][current_position_x] != "null")
 				{
 					//update a path to that locaiton and stuff
+				}
+				else
+				{
+					//restart the loop
 				}
 			}
 			
