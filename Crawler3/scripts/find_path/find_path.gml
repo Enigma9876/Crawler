@@ -31,7 +31,7 @@ function find_path(start_x, start_y, end_x, end_y)
         
         // If we reached the goal
         if (current_x == end_x && current_y == end_y) {
-            reconstruct_path(came_from, current);
+            return reconstruct_path(came_from, current);
             break;
         }
         
@@ -104,6 +104,5 @@ function reconstruct_path(came_from, current) {
         array_push(total_path, current);
     }
     
-	show_debug_message(string(total_path));
     return array_reverse(total_path);
 }
