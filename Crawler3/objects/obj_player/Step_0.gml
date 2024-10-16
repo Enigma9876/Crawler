@@ -1,54 +1,52 @@
 //movement
 if(keyboard_check_pressed(vk_left))
 {
-	if (global.grid_contents[(y div 64)][x div 64 - 1] == "null")
+	if (global.grid[# x div 64 - 1, y div 64] == 0)
 	{
 		x -= distance;
 		if(x != xprevious2 || y != yprevious2)
 		{
-			array_set(global.grid_contents[yprevious2 div 64], xprevious2 div 64, "null");
-			array_set(global.grid_contents[y div 64], x div 64, "player");
+			global.grid[# xprevious2 div 64 div 64, yprevious2 div 64] = 0;
+			global.grid[# x div 64 div 64, y div 64] = 1;
 		}
 		global.turn += 1;
 	}
 }
 else if(keyboard_check_pressed(vk_right))
 {
-	if (global.grid_contents[y div 64][x div 64 + 1] == "null")
+	if (global.grid[# x div 64 + 1, y div 64] == 0)
 	{
 		x += distance;
 		if(x != xprevious2 || y != yprevious2)
 		{
-			array_set(global.grid_contents[yprevious2 div 64], xprevious2 div 64, "null");
-			array_set(global.grid_contents[y div 64], x div 64, "player");
+			global.grid[# xprevious2 div 64 div 64, yprevious2 div 64] = 0;
+			global.grid[# x div 64 div 64, y div 64] = 1;
 		}
 		global.turn += 1;
 	}
 }
 else if(keyboard_check_pressed(vk_down))
 {
-	if (global.grid_contents[y div 64 + 1][x div 64] == "null")
+	if (global.grid[# x div 64, y div 64 + 1] == 0)
 	{
 		y += distance;
 		if(x != xprevious2 || y != yprevious2)
 		{
-			show_debug_message(string(xprevious2) + " " + string(x));
-			array_set(global.grid_contents[yprevious2 div 64], xprevious2 div 64, "null");
-			array_set(global.grid_contents[y div 64], x div 64, "player");
+			global.grid[# xprevious2 div 64 div 64, yprevious2 div 64] = 0;
+			global.grid[# x div 64 div 64, y div 64] = 1;
 		}
 		global.turn += 1;
 	}
 }
 else if(keyboard_check_pressed(vk_up))
 {
-	if (global.grid_contents[y div 64 - 1][x div 64] == "null")
+	if (global.grid[# x div 64, y div 64 - 1] == 0)
 	{
 		y -= distance;
 		if(x != xprevious2 || y != yprevious2)
 		{
-			show_debug_message(string(xprevious2) + " " + string(x));
-			array_set(global.grid_contents[yprevious2 div 64], xprevious2 div 64, "null");
-			array_set(global.grid_contents[y div 64], x div 64, "player");
+			global.grid[# xprevious2 div 64 div 64, yprevious2 div 64] = 0;
+			global.grid[# x div 64 div 64, y div 64] = 1;
 		}
 		global.turn += 1;
 	}
