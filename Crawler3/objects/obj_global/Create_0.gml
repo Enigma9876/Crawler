@@ -32,6 +32,22 @@ for (var i = 0; i < global.grid_width; i++) {
     }
 }
 
+//spawn random walls
+for (var i = 0; i < 15; i++)
+{
+	var e =  irandom(room_width div 64 - 1);
+	var j = irandom(room_height div 64 - 1);
+	if(global.grid[# e, j] == 0)
+	{
+		global.grid[# e, j] = 1; // set non-walkable
+		instance_create_layer(e * 64, j * 64, "Instances_Objects", obj_wall); //add wall
+	}
+	else
+	{
+		global.grid[# e, j] -= 1;
+	}
+}
+
  
 
 //player spawn

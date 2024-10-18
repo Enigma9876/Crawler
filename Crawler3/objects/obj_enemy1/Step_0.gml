@@ -2,12 +2,33 @@ if(global.turn != last_turn_num)
 {
    //list to store the found path
    var path = find_path(x div 64, y div 64, obj_player.x div 64, obj_player.y div 64);
-   
    //get the movement out of the list
-   var position = path[0];
-   var move_x = string_copy(position, 0, 1);
-   var move_y = string_copy(position, string_char_at(position, "_"), string_length(position));
-   show_debug_message(string(move_x) + " " + string(move_y));
+   var position = path[1];
+   var move_x = string_copy(position, 1, string_last_pos("_", position) - 1);
+   var move_y = string_copy(position,  string_last_pos("_", position) + 1, string_length(position));
+   
+   if(move_x == x div 64)
+   {
+	   if(move_y < y div 64)
+	   {
+		   y -= distance;
+	   }
+	   else if(move_y > y div 64)
+	   {
+		   y += distance;
+	   }
+   }
+   else if(move_y == y div 64)
+   {
+	   if(move_x > x div 64)
+	   {
+		   x += distance;
+	   }
+	   else if(move_x < x div 64)
+	   {
+		   x -= distance;
+	   }
+   }
    
 }
 

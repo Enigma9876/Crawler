@@ -4,7 +4,7 @@ function find_path(start_x, start_y, end_x, end_y)
     var open_list = ds_priority_create();
     var closed_list = ds_list_create();
     
-    // Map to track if a node is in the open list (to replace ds_priority_find_index)
+    // Map to track if a node is in the open list
     var open_list_map = ds_map_create();
     
     // Dictionary to store the cost and parent of each node
