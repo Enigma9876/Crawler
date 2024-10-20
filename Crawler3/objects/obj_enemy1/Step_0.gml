@@ -7,26 +7,35 @@ if(global.turn != last_turn_num)
    var move_x = string_copy(position, 1, string_last_pos("_", position) - 1);
    var move_y = string_copy(position,  string_last_pos("_", position) + 1, string_length(position));
    
-   if(move_x == x div 64)
+   
+   	//attack player
+	if(move_x == obj_player.x div 64 && move_y == obj_player.y div 64)
+	{
+		show_debug_message("attacked player");
+	}
+   else //move toward player
    {
-	   if(move_y < y div 64)
+	   if(move_x == x div 64)
 	   {
-		   y -= distance;
+		   if(move_y < y div 64)
+		   {
+			   y -= distance;
+		   }
+		   else if(move_y > y div 64)
+		   {
+			   y += distance;
+		   }
 	   }
-	   else if(move_y > y div 64)
+	   else if(move_y == y div 64)
 	   {
-		   y += distance;
-	   }
-   }
-   else if(move_y == y div 64)
-   {
-	   if(move_x > x div 64)
-	   {
-		   x += distance;
-	   }
-	   else if(move_x < x div 64)
-	   {
-		   x -= distance;
+		   if(move_x > x div 64)
+		   {
+			   x += distance;
+		   }
+		   else if(move_x < x div 64)
+		   {
+			   x -= distance;
+		   }
 	   }
    }
    

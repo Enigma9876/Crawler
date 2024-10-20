@@ -4,6 +4,8 @@ randomize();
 //globals
 global.turn = 0;
 
+//healthbar
+instance_create_layer(0, 0, "Instances_Global", obj_healthBar); //add wall
 
 // Grid sizes
 global.grid_width = room_width div 64;  // Number of cells in the grid's width
@@ -87,3 +89,6 @@ if (spawn_enemy1)
         }
     }
 }
+
+
+
