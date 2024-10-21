@@ -24,7 +24,7 @@ for (var i = 0; i < global.grid_width; i++) {
 
 
 //spawn walls (intitial border)
-create_rooms();
+create_rooms(3,3);
 
 
  

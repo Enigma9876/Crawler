@@ -1,7 +1,7 @@
-function create_rooms()
+function create_rooms(width, height)
 {
 	//create list of rooms
-	var rooms = array_create(4, array_create(4, ds_type_grid));
+	var rooms = array_create(width, array_create(height, ds_type_grid));
 	
 	//set size of grids
 	for(var i = 0; i < array_length(rooms); i++)
@@ -25,7 +25,7 @@ function create_rooms()
 						global.grid[# w, h] = 1; // set non-walkable
 						instance_create_layer(w * 64, h * 64, "Instances_Objects", obj_wall); //add wall
 					}
-					if(w == global.grid_width - 1 || h == global.grid_height - array_length(rooms) + 1)
+					if(w == global.grid_width - 1 || h == global.grid_height - 1)
 					{
 						global.grid[# w, h] = 1; // set non-walkable
 						instance_create_layer(w * 64, h * 64, "Instances_Objects", obj_wall); //add wall
