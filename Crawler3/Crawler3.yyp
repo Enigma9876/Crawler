@@ -42,6 +42,7 @@
     {"id":{"name":"obj_wall","path":"objects/obj_wall/obj_wall.yy",},},
     {"id":{"name":"rm_level1","path":"rooms/rm_level1/rm_level1.yy",},},
     {"id":{"name":"rm_Start","path":"rooms/rm_Start/rm_Start.yy",},},
+    {"id":{"name":"create_rooms","path":"scripts/create_rooms/create_rooms.yy",},},
     {"id":{"name":"find_path","path":"scripts/find_path/find_path.yy",},},
     {"id":{"name":"spr_enemy1","path":"sprites/spr_enemy1/spr_enemy1.yy",},},
     {"id":{"name":"spr_HealthBar","path":"sprites/spr_HealthBar/spr_HealthBar.yy",},},

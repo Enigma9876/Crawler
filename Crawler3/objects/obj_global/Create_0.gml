@@ -8,8 +8,8 @@ global.turn = 0;
 instance_create_layer(0, 0, "Instances_Global", obj_healthBar); //add wall
 
 // Grid sizes
-global.grid_width = room_width / 2 div 64;  // Number of cells in the grid's width
-global.grid_height = room_height / 2 div 64; // Number of cells in the grid's height
+global.grid_width = room_width div 64;  // Number of cells in the grid's width
+global.grid_height = room_height div 64; // Number of cells in the grid's height
 global.tile_size = 64;   // The size of each cell 64x64
 
 // Create a grid to represent walkable (0) and non-walkable (1) areas
@@ -24,31 +24,8 @@ for (var i = 0; i < global.grid_width; i++) {
 
 
 //spawn walls (intitial border)
-for (var i = 0; i < global.grid_width; i++) {
-    for (var j = 0; j < global.grid_height; j++) {
-		if((i == 0 || i == global.grid_width - 1) || (j == 0 || j == global.grid_height - 1))
-		{
-			global.grid[# i, j] = 1; // set non-walkable
-			instance_create_layer(i * 64, j * 64, "Instances_Objects", obj_wall); //add wall
-		}
-    }
-}
+create_rooms();
 
-//spawn random walls
-for (var i = 0; i < 15; i++)
-{
-	var e =  irandom(room_width / 2 div 64 - 1);
-	var j = irandom(room_height / 2 div 64 - 1);
-	if(global.grid[# e, j] == 0)
-	{
-		global.grid[# e, j] = 1; // set non-walkable
-		instance_create_layer(e * 64, j * 64, "Instances_Objects", obj_wall); //add wall
-	}
-	else
-	{
-		global.grid[# e, j] -= 1;
-	}
-}
 
  
 

@@ -23,6 +23,7 @@
     {"name":"obj_player","order":8,"path":"objects/obj_player/obj_player.yy",},
     {"name":"obj_wall","order":11,"path":"objects/obj_wall/obj_wall.yy",},
     {"name":"rm_level1","order":1,"path":"rooms/rm_level1/rm_level1.yy",},
+    {"name":"create_rooms","order":1,"path":"scripts/create_rooms/create_rooms.yy",},
     {"name":"spr_enemy1","order":9,"path":"sprites/spr_enemy1/spr_enemy1.yy",},
     {"name":"spr_HealthBar","order":14,"path":"sprites/spr_HealthBar/spr_HealthBar.yy",},
     {"name":"spr_HealthBarBackground","order":16,"path":"sprites/spr_HealthBarBackground/spr_HealthBarBackground.yy",},
