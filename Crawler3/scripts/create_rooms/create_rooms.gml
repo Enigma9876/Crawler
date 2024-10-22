@@ -30,7 +30,6 @@ function create_rooms(width, height)
 						global.grid[# w, h] = 1; // set non-walkable
 						instance_create_layer(w * 64, h * 64, "Instances_Objects", obj_wall); //add wall
 					}
-					show_debug_message(h);
 			    }
 			}
 		}

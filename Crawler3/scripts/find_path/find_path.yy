@@ -1,5 +1,5 @@
 {
-  "$GMScript":"",
+  "$GMScript":"v1",
   "%Name":"find_path",
   "isCompatibility":false,
   "isDnD":false,

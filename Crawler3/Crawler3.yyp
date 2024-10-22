@@ -30,11 +30,12 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.2.0.132",
+    "IDEVersion":"2024.8.1.171",
   },
   "name":"Crawler3",
   "resources":[
     {"id":{"name":"obj_enemy1","path":"objects/obj_enemy1/obj_enemy1.yy",},},
+    {"id":{"name":"obj_FogOfWar","path":"objects/obj_FogOfWar/obj_FogOfWar.yy",},},
     {"id":{"name":"obj_global","path":"objects/obj_global/obj_global.yy",},},
     {"id":{"name":"obj_healthBar","path":"objects/obj_healthBar/obj_healthBar.yy",},},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
@@ -45,6 +46,7 @@
     {"id":{"name":"create_rooms","path":"scripts/create_rooms/create_rooms.yy",},},
     {"id":{"name":"find_path","path":"scripts/find_path/find_path.yy",},},
     {"id":{"name":"spr_enemy1","path":"sprites/spr_enemy1/spr_enemy1.yy",},},
+    {"id":{"name":"spr_FogOfWar","path":"sprites/spr_FogOfWar/spr_FogOfWar.yy",},},
     {"id":{"name":"spr_HealthBar","path":"sprites/spr_HealthBar/spr_HealthBar.yy",},},
     {"id":{"name":"spr_HealthBarBackground","path":"sprites/spr_HealthBarBackground/spr_HealthBarBackground.yy",},},
     {"id":{"name":"spr_HealthBarBorder","path":"sprites/spr_HealthBarBorder/spr_HealthBarBorder.yy",},},

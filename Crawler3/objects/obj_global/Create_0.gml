@@ -39,6 +39,7 @@ while(true)
 	{
 		global.grid[# free_x, free_y] = 1; // set non-walkable
 		instance_create_layer(free_x * 64, free_y * 64, "Instances_Objects", obj_player); //add player to scene
+		instance_create_layer(0, 0, "Instances_FogOfWar", obj_FogOfWar); //add player to scene
 		break;
 	}
 }
@@ -66,6 +67,8 @@ if (spawn_enemy1)
         }
     }
 }
+
+room_height += 1000;
 
 
 

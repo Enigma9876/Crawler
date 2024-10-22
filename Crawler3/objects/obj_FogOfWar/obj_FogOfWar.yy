@@ -1,11 +1,12 @@
 {
   "$GMObject":"",
-  "%Name":"obj_global",
+  "%Name":"obj_FogOfWar",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_global",
+  "name":"obj_FogOfWar",
   "overriddenProperties":[],
   "parent":{
     "name":"Objects",
@@ -30,9 +31,9 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_key",
-    "path":"sprites/spr_key/spr_key.yy",
+    "name":"spr_FogOfWar",
+    "path":"sprites/spr_FogOfWar/spr_FogOfWar.yy",
   },
   "spriteMaskId":null,
-  "visible":false,
+  "visible":true,
 }
