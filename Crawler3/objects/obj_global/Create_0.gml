@@ -68,7 +68,13 @@ if (spawn_enemy1)
     }
 }
 
-room_height += 1000;
+//translate all objects down and left by 1000 after room formation
+room_width += 2000;
+room_height += 2000;
+var objects = layer_get_all_elements("Instances_Objects");
 
-
-
+for(var i = 0; i < array_length(objects); i++)
+{
+	layer_instance_get_instance(objects[i]).x += 1000;
+	layer_instance_get_instance(objects[i]).y += 1000;
+}
