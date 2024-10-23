@@ -16,14 +16,28 @@ function create_rooms(width, height)
 	{
 		for(var j = 0; j < array_length(rooms[0]); j++)
 		{
+			//set door variable
+			var hasdoor = false;
+			
 			for (var w = (ds_grid_width(rooms[i][j]) * j); w < (ds_grid_width(rooms[i][j]) * j) + ds_grid_width(rooms[i][j]); w++) 
 			{
 			    for (var h = (ds_grid_height(rooms[i][j]) * i); h < (ds_grid_height(rooms[i][j]) * i) + ds_grid_height(rooms[i][j]); h++) 
 				{
 					if((w == (ds_grid_width(rooms[i][j]) * j) || w == (ds_grid_width(rooms[i][j]) * j) + ds_grid_width(rooms[i][j]) + 1) || (h == (ds_grid_height(rooms[i][j]) * i) || h == (ds_grid_height(rooms[i][j]) * i) + ds_grid_height(rooms[i][j])))
 					{
-						global.grid[# w, h] = 1; // set non-walkable
-						instance_create_layer(w * 64, h * 64, "Instances_Objects", obj_wall); //add wall
+						if(!hasdoor && irandom(5) == 1 && !(w == (ds_grid_width(rooms[i][j]) * j)) && h != 0)
+						{
+							hasdoor = true;
+						}
+						else if(w + 1 < (ds_grid_width(rooms[i][j]) * j) + ds_grid_width(rooms[i][j]))
+						{
+							hasdoor = true;
+						}
+						else
+						{
+							global.grid[# w, h] = 1; // set non-walkable
+							instance_create_layer(w * 64, h * 64, "Instances_Objects", obj_wall); //add wall
+						}
 					}
 					if(w == global.grid_width - 1 || h == global.grid_height - 1)
 					{
