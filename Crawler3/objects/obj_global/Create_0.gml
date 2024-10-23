@@ -78,3 +78,5 @@ for(var i = 0; i < array_length(objects); i++)
 	layer_instance_get_instance(objects[i]).x += 1000;
 	layer_instance_get_instance(objects[i]).y += 1000;
 }
+
+//change the grid to shift left 1000 and down 1000 please
