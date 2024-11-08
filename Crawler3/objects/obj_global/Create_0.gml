@@ -8,8 +8,8 @@ global.turn = 0;
 instance_create_layer(0, 0, "Instances_Global", obj_healthBar); //add wall
 
 // Grid sizes
-global.grid_width = room_width div 64;  // Number of cells in the grid's width
-global.grid_height = room_height div 64; // Number of cells in the grid's height
+global.grid_width = room_width div 128;  // Number of cells in the grid's width
+global.grid_height = room_height div 128; // Number of cells in the grid's height
 global.tile_size = 64;   // The size of each cell 64x64
 
 // Create a grid to represent walkable (0) and non-walkable (1) areas
@@ -38,7 +38,7 @@ while(true)
 	if (global.grid[# free_x, free_y] == 0) // Check if the spot is free
 	{
 		global.grid[# free_x, free_y] = 1; // set non-walkable
-		instance_create_layer(free_x * 64, free_y * 64, "Instances_Objects", obj_player); //add player to scene
+		instance_create_layer((free_x * 64) + (room_width div 4), (free_y * 64) + (room_height div 4), "Instances_Objects", obj_player); //add player to scene
 		instance_create_layer(0, 0, "Instances_FogOfWar", obj_FogOfWar); //add player to scene
 		break;
 	}
@@ -47,7 +47,7 @@ while(true)
 
 //enemy 1
 spawn_enemy1 = true;
-spawn_enemy1_amount = 1;
+spawn_enemy1_amount = 0;
 
 if (spawn_enemy1)
 {
