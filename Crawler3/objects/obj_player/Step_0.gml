@@ -4,7 +4,7 @@ if(keyboard_check_pressed(vk_left))
 	if (global.grid[# ((x - (room_width div 4)) div 64 - 1), ((y - (room_height div 4)) div 64)] == 0)
 	{
 		x -= distance;
-		if(x - (room_width div 4) != xprevious2 - (room_width div 4) || y != yprevious2 - (room_height div 4))
+		if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
 		{
 			global.grid[# (xprevious2 - (room_width div 4)) div 64 div 64, (yprevious2 - (room_height div 4)) div 64] = 0;
 			global.grid[# (x - (room_width div 4)) div 64 div 64, (y - (room_width div 4)) div 64] = 1;
