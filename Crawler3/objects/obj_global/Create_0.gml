@@ -24,7 +24,7 @@ for (var i = 0; i < global.grid_width; i++) {
 
 
 //spawn walls (intitial border)
-create_rooms(2,2);
+create_rooms(1,1);
 
 
  
@@ -47,7 +47,7 @@ while(true)
 
 //enemy 1
 spawn_enemy1 = true;
-spawn_enemy1_amount = 0;
+spawn_enemy1_amount = 1;
 
 if (spawn_enemy1)
 {
@@ -61,7 +61,7 @@ if (spawn_enemy1)
             if (global.grid[# free_x, free_y] == 0) // Check if the spot is free
 			{
 				global.grid[# free_x, free_y] = 1; // set non-walkable
-				instance_create_layer(free_x * 64, free_y * 64, "Instances_Objects", obj_enemy1); //add player to scene
+				instance_create_layer((free_x * 64) + (room_width div 4), (free_y * 64) + (room_height div 4), "Instances_Objects", obj_enemy1); //add player to scene
 				break;
 			}
         }

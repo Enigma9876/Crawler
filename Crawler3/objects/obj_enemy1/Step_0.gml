@@ -1,34 +1,33 @@
 if(global.turn != last_turn_num)
 {
    //list to store the found path
-   var path = find_path(x div 64, y div 64, obj_player.x div 64, obj_player.y div 64);
+   var path = find_path((x - (room_width div 4)) div 64, (y - (room_height div 4)) div 64, (obj_player.x - (room_width div 4)) div 64, (obj_player.y - (room_height div 4)) div 64);
    //get the movement out of the list
-   if(path == pointer_null)
+   if(path != undefined)
    {
 	   var position = path[1];
 	   var move_x = string_copy(position, 1, string_last_pos("_", position) - 1);
 	   var move_y = string_copy(position,  string_last_pos("_", position) + 1, string_length(position));
-   
-   
+
    		//move toward player
-	   if(move_x == x div 64)
+	   if(move_x == (x - (room_width div 4)) div 64)
 	   {
-		   if(move_y < y div 64)
+		   if(move_y < (y - (room_height div 4)) div 64)
 		   {
 			   y -= distance;
 		   }
-		   else if(move_y > y div 64)
+		   else if(move_y > (y - (room_height div 4)) div 64)
 		   {
 			   y += distance;
 		   }
 	   }
-	   else if(move_y == y div 64)
+	   else if(move_y == (y - (room_height div 4)) div 64)
 	   {
-		   if(move_x > x div 64)
+		   if(move_x > (x - (room_width div 4)) div 64)
 		   {
 			   x += distance;
 		   }
-		   else if(move_x < x div 64)
+		   else if(move_x < (x - (room_width div 4)) div 64)
 		   {
 			   x -= distance;
 		   }
@@ -40,7 +39,7 @@ if(global.turn != last_turn_num)
 //updates grid
 if(xprevious != x || yprevious != y)
 {
-	global.grid[# xprevious div 64, yprevious div 64] = 0;
-	global.grid[# x div 64, y div 64] = 1;
+	global.grid[# (xprevious - (room_width div 4)) div 64, (yprevious - (room_height div 4)) div 64] = 0;
+	global.grid[# (x - (room_width div 4)) div 64, (y - (room_height div 4)) div 64] = 1;
 }
 last_turn_num = global.turn;
