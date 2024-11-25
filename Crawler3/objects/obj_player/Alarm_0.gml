@@ -1,0 +1,2 @@
+canMove = true;
+inalarm = false;

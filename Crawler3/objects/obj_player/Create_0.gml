@@ -39,3 +39,7 @@ up_move_progress = 0;
 up_move_target = 5; //change based on 60 -> 1 second
 down_move_progress = 0;
 down_move_target = 5; //change based on 60 -> 1 second
+
+
+canMove = true;
+inalarm = false;
