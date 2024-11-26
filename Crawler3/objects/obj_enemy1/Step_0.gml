@@ -5,6 +5,10 @@ if(global.turn != last_turn_num)
    //get the movement out of the list
    if(path != undefined)
    {
+	   var pathArray = array_create(path);
+	   show_debug_message(array_length(pathArray));
+	   
+	   
 	   var position = path[1];
 	   var move_x = string_copy(position, 1, string_last_pos("_", position) - 1);
 	   var move_y = string_copy(position,  string_last_pos("_", position) + 1, string_length(position));
