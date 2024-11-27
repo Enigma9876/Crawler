@@ -1,12 +1,21 @@
 if(global.turn != last_turn_num)
 {
    //list to store the found path
-   var path = find_path((x - (room_width div 4)) div 64, (y - (room_height div 4)) div 64, (obj_player.x - (room_width div 4)) div 64, (obj_player.y - (room_height div 4)) div 64);
+    var path = find_path((x - (room_width div 4)) div 64, (y - (room_height div 4)) div 64, (obj_player.x - (room_width div 4)) div 64, (obj_player.y - (room_height div 4)) div 64);
+	
+	if(array_length(path) == 2)
+	{
+		attackState = true;
+		show_debug_message("attacked");
+	}
+	else if(array_length(path) > 2)
+	{
+		attackState = false;
+	}
    //get the movement out of the list
-   if(path != undefined)
+   if(path != undefined && !attackState)
    {
-	   var pathArray = array_create(path);
-	   show_debug_message(array_length(pathArray));
+	   show_debug_message(array_length(path));
 	   
 	   
 	   var position = path[1];
