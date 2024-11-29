@@ -1,12 +1,12 @@
 if(global.turn != last_turn_num)
 {
    //list to store the found path
-    var path = find_path((x - (room_width div 4)) div 64, (y - (room_height div 4)) div 64, (obj_player.x - (room_width div 4)) div 64, (obj_player.y - (room_height div 4)) div 64);
+    var path = find_path((x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32, (obj_player.x - (room_width div 4)) div 32, (obj_player.y - (room_height div 4)) div 32);
 	
 	if(array_length(path) == 2)
 	{
 		attackState = true;
-		show_debug_message("attacked");
+		//show_debug_message("attacked");
 	}
 	else if(array_length(path) > 2)
 	{
@@ -15,7 +15,7 @@ if(global.turn != last_turn_num)
    //get the movement out of the list
    if(path != undefined && !attackState)
    {
-	   show_debug_message(array_length(path));
+	   //show_debug_message(array_length(path));
 	   
 	   
 	   var position = path[1];
@@ -23,24 +23,24 @@ if(global.turn != last_turn_num)
 	   var move_y = string_copy(position,  string_last_pos("_", position) + 1, string_length(position));
 
    		//move toward player
-	   if(move_x == (x - (room_width div 4)) div 64)
+	   if(move_x == (x - (room_width div 4)) div 32)
 	   {
-		   if(move_y < (y - (room_height div 4)) div 64)
+		   if(move_y < (y - (room_height div 4)) div 32)
 		   {
 			   Move_up = true;
 		   }
-		   else if(move_y > (y - (room_height div 4)) div 64)
+		   else if(move_y > (y - (room_height div 4)) div 32)
 		   {
 			   Move_down = true;
 		   }
 	   }
-	   else if(move_y == (y - (room_height div 4)) div 64)
+	   else if(move_y == (y - (room_height div 4)) div 32)
 	   {
-		   if(move_x > (x - (room_width div 4)) div 64)
+		   if(move_x > (x - (room_width div 4)) div 32)
 		   {
 			   Move_right = true;
 		   }
-		   else if(move_x < (x - (room_width div 4)) div 64)
+		   else if(move_x < (x - (room_width div 4)) div 32)
 		   {
 			   Move_left = true;
 		   }
@@ -52,8 +52,8 @@ if(global.turn != last_turn_num)
 //updates grid
 if(xprevious != x || yprevious != y)
 {
-	global.grid[# (xprevious - (room_width div 4)) div 64, (yprevious - (room_height div 4)) div 64] = 0;
-	global.grid[# (x - (room_width div 4)) div 64, (y - (room_height div 4)) div 64] = 1;
+	global.grid[# (xprevious - (room_width div 4)) div 32, (yprevious - (room_height div 4)) div 32] = 0;
+	global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 1;
 }
 last_turn_num = global.turn;
 
@@ -62,7 +62,7 @@ if(Move_left)
 	if(left_values)
 	{
 		left_start_x = x;
-		left_end_x = x - 64;
+		left_end_x = x - 32;
 		left_start_y = y;
 		left_end_y = y;
 	}
@@ -88,7 +88,7 @@ if(Move_right)
 	if(right_values)
 	{
 		right_start_x = x;
-		right_end_x = x + 64;
+		right_end_x = x + 32;
 		right_start_y = y;
 		right_end_y = y;
 	}
@@ -116,7 +116,7 @@ if(Move_up)
 		up_start_x = x;
 		up_end_x = x;
 		up_start_y = y;
-		up_end_y = y - 64;
+		up_end_y = y - 32;
 	}
 	up_values = false;
 	if (up_move_progress < up_move_target)
@@ -142,7 +142,7 @@ if(Move_down)
 		down_start_x = x;
 		down_end_x = x;
 		down_start_y = y;
-		down_end_y = y + 64;
+		down_end_y = y + 32;
 	}
 	down_values = false;
 	if (down_move_progress < down_move_target)

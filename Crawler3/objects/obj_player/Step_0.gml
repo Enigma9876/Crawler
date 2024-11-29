@@ -3,60 +3,60 @@ if(canMove == true)
 	//movement
 	if(keyboard_check_pressed(vk_left))
 	{
-		if (global.grid[# ((x - (room_width div 4)) div 64 - 1), ((y - (room_height div 4)) div 64)] == 0)
+		if (global.grid[# ((x - (room_width div 4)) div 32 - 1), ((y - (room_height div 4)) div 32)] == 0)
 		{
 			Move_left = true;
 			canMove = false;
 			firstTouch = true;
 			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
 			{
-				global.grid[# (xprevious2 - (room_width div 4)) div 64 div 64, (yprevious2 - (room_height div 4)) div 64] = 0;
-				global.grid[# (x - (room_width div 4)) div 64 div 64, (y - (room_width div 4)) div 64] = 1;
+				global.grid[# (xprevious2 - (room_width div 4)) div 32 div 32, (yprevious2 - (room_height div 4)) div 32] = 0;
+				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 1;
 			}
 			global.turn += 1;
 		}
 	}
 	else if(keyboard_check_pressed(vk_right))
 	{
-		if (global.grid[# (x - (room_width div 4)) div 64 + 1, (y - (room_height div 4)) div 64] == 0)
+		if (global.grid[# (x - (room_width div 4)) div 32 + 1, (y - (room_height div 4)) div 32] == 0)
 		{
 			Move_right = true;
 			canMove = false;
 			firstTouch = true;
 			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
 			{
-				global.grid[# (xprevious2 - (room_width div 4)) div 64 div 64, (yprevious2 - (room_height div 4)) div 64] = 0;
-				global.grid[# (x - (room_width div 4)) div 64 div 64, (y - (room_height div 4)) div 64] = 1;
+				global.grid[# (xprevious2 - (room_width div 4)) div 32 div 32, (yprevious2 - (room_height div 4)) div 32] = 0;
+				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 1;
 			}
 			global.turn += 1;
 		}
 	}
 	else if(keyboard_check_pressed(vk_down))
 	{
-		if (global.grid[# (x - (room_width div 4)) div 64, (y - (room_height div 4)) div 64 + 1] == 0)
+		if (global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 + 1] == 0)
 		{
 			Move_down = true;
 			canMove = false;
 			firstTouch = true;
 			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
 			{
-				global.grid[# (xprevious2 - (room_width div 4)) div 64 div 64, (yprevious2 - (room_height div 4)) div 64] = 0;
-				global.grid[# (x - (room_width div 4)) div 64 div 64, (y - (room_height div 4)) div 64] = 1;
+				global.grid[# (xprevious2 - (room_width div 4)) div 32 div 32, (yprevious2 - (room_height div 4)) div 32] = 0;
+				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 1;
 			}
 			global.turn += 1;
 		}
 	}
 	else if(keyboard_check_pressed(vk_up))
 	{
-		if (global.grid[# (x - (room_width div 4)) div 64, (y - (room_height div 4)) div 64 - 1] == 0)
+		if (global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 - 1] == 0)
 		{
 			Move_up = true;
 			canMove = false;
 			firstTouch = true;
 			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
 			{
-				global.grid[# (xprevious2 - (room_width div 4)) div 64 div 64, (yprevious2 - (room_height div 4)) div 64] = 0;
-				global.grid[# (x - (room_width div 4)) div 64 div 64, (y - (room_height div 4)) div 64] = 1;
+				global.grid[# (xprevious2 - (room_width div 4)) div 32 div 32, (yprevious2 - (room_height div 4)) div 32] = 0;
+				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 1;
 			}
 			global.turn += 1;
 		}
@@ -65,60 +65,60 @@ if(canMove == true)
 	//press and hold feature
 	if(keyboard_check(vk_left))
 	{
-		if (global.grid[# ((x - (room_width div 4)) div 64 - 1), ((y - (room_height div 4)) div 64)] == 0)
+		if (global.grid[# ((x - (room_width div 4)) div 32 - 1), ((y - (room_height div 4)) div 32)] == 0)
 		{
 			Move_left = true;
 			canMove = false;
 			firstTouch = true;
 			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
 			{
-				global.grid[# (xprevious2 - (room_width div 4)) div 64 div 64, (yprevious2 - (room_height div 4)) div 64] = 0;
-				global.grid[# (x - (room_width div 4)) div 64 div 64, (y - (room_width div 4)) div 64] = 1;
+				global.grid[# (xprevious2 - (room_width div 4)) div 32 div 32, (yprevious2 - (room_height div 4)) div 32] = 0;
+				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 1;
 			}
 			global.turn += 1;
 		}
 	}
 	else if(keyboard_check(vk_right))
 	{
-		if (global.grid[# (x - (room_width div 4)) div 64 + 1, (y - (room_height div 4)) div 64] == 0)
+		if (global.grid[# (x - (room_width div 4)) div 32 + 1, (y - (room_height div 4)) div 32] == 0)
 		{
 			Move_right = true;
 			canMove = false;
 			firstTouch = true;
 			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
 			{
-				global.grid[# (xprevious2 - (room_width div 4)) div 64 div 64, (yprevious2 - (room_height div 4)) div 64] = 0;
-				global.grid[# (x - (room_width div 4)) div 64 div 64, (y - (room_height div 4)) div 64] = 1;
+				global.grid[# (xprevious2 - (room_width div 4)) div 32 div 32, (yprevious2 - (room_height div 4)) div 32] = 0;
+				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 1;
 			}
 			global.turn += 1;
 		}
 	}
 	else if(keyboard_check(vk_down))
 	{
-		if (global.grid[# (x - (room_width div 4)) div 64, (y - (room_height div 4)) div 64 + 1] == 0)
+		if (global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 + 1] == 0)
 		{
 			Move_down = true;
 			canMove = false;
 			firstTouch = true;
 			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
 			{
-				global.grid[# (xprevious2 - (room_width div 4)) div 64 div 64, (yprevious2 - (room_height div 4)) div 64] = 0;
-				global.grid[# (x - (room_width div 4)) div 64 div 64, (y - (room_height div 4)) div 64] = 1;
+				global.grid[# (xprevious2 - (room_width div 4)) div 32 div 32, (yprevious2 - (room_height div 4)) div 32] = 0;
+				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 1;
 			}
 			global.turn += 1;
 		}
 	}
 	else if(keyboard_check(vk_up))
 	{
-		if (global.grid[# (x - (room_width div 4)) div 64, (y - (room_height div 4)) div 64 - 1] == 0)
+		if (global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 - 1] == 0)
 		{
 			Move_up = true;
 			canMove = false;
 			firstTouch = true;
 			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
 			{
-				global.grid[# (xprevious2 - (room_width div 4)) div 64 div 64, (yprevious2 - (room_height div 4)) div 64] = 0;
-				global.grid[# (x - (room_width div 4)) div 64 div 64, (y - (room_height div 4)) div 64] = 1;
+				global.grid[# (xprevious2 - (room_width div 4)) div 32 div 32, (yprevious2 - (room_height div 4)) div 32] = 0;
+				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 1;
 			}
 			global.turn += 1;
 		}
@@ -139,7 +139,7 @@ if(canMove == true)
 }
 else if(canMove == false && !inalarm)
 {
-	alarm[0] =	15;
+	alarm[0] = 10;
 	inalarm = true;
 }
 
@@ -148,7 +148,7 @@ else if(canMove == false && !inalarm)
 		if(left_values)
 		{
 			left_start_x = x;
-			left_end_x = x - 64;
+			left_end_x = x - 32;
 			left_start_y = y;
 			left_end_y = y;
 		}
@@ -174,7 +174,7 @@ else if(canMove == false && !inalarm)
 		if(right_values)
 		{
 			right_start_x = x;
-			right_end_x = x + 64;
+			right_end_x = x + 32;
 			right_start_y = y;
 			right_end_y = y;
 		}
@@ -202,7 +202,7 @@ else if(canMove == false && !inalarm)
 			up_start_x = x;
 			up_end_x = x;
 			up_start_y = y;
-			up_end_y = y - 64;
+			up_end_y = y - 32;
 		}
 		up_values = false;
 		if (up_move_progress < up_move_target)
@@ -228,7 +228,7 @@ else if(canMove == false && !inalarm)
 			down_start_x = x;
 			down_end_x = x;
 			down_start_y = y;
-			down_end_y = y + 64;
+			down_end_y = y + 32;
 		}
 		down_values = false;
 		if (down_move_progress < down_move_target)

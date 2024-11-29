@@ -2,7 +2,6 @@
   "FolderOrderSettings":[
     {"name":"Animation Curves","order":12,"path":"folders/Animation Curves.yy",},
     {"name":"Extensions","order":14,"path":"folders/Extensions.yy",},
-    {"name":"Fonts","order":7,"path":"folders/Fonts.yy",},
     {"name":"Notes","order":13,"path":"folders/Notes.yy",},
     {"name":"Objects","order":9,"path":"folders/Objects.yy",},
     {"name":"Particle Systems","order":15,"path":"folders/Particle Systems.yy",},
@@ -32,6 +31,7 @@
     {"name":"spr_HealthBarBorder","order":15,"path":"sprites/spr_HealthBarBorder/spr_HealthBarBorder.yy",},
     {"name":"spr_key","order":12,"path":"sprites/spr_key/spr_key.yy",},
     {"name":"spr_player","order":13,"path":"sprites/spr_player/spr_player.yy",},
+    {"name":"spr_tiles","order":18,"path":"sprites/spr_tiles/spr_tiles.yy",},
     {"name":"spr_wall1","order":1,"path":"sprites/spr_wall1/spr_wall1.yy",},
   ],
 }
