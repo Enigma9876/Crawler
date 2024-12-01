@@ -18,13 +18,13 @@ global.grid = ds_grid_create(global.grid_width, global.grid_height);
 // fill the grid with walkable cells initially
 for (var i = 0; i < global.grid_width; i++) {
     for (var j = 0; j < global.grid_height; j++) {
-        global.grid[# i, j] = 3; // all walkable
+        global.grid[# i, j] = 10; // set empty space outside
     }
 }
 
 
 //spawn walls (intitial border)
-create_rooms(5,4);
+create_rooms(irandom_range(3,6),irandom_range(3,6));
 
 
 //enemy 1

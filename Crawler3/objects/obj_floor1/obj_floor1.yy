@@ -28,8 +28,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spre_floor1",
-    "path":"sprites/spre_floor1/spre_floor1.yy",
+    "name":"spr_floor1",
+    "path":"sprites/spr_floor1/spr_floor1.yy",
   },
   "spriteMaskId":null,
   "visible":true,

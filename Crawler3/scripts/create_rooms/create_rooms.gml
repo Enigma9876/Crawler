@@ -31,7 +31,7 @@ function create_rooms(width, height)
 					//set borders to 1 (walls/no-walkables)
 					if((w1 == 0 || h1 == 0) || (w1 == ds_grid_width(roomGrid) - 1 || h1 == ds_grid_height(roomGrid) - 1))
 					{
-						roomGrid[# w1,h1] = 1;
+						roomGrid[# w1,h1] = -2;
 					}
 				}
 			}
@@ -103,7 +103,7 @@ function create_rooms(width, height)
 					var SecondIndex = array_get(SecondCheck,w1);
 					var ThirdIndex = array_get(ThirdCheck,w1);
 					
-					if(firstIndex == 1 && SecondIndex == 1 && ThirdIndex == 0)
+					if(firstIndex == -2 && SecondIndex == -2 && ThirdIndex == 0)
 					{
 						array_push(listofPossible, w1);
 					}
@@ -257,7 +257,7 @@ function create_rooms(width, height)
 						var SecondIndex = array_get(SecondCheck,h1);
 						var ThirdIndex = array_get(ThirdCheck,h1);
 					
-						if(firstIndex == 1 && SecondIndex == 1 && ThirdIndex == 0)
+						if(firstIndex == -2 && SecondIndex == -2 && ThirdIndex == 0)
 						{
 							array_push(listofPossible, h1);
 						}
@@ -287,8 +287,6 @@ function create_rooms(width, height)
 		}
 				
 		}
-		
-		
 	
 	
 	
@@ -335,25 +333,170 @@ function create_rooms(width, height)
 		
 	}
 	
-	//printing sprites out
+	//print walls and floor and doors
 	for(h = 0; h < ds_grid_height(global.grid); h++)
 	{
 		for(w = 0; w < ds_grid_width(global.grid); w++)
 		{
+			//get adjacent tiles
+			var left = global.grid[# w - 1,h];
+			var right = global.grid[# w + 1,h];
+			var up = global.grid[# w,h - 1];
+			var down = global.grid[# w,h + 1];
+			var topleft = global.grid[# w - 1,h - 1];
+			var bottomleft = global.grid[# w - 1,h + 1];
+			var topright = global.grid[# w + 1,h - 1];
+			var bottomright = global.grid[# w + 1,h + 1];
+			
 			//print wall
-			if(global.grid[# w,h] == 1)
+			if(global.grid[# w,h] == -2)
 			{
-				instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_wall1);
+				
+				if(left == -2 && right == -2 && (up == 0 || up == -1) && (down == 10 || down == undefined || down == -2))
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_wallBackward1);
+				}
+				else if((left == -2 || left == 10 || left == undefined) && right == 0 && up == -2 && down == -2)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_sideDoorLeft1);
+				}
+				else if((left == -2 || left == 10 || left == undefined) && right == -1 && up == -2 && down == -2)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_sideDoorLeft1);
+				}
+				else if(left == 0 && (right == -2 || right == 10 || right == undefined) && up == -2 && down == -2)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_sideDoorRight1);
+				}
+				else if(left == -1 && (right == -2 || right == 10 || right == undefined) && up == -2 && down == -2)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_sideDoorRight1);
+				}
+				else if((left == 10 || left == undefined) && right == -2 && (up == 10 || up == undefined) && down == -2)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_corner1);
+				}
+				else if((left == 10 || left == undefined || left == -2) && right == -2 && (up == 10 || up == undefined || up == -2) && down == -2 && bottomright == 0)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_corner1);
+				}
+				else if((left == 10 || left == undefined) && right == -2 && up == -2 && (down == 10 || down == undefined))
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_corner2);
+				}
+				else if((left == -2 || left == undefined || left == 10) && right == -2 && up == -2 && (down == 10 || down == undefined || down == -2) && topright == 0)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_corner2);
+				}
+				else if(left == -2 && (right == 10 || right == undefined || right == -2) && (up == 10 || up == undefined) && down == -2)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_corner3);
+				}
+				else if(left == -2 && (right == 10 || right == undefined || right == -2) && up == -2 && (down == 10 || down == undefined || down == -2) && bottomleft == 0)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_corner3);
+				}
+				else if(left == -2 && (right == 10 || right == undefined) && up == -2 && (down == 10 || down == undefined))
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_corner4);
+				}
+				else if(left == -2 && (right == 10 || right == undefined || right == -2) && up == -2 && (down == 10 || down == undefined || down == -2) && topleft == 0)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_corner4);
+				}
+				else if(left == -2 && right == -2 && up == 0 && down == -2)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_wallBackward1);
+				}
+				else if(left == -2 && (right == 0 || right == -1) && up == 0 && down == -2)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_wallturnaroundleft1);
+				}
+				else if((left == 0 || left == -1) && right == -2 && up == 0 && down == -2)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_wallturnaroundright1);
+				}
+				else if(left == 0 && right == -2 && up == -1 && down == -2)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_wallturnaroundright1);
+				}
+				else
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_wallForward1);
+				}
+				
+				
 			}
 			
-			//print floor tile
+			//doors
+			else if(global.grid[# w,h] == -1)
+			{
+				if(left == -2 && right == -2 && (up == -1 || up == 0) && down == 0)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_Door1);
+				}
+				else if(left == -2 && right == -2 && up == 0 && down == -1)
+				{
+					global.grid[# w,h] = 0;
+				}
+				
+				if(left == 0 && (right == -1 || right == 0) && up == -2 && down == -2)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_Door2);
+				}
+				else if(left == -1 && right == 0 && up == -2 && down == -2)
+				{
+					global.grid[# w,h] = 0;
+				}
+						
+			}
+			
+			//floors
 			if(global.grid[# w,h] == 0)
 			{
-				instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floor1);
+				if(left == 0 && right == 0 && up == 0 && down == -2)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside1);
+				}
+				else if(left == 0 && right == 0 && up == -2 && down == 0)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorSide2);
+				}
+				else if(left == -2 && right == 0 && up == 0 && down == -2)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside3);
+				}
+				else if(left == 0 && right == -2 && up == 0 && down == -2)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside4);
+				}
+				else if(left == -2 && right == 0 && up == -1 && down == 0)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside5);
+				}
+				else if(left == 0 && right == -2 && up == -2 && down == 0)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside6);
+				}
+				else if(left == -2 && right == 0 && up == 0 && down == 0)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside7);
+				}
+				else if(left == 0 && right == -2 && up == 0 && down == 0)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside8);
+				}
+				else
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floor1);
+				}
 			}
 			
 		}
 	}
+	
+	
+
 	
 	
 	
@@ -379,6 +522,7 @@ function create_rooms(width, height)
 	show_debug_message(string(wPos) + " " + string(hPos));
 	
 	instance_create_layer((real(wPos) * 32) + (room_width div 4), (real(hPos) * 32) + (room_height div 4), "Instances_Objects", obj_player);
+	global.grid[# wPos,hPos] = 4;
 	
 	
 	
@@ -386,10 +530,11 @@ function create_rooms(width, height)
 	
 
 
-
+	//add background
+	instance_create_layer(0, 0, "Instances_Background", obj_background);
 
 	//for printing grid
-	/*var gridString = "";
+	var gridString = "";
 	for(var i = 0; i < global.grid_height; i++)
 	{
 		for(var j = 0; j < global.grid_width; j++)
@@ -399,5 +544,5 @@ function create_rooms(width, height)
 		gridString += "\n";
 	}
 	
-	show_debug_message(gridString); */
+	show_debug_message(gridString);
 }
