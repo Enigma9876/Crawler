@@ -454,13 +454,27 @@ function create_rooms(width, height)
 			//floors
 			if(global.grid[# w,h] == 0)
 			{
-				if(left == 0 && right == 0 && up == 0 && down == -2)
+				if(left == 0 && (right == 0 || right == -1) && up == 0 && down == -2)
 				{
-					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside1);
+					var rand = irandom_range(1,2)
+					
+					if(rand == 1)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside1);
+					else if(rand == 2)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside13);
 				}
 				else if(left == 0 && right == 0 && up == -2 && down == 0)
 				{
-					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorSide2);
+					var rand = irandom_range(1,2)
+					
+					if(rand == 1)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside2);
+					else if(rand == 2)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside12);
+				}
+				else if(left == 0 && right == -1 && up == -2 && down == 0)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside2);
 				}
 				else if(left == -2 && right == 0 && up == 0 && down == -2)
 				{
@@ -478,17 +492,48 @@ function create_rooms(width, height)
 				{
 					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside6);
 				}
-				else if(left == -2 && right == 0 && up == 0 && down == 0)
+				else if(left == -2 && right == 0 && up == 0 && (down == 0 || down == -1))
 				{
-					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside7);
+					var rand = irandom_range(1,2)
+					
+					if(rand == 1)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside7);
+					else if(rand == 2)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside14);
 				}
-				else if(left == 0 && right == -2 && up == 0 && down == 0)
+				else if(left == 0 && right == -2 && (up == 0 || up == -1) && (down == 0 || down == -1))
 				{
-					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside8);
+					var rand = irandom_range(1,2)
+					
+					if(rand == 1)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside8);
+					else if(rand == 2)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside11);
+				}
+				else if(left == -2 && right == 0 && up == -2 && down == 0)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside5);
+				}
+				else if(left == -1 && right == 0 && up == -2 && down == -2)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", object_floorside9);
+				}
+				else if(left == -2 && right == -2 && up == 0 && down == -1)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside10);
 				}
 				else
 				{
-					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floor1);
+					var rand = irandom_range(1,4)
+					
+					if(rand == 1)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floor1);
+					else if(rand == 2)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floor2);
+					else if(rand == 3)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floor3);
+					else
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floor4);
 				}
 			}
 			
