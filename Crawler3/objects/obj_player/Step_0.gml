@@ -1,71 +1,11 @@
 if(canMove == true)
 {
-	//movement
-	if(keyboard_check_pressed(vk_left))
-	{
-		if (global.grid[# ((x - (room_width div 4)) div 32 - 1), ((y - (room_height div 4)) div 32)] == 0)
-		{
-			Move_left = true;
-			canMove = false;
-			firstTouch = true;
-			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
-			{
-				global.grid[# (xprevious2 - (room_width div 4)) div 32 div 32, (yprevious2 - (room_height div 4)) div 32] = 0;
-				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 1;
-			}
-			global.turn += 1;
-		}
-	}
-	else if(keyboard_check_pressed(vk_right))
-	{
-		if (global.grid[# (x - (room_width div 4)) div 32 + 1, (y - (room_height div 4)) div 32] == 0)
-		{
-			Move_right = true;
-			canMove = false;
-			firstTouch = true;
-			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
-			{
-				global.grid[# (xprevious2 - (room_width div 4)) div 32 div 32, (yprevious2 - (room_height div 4)) div 32] = 0;
-				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 1;
-			}
-			global.turn += 1;
-		}
-	}
-	else if(keyboard_check_pressed(vk_down))
-	{
-		if (global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 + 1] == 0)
-		{
-			Move_down = true;
-			canMove = false;
-			firstTouch = true;
-			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
-			{
-				global.grid[# (xprevious2 - (room_width div 4)) div 32 div 32, (yprevious2 - (room_height div 4)) div 32] = 0;
-				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 1;
-			}
-			global.turn += 1;
-		}
-	}
-	else if(keyboard_check_pressed(vk_up))
-	{
-		if (global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 - 1] == 0)
-		{
-			Move_up = true;
-			canMove = false;
-			firstTouch = true;
-			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
-			{
-				global.grid[# (xprevious2 - (room_width div 4)) div 32 div 32, (yprevious2 - (room_height div 4)) div 32] = 0;
-				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 1;
-			}
-			global.turn += 1;
-		}
-	}
+	
 	
 	//press and hold feature
 	if(keyboard_check(vk_left))
 	{
-		if (global.grid[# ((x - (room_width div 4)) div 32 - 1), ((y - (room_height div 4)) div 32)] == 0)
+		if (global.grid[# ((x - (room_width div 4)) div 32 - 1), ((y - (room_height div 4)) div 32)] == 0 || global.grid[# ((x - (room_width div 4)) div 32 - 1), ((y - (room_height div 4)) div 32)] == -1)
 		{
 			Move_left = true;
 			canMove = false;
@@ -80,7 +20,7 @@ if(canMove == true)
 	}
 	else if(keyboard_check(vk_right))
 	{
-		if (global.grid[# (x - (room_width div 4)) div 32 + 1, (y - (room_height div 4)) div 32] == 0)
+		if (global.grid[# (x - (room_width div 4)) div 32 + 1, (y - (room_height div 4)) div 32] == 0 || global.grid[# (x - (room_width div 4)) div 32 + 1, (y - (room_height div 4)) div 32] == -1)
 		{
 			Move_right = true;
 			canMove = false;
@@ -95,7 +35,7 @@ if(canMove == true)
 	}
 	else if(keyboard_check(vk_down))
 	{
-		if (global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 + 1] == 0)
+		if (global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 + 1] == 0 || global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 + 1] == -1)
 		{
 			Move_down = true;
 			canMove = false;
@@ -110,7 +50,7 @@ if(canMove == true)
 	}
 	else if(keyboard_check(vk_up))
 	{
-		if (global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 - 1] == 0)
+		if (global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 - 1] == 0 || global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 - 1] == -1)
 		{
 			Move_up = true;
 			canMove = false;

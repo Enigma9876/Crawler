@@ -354,23 +354,30 @@ function create_rooms(width, height)
 				
 				if(left == -2 && right == -2 && (up == 0 || up == -1) && (down == 10 || down == undefined || down == -2))
 				{
-					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_wallBackward1);
+					var rand = irandom_range(1,2)
+					
+					if(rand == 1)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_wallBackward1);
+					else if(rand == 2)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_wallBackward2);
 				}
-				else if((left == -2 || left == 10 || left == undefined) && right == 0 && up == -2 && down == -2)
+				else if((left == -2 || left == 10 || left == undefined) && (right == 0 || right == -1) && up == -2 && down == -2)
 				{
-					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_sideDoorLeft1);
+					var rand = irandom_range(1,2)
+					
+					if(rand == 1)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_sideDoorLeft1);
+					else if(rand == 2)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_sideDoorLeft2);
 				}
-				else if((left == -2 || left == 10 || left == undefined) && right == -1 && up == -2 && down == -2)
+				else if((left == 0 || left == -1) && (right == -2 || right == 10 || right == undefined) && up == -2 && down == -2)
 				{
-					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_sideDoorLeft1);
-				}
-				else if(left == 0 && (right == -2 || right == 10 || right == undefined) && up == -2 && down == -2)
-				{
-					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_sideDoorRight1);
-				}
-				else if(left == -1 && (right == -2 || right == 10 || right == undefined) && up == -2 && down == -2)
-				{
-					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_sideDoorRight1);
+					var rand = irandom_range(1,2)
+					
+					if(rand == 1)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_sideDoorRight1);
+					else if(rand == 2)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_sideDoorRight2);
 				}
 				else if((left == 10 || left == undefined) && right == -2 && (up == 10 || up == undefined) && down == -2)
 				{
@@ -404,10 +411,6 @@ function create_rooms(width, height)
 				{
 					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_corner4);
 				}
-				else if(left == -2 && right == -2 && up == 0 && down == -2)
-				{
-					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_wallBackward1);
-				}
 				else if(left == -2 && (right == 0 || right == -1) && up == 0 && down == -2)
 				{
 					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_wallturnaroundleft1);
@@ -422,7 +425,20 @@ function create_rooms(width, height)
 				}
 				else
 				{
-					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_wallForward1);
+					if(down == -1)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_wallForward1);
+					else
+					{
+						var rand = irandom_range(1,15)
+					
+						if(rand <= 13)
+							instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_wallForward1);
+						else if(rand == 14)
+							instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_wallForward2);
+						else if(rand == 15)
+							instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_wallForward3);
+					}
+					
 				}
 				
 				

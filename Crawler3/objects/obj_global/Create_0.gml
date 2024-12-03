@@ -24,7 +24,7 @@ for (var i = 0; i < global.grid_width; i++) {
 
 
 //spawn walls (intitial border)
-create_rooms(irandom_range(4,7),irandom_range(4,7));
+create_rooms(7,7);
 
 
 //enemy 1

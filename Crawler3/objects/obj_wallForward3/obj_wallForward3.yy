@@ -1,11 +1,9 @@
 {
   "$GMObject":"",
-  "%Name":"obj_background",
-  "eventList":[
-    {"$GMEvent":"","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "%Name":"obj_wallForward3",
+  "eventList":[],
   "managed":true,
-  "name":"obj_background",
+  "name":"obj_wallForward3",
   "overriddenProperties":[],
   "parent":{
     "name":"Objects",
@@ -28,10 +26,10 @@
   "properties":[],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
-  "solid":false,
+  "solid":true,
   "spriteId":{
-    "name":"spr_background",
-    "path":"sprites/spr_background/spr_background.yy",
+    "name":"spr_wallForward3",
+    "path":"sprites/spr_wallForward3/spr_wallForward3.yy",
   },
   "spriteMaskId":null,
   "visible":true,
