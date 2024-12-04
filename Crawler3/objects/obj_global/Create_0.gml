@@ -4,6 +4,8 @@ randomize();
 //globals
 global.turn = 0;
 global.enemyCount = 0;
+global.xdistance = -32;
+global.ydistance = 0;
 
 //healthbar
 instance_create_layer(0, 0, "Instances_Global", obj_healthBar); //add wall

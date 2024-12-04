@@ -1,25 +1,25 @@
-x = obj_player.x + xdistance;
-y = obj_player.y + ydistance;
+x = obj_player.x + global.xdistance;
+y = obj_player.y + global.ydistance;
 
 	if(keyboard_check(vk_left))
 	{
-		xdistance = -32;
-		ydistance = 0;
+		global.xdistance = -32;
+		global.ydistance = 0;
 	}
 	else if(keyboard_check(vk_right))
 	{
-		xdistance = 32;
-		ydistance = 0;
+		global.xdistance = 32;
+		global.ydistance = 0;
 	}
 	else if(keyboard_check(vk_up))
 	{
-		xdistance = 0;
-		ydistance = -32;
+		global.xdistance = 0;
+		global.ydistance = -32;
 	}
 	else if(keyboard_check(vk_down))
 	{
-		xdistance = 0;
-		ydistance = 32;
+		global.xdistance = 0;
+		global.ydistance = 32;
 	}
 	
 	else if(global.canMove == true)
@@ -33,14 +33,26 @@ y = obj_player.y + ydistance;
 			var up = global.grid[# w,h - 1];
 			var down = global.grid[# w,h + 1];
 			
-			//do something
 			if(global.grid[# w, h] == -1)
 			{
 				//set to open door
 				global.grid[# w, h] = 1;
+				
+				//print door
+				var instances = ds_list_create();
+				var n = collision_point_list(x, y, obj_Door1, false, true, instances, false);
+				var i = 0;
+				repeat ds_list_size(instances) 
+				{
+				    if (instances[| i].layer == "Instances_WallandFloor")
+					{
+				        instance_destroy(instances[| i]);
+				    }
+				    i++;
+				}
+				ds_list_destroy(instances);
+			
 				var floor1 = instance_create_layer(x, y, "Instances_WallandFloor", obj_floor1);
-				var targetDepth = layer_get_depth("Instances_WallandFloor"); // Whatever your layer is called
-				floor1.depth = -targetDepth - 1;
 			}
 			else if(global.grid[# w, h] == 1)
 			{

@@ -16,6 +16,9 @@ if(global.canMove == true)
 				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 1;
 			}
 			global.turn += 1;
+			
+			global.xdistance = -32;
+			global.ydistance = 0;
 		}
 	}
 	else if(keyboard_check(ord("D")))
@@ -31,6 +34,8 @@ if(global.canMove == true)
 				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 1;
 			}
 			global.turn += 1;
+			global.xdistance = 32;
+			global.ydistance = 0;
 		}
 	}
 	else if(keyboard_check(ord("S")))
@@ -46,6 +51,8 @@ if(global.canMove == true)
 				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 1;
 			}
 			global.turn += 1;
+			global.xdistance = 0;
+			global.ydistance = 32;
 		}
 	}
 	else if(keyboard_check(ord("W")))
@@ -61,6 +68,8 @@ if(global.canMove == true)
 				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 1;
 			}
 			global.turn += 1;
+			global.xdistance = 0;
+			global.ydistance = -32;
 		}
 		
 	}
