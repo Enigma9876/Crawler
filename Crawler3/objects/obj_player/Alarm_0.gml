@@ -1,2 +1,2 @@
-canMove = true;
+global.canMove = true;
 inalarm = false;

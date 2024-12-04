@@ -1,14 +1,14 @@
-if(canMove == true)
+if(global.canMove == true)
 {
 	
 	
 	//press and hold feature
-	if(keyboard_check(vk_left))
+	if(keyboard_check(ord("A")))
 	{
-		if (global.grid[# ((x - (room_width div 4)) div 32 - 1), ((y - (room_height div 4)) div 32)] == 0 || global.grid[# ((x - (room_width div 4)) div 32 - 1), ((y - (room_height div 4)) div 32)] == -1)
+		if (global.grid[# ((x - (room_width div 4)) div 32 - 1), ((y - (room_height div 4)) div 32)] == 1 || global.grid[# ((x - (room_width div 4)) div 32 - 1), ((y - (room_height div 4)) div 32)] == 0 || global.grid[# ((x - (room_width div 4)) div 32 - 1), ((y - (room_height div 4)) div 32)] == 2)
 		{
 			Move_left = true;
-			canMove = false;
+			global.canMove = false;
 			firstTouch = true;
 			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
 			{
@@ -18,12 +18,12 @@ if(canMove == true)
 			global.turn += 1;
 		}
 	}
-	else if(keyboard_check(vk_right))
+	else if(keyboard_check(ord("D")))
 	{
-		if (global.grid[# (x - (room_width div 4)) div 32 + 1, (y - (room_height div 4)) div 32] == 0 || global.grid[# (x - (room_width div 4)) div 32 + 1, (y - (room_height div 4)) div 32] == -1)
+		if (global.grid[# (x - (room_width div 4)) div 32 + 1, (y - (room_height div 4)) div 32] == 1 || global.grid[# (x - (room_width div 4)) div 32 + 1, (y - (room_height div 4)) div 32] == 0 || global.grid[# (x - (room_width div 4)) div 32 + 1, (y - (room_height div 4)) div 32] == 2)
 		{
 			Move_right = true;
-			canMove = false;
+			global.canMove = false;
 			firstTouch = true;
 			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
 			{
@@ -33,12 +33,12 @@ if(canMove == true)
 			global.turn += 1;
 		}
 	}
-	else if(keyboard_check(vk_down))
+	else if(keyboard_check(ord("S")))
 	{
-		if (global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 + 1] == 0 || global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 + 1] == -1)
+		if (global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 + 1] == 1 || global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 + 1] == 0 || global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 + 1] == 2)
 		{
 			Move_down = true;
-			canMove = false;
+			global.canMove = false;
 			firstTouch = true;
 			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
 			{
@@ -48,12 +48,12 @@ if(canMove == true)
 			global.turn += 1;
 		}
 	}
-	else if(keyboard_check(vk_up))
+	else if(keyboard_check(ord("W")))
 	{
-		if (global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 - 1] == 0 || global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 - 1] == -1)
+		if (global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 - 1] == 1 || global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 - 1] == 0 || global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 - 1] == 2)
 		{
 			Move_up = true;
-			canMove = false;
+			global.canMove = false;
 			firstTouch = true;
 			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
 			{
@@ -62,6 +62,7 @@ if(canMove == true)
 			}
 			global.turn += 1;
 		}
+		
 	}
 	
 	
@@ -77,7 +78,7 @@ if(canMove == true)
 
 
 }
-else if(canMove == false && !inalarm)
+else if(global.canMove == false && !inalarm)
 {
 	alarm[0] = 10;
 	inalarm = true;

@@ -48,7 +48,7 @@ function find_path(start_x, start_y, end_x, end_y)
             var neighbor_str = string(neighbor_x) + "_" + string(neighbor_y);
             
             // Skip if the neighbor is non-walkable or already in closed list
-            if (global.grid[# neighbor_x, neighbor_y] == 1 || ds_list_find_index(closed_list, neighbor_str) != -1) {
+            if (global.grid[# neighbor_x, neighbor_y] != 0 || global.grid[# neighbor_x, neighbor_y] != 1 || ds_list_find_index(closed_list, neighbor_str) != -1) {
                 continue;
             }
             

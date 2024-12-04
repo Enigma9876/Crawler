@@ -1,5 +1,16 @@
 function create_rooms(width, height)
 {
+	//indexes meanings
+	//10 = empty space out side grid
+	//9 = ladder
+	//5 = enemies
+	//4 = player
+	//3 = box
+	//2 = potion
+	//1 = open doors
+	//0 = floor
+	//-1 = doors
+	//-2 = walls
 		
 	var arrayWithRooms = ds_grid_create(width, height)
 	
@@ -333,6 +344,8 @@ function create_rooms(width, height)
 		
 	}
 	
+	
+	
 	//print walls and floor and doors
 	for(h = 0; h < ds_grid_height(global.grid); h++)
 	{
@@ -468,7 +481,7 @@ function create_rooms(width, height)
 			}
 			
 			//floors
-			if(global.grid[# w,h] == 0)
+			if(global.grid[# w,h] == 0 || global.grid[# w,h] == 3)
 			{
 				if(left == 0 && (right == 0 || right == -1) && up == 0 && down == -2)
 				{
@@ -494,19 +507,46 @@ function create_rooms(width, height)
 				}
 				else if(left == -2 && right == 0 && up == 0 && down == -2)
 				{
-					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside3);
+					var rand = irandom_range(1,3)
+					if(rand == 1)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside3);
+					else if(rand == 2)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorSpecial7);
+					else if(rand == 3)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorSpecial1);
 				}
 				else if(left == 0 && right == -2 && up == 0 && down == -2)
 				{
-					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside4);
+					var rand = irandom_range(1,4);
+					
+					if(rand <= 2)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside4);
+					else if(rand == 3)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorSpecial3);
+					else if(rand == 4)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorSpecial9);
 				}
 				else if(left == -2 && right == 0 && up == -1 && down == 0)
 				{
-					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside5);
+					var rand = irandom_range(1,4)
+					
+					if(rand <= 2)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside5);
+					else if(rand == 3)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorSpecial2);
+					else if(rand == 4)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorSpecial8);
 				}
 				else if(left == 0 && right == -2 && up == -2 && down == 0)
 				{
-					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside6);
+					var rand = irandom_range(1,4)
+					if(rand <= 2)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside6);
+					else if(rand == 3)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorSpecial4);
+					else if(rand == 4)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorSpecial6);
+					
 				}
 				else if(left == -2 && right == 0 && up == 0 && (down == 0 || down == -1))
 				{
@@ -540,13 +580,15 @@ function create_rooms(width, height)
 				}
 				else
 				{
-					var rand = irandom_range(1,4)
+					var rand = irandom_range(1,40)
 					
 					if(rand == 1)
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorSpecial5);
+					else if(rand <= 12)
 						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floor1);
-					else if(rand == 2)
+					else if(rand <= 20)
 						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floor2);
-					else if(rand == 3)
+					else if(rand <= 28)
 						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floor3);
 					else
 						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floor4);
@@ -555,6 +597,55 @@ function create_rooms(width, height)
 			
 		}
 	}
+	
+	
+	//print out boxes and potions
+	var maxLadders = 3;
+	var ladderCount = 0;
+	var mandLadder = 0;
+	for(h = 0; h < ds_grid_height(global.grid); h++)
+	{
+		for(w = 0; w < ds_grid_width(global.grid); w++)
+		{	
+			//get adjacent tiles
+			var left = global.grid[# w - 1,h];
+			var right = global.grid[# w + 1,h];
+			var up = global.grid[# w,h - 1];
+			var down = global.grid[# w,h + 1];
+			var left2 = global.grid[# w - 2,h];
+			var right2 = global.grid[# w + 2,h];
+			var up2 = global.grid[# w ,h - 2];
+			var down2 = global.grid[# w ,h + 2];
+			
+			//deal with random
+			var rand = irandom_range(1,400);
+			if(global.grid[# w,h] == 0)
+			{
+				mandLadder ++;
+			}
+			
+			//add possible spawn
+			if(global.grid[# w,h] == 0 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1 && (ladderCount < maxLadders && (rand == 11 || mandLadder == 300)))
+			{
+				instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_Objects", obj_ladder);
+				global.grid[# w,h] = 9;
+				 ladderCount ++;
+			}
+			else if(global.grid[# w,h] == 0 && rand <= 8 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1 && left != -2 && right != -2 && up != -2 && down != -2)
+			{
+				instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_Objects", obj_box1);
+				global.grid[# w,h] = 3;
+			}
+			//potions
+			else if(global.grid[# w,h] == 0 && rand <= 10 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1 && left != -2 && right != -2 && up != -2 && down != -2)
+			{
+				instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_Objects", obj_potion1);
+				global.grid[# w,h] = 2;
+			}
+			
+		}
+	}
+	
 	
 	
 
@@ -582,14 +673,41 @@ function create_rooms(width, height)
 	var hPos = string_copy(string(array_get(possibleSpawns, indexofPlayer)),  string_last_pos(" ", string(array_get(possibleSpawns, indexofPlayer))) + 1, string_length(string(array_get(possibleSpawns, indexofPlayer))));
 	show_debug_message(string(wPos) + " " + string(hPos));
 	
-	instance_create_layer((real(wPos) * 32) + (room_width div 4), (real(hPos) * 32) + (room_height div 4), "Instances_Objects", obj_player);
+	instance_create_layer((real(wPos) * 32) + (room_width div 4), (real(hPos) * 32) + (room_height div 4), "Instances_player", obj_player);
+	instance_create_layer((real(wPos) * 32) + (room_width div 4) - 32, (real(hPos) * 32) + (room_height div 4), "Instances_player", obj_selection);
 	global.grid[# wPos,hPos] = 4;
 	
 	
 	
+	//add enemies
+	for(h = 0; h < ds_grid_height(global.grid); h++)
+	{
+		for(w = 0; w < ds_grid_width(global.grid); w++)
+		{	
+			//get adjacent tiles
+			var left = global.grid[# w - 1,h];
+			var right = global.grid[# w + 1,h];
+			var up = global.grid[# w,h - 1];
+			var down = global.grid[# w,h + 1];
+			var left2 = global.grid[# w - 2,h];
+			var right2 = global.grid[# w + 2,h];
+			var up2 = global.grid[# w ,h - 2];
+			var down2 = global.grid[# w ,h + 2];
+			
+			//deal with random
+			var rand = irandom_range(1,200);
+			
+			//add possible spawn
+			if(global.grid[# w,h] == 0 && rand == 1 && left != 4 && right != 4 && down != 4 && up != 4 && left2 != 4 && right2 != 4 && down2 != 4 && up2 != 4 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1)
+			{
+				instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_player", obj_enemy1);
+				global.grid[# w,h] = 5;
+			}
+			
+		}
+	}
 	
 	
-
 
 	//add background
 	instance_create_layer(0, 0, "Instances_Background", obj_background);

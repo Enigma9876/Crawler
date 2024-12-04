@@ -41,5 +41,5 @@ down_move_progress = 0;
 down_move_target = 4; //change based on 60 -> 1 second
 
 
-canMove = true;
+global.canMove = true;
 inalarm = false;
