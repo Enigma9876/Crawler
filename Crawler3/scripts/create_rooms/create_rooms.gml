@@ -351,6 +351,10 @@ function create_rooms(width, height)
 	{
 		for(w = 0; w < ds_grid_width(global.grid); w++)
 		{
+			//add fog
+			instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_FogOfWar", obj_Fog);
+			
+			
 			//get adjacent tiles
 			var left = global.grid[# w - 1,h];
 			var right = global.grid[# w + 1,h];
@@ -492,7 +496,7 @@ function create_rooms(width, height)
 					else if(rand == 2)
 						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside13);
 				}
-				else if(left == 0 && right == 0 && up == -2 && down == 0)
+				else if((left == 0 || right == -1) && (right == 0 || right == -1) && up == -2 && down == 0)
 				{
 					var rand = irandom_range(1,2)
 					
@@ -500,10 +504,6 @@ function create_rooms(width, height)
 						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside2);
 					else if(rand == 2)
 						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside12);
-				}
-				else if(left == 0 && right == -1 && up == -2 && down == 0)
-				{
-					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorside2);
 				}
 				else if(left == -2 && right == 0 && up == 0 && down == -2)
 				{
@@ -526,7 +526,7 @@ function create_rooms(width, height)
 					else if(rand == 4)
 						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorSpecial9);
 				}
-				else if(left == -2 && right == 0 && up == -1 && down == 0)
+				else if(left == -2 && right == 0 && up == -2 && down == 0)
 				{
 					var rand = irandom_range(1,4)
 					
@@ -548,7 +548,7 @@ function create_rooms(width, height)
 						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floorSpecial6);
 					
 				}
-				else if(left == -2 && right == 0 && up == 0 && (down == 0 || down == -1))
+				else if(left == -2 && right == 0 && (up == 0 || up == -1) && (down == 0 || down == -1))
 				{
 					var rand = irandom_range(1,2)
 					
@@ -711,6 +711,9 @@ function create_rooms(width, height)
 
 	//add background
 	instance_create_layer(0, 0, "Instances_Background", obj_background);
+	
+	//change fog initially
+	change_fog();
 
 	//for printing grid
 	var gridString = "";
@@ -724,4 +727,13 @@ function create_rooms(width, height)
 	}
 	
 	show_debug_message(gridString);
+	ds_grid_resize(global.gridOrg, ds_grid_width(global.grid), ds_grid_height(global.grid))
+	
+	for(var i = 0; i < ds_grid_width(global.grid); i++)
+	{
+		for(var j = 0; j < ds_grid_height(global.grid); j++)
+		{
+			global.gridOrg[# i, j] = global.grid[# i, j];
+		}
+	}
 }

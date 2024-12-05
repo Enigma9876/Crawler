@@ -1,12 +1,9 @@
 {
   "$GMObject":"",
-  "%Name":"obj_FogOfWar",
-  "eventList":[
-    {"$GMEvent":"","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "%Name":"obj_doorclose2",
+  "eventList":[],
   "managed":true,
-  "name":"obj_FogOfWar",
+  "name":"obj_doorclose2",
   "overriddenProperties":[],
   "parent":{
     "name":"Objects",
@@ -31,8 +28,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_FogOfWar",
-    "path":"sprites/spr_FogOfWar/spr_FogOfWar.yy",
+    "name":"spr_doorClose2",
+    "path":"sprites/spr_doorClose2/spr_doorClose2.yy",
   },
   "spriteMaskId":null,
   "visible":true,

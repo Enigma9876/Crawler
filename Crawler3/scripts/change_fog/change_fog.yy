@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"find_path",
+  "%Name":"change_fog",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"find_path",
+  "name":"change_fog",
   "parent":{
     "name":"Scripts",
     "path":"folders/Scripts.yy",

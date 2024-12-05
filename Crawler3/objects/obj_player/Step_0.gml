@@ -13,7 +13,7 @@ if(global.canMove == true)
 			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
 			{
 				global.grid[# (xprevious2 - (room_width div 4)) div 32 div 32, (yprevious2 - (room_height div 4)) div 32] = 0;
-				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 1;
+				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 4;
 			}
 			global.turn += 1;
 			
@@ -31,7 +31,7 @@ if(global.canMove == true)
 			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
 			{
 				global.grid[# (xprevious2 - (room_width div 4)) div 32 div 32, (yprevious2 - (room_height div 4)) div 32] = 0;
-				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 1;
+				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 4;
 			}
 			global.turn += 1;
 			global.xdistance = 32;
@@ -48,7 +48,7 @@ if(global.canMove == true)
 			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
 			{
 				global.grid[# (xprevious2 - (room_width div 4)) div 32 div 32, (yprevious2 - (room_height div 4)) div 32] = 0;
-				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 1;
+				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 4;
 			}
 			global.turn += 1;
 			global.xdistance = 0;
@@ -65,7 +65,7 @@ if(global.canMove == true)
 			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
 			{
 				global.grid[# (xprevious2 - (room_width div 4)) div 32 div 32, (yprevious2 - (room_height div 4)) div 32] = 0;
-				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 1;
+				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 4;
 			}
 			global.turn += 1;
 			global.xdistance = 0;

@@ -1,11 +1,9 @@
 {
   "$GMObject":"",
-  "%Name":"obj_global",
-  "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "%Name":"obj_doorclose1",
+  "eventList":[],
   "managed":true,
-  "name":"obj_global",
+  "name":"obj_doorclose1",
   "overriddenProperties":[],
   "parent":{
     "name":"Objects",
@@ -30,9 +28,9 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_key",
-    "path":"sprites/spr_key/spr_key.yy",
+    "name":"spr_DoorClose1",
+    "path":"sprites/spr_DoorClose1/spr_DoorClose1.yy",
   },
   "spriteMaskId":null,
-  "visible":false,
+  "visible":true,
 }

@@ -38,37 +38,66 @@ y = obj_player.y + global.ydistance;
 				//set to open door
 				global.grid[# w, h] = 1;
 				
-				//print door
+				//delete door
 				var instances = ds_list_create();
 				var n = collision_point_list(x, y, obj_Door1, false, true, instances, false);
+				var n = collision_point_list(x, y, obj_Door2, false, true, instances, false);
 				var i = 0;
 				repeat ds_list_size(instances) 
 				{
-				    if (instances[| i].layer == "Instances_WallandFloor")
-					{
-				        instance_destroy(instances[| i]);
-				    }
+					instance_destroy(instances[| i]);
 				    i++;
 				}
 				ds_list_destroy(instances);
+				
+				//change door
+				if(left == -2 && right == -2 && (up == -1 || up == 0) && down == 0)
+				{
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_doorclose1);
+				}
+				else if(left == 0 && (right == -1 || right == 0) && up == -2 && down == -2)
+				{
+						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_doorclose2);
+				}
 			
-				var floor1 = instance_create_layer(x, y, "Instances_WallandFloor", obj_floor1);
 			}
 			else if(global.grid[# w, h] == 1)
 			{
 				//set to close door
 				global.grid[# w, h] = -1;
+				
+				//change the object
 				if(left == -2 && right == -2 && (up == -1 || up == 0) && down == 0)
 				{
-					var door = instance_create_layer(x, y, "Instances_WallandFloor", obj_Door1);
-					var targetDepth = layer_get_depth("Instances_WallandFloor"); // Whatever your layer is called
-					door.depth = -targetDepth - 1;
+					
+					//delete door
+					var instances = ds_list_create();
+					var n = collision_point_list(x, y, obj_doorclose1, false, true, instances, false);
+					var i = 0;
+					repeat ds_list_size(instances)
+					{
+						instance_destroy(instances[| i]);
+					    i++;
+					}
+					ds_list_destroy(instances);
+				
+					//change door
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_Door1);
 				}
 				else if(left == 0 && (right == -1 || right == 0) && up == -2 && down == -2)
 				{
-					var door = instance_create_layer(x, y, "Instances_WallandFloor", obj_Door2);
-					var targetDepth = layer_get_depth("Instances_WallandFloor"); // Whatever your layer is called
-					door.depth = -targetDepth - 1;
+					var instances = ds_list_create();
+					var n = collision_point_list(x, y, obj_doorclose2, false, true, instances, false);
+					var i = 0;
+					repeat ds_list_size(instances) 
+					{
+						instance_destroy(instances[| i]);
+						i++
+					}
+					ds_list_destroy(instances);
+					
+					//change door
+					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_Door2);
 				}
 			}
 			
