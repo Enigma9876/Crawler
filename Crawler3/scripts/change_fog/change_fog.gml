@@ -16,11 +16,20 @@ function change_fog()
 		}
 		
 		var instances = ds_list_create();
-		var n = collision_point_list((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), obj_Fog, false, true, instances, false);
+		//get all the values to highlight
+		for(var w = 0; w < 5; w++)
+		{
+			for(var h = 0; h < 5; h++)
+			{
+				var n = collision_point_list((width * 32) + (room_width div 4) + 16, (height * 32) + (room_height div 4) + 16, obj_Fog, false, true, instances, false);
+			}
+		}
+		
+		
 		var i = 0;
 		repeat ds_list_size(instances) 
 		{
-			show_debug_message("boom!");
+			show_debug_message(instances[| i]);
 			instances[| i].image_index = 0;
 			i++;
 		}

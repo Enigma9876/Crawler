@@ -352,7 +352,7 @@ function create_rooms(width, height)
 		for(w = 0; w < ds_grid_width(global.grid); w++)
 		{
 			//add fog
-			var fog = instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_FogOfWar", obj_Fog);
+			var fog = instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_FogOfWar", obj_Fog);
 			fog.image_index = 3;
 			
 			
