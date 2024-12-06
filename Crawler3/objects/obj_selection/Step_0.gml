@@ -1,28 +1,28 @@
 x = obj_player.x + global.xdistance;
 y = obj_player.y + global.ydistance;
 
-	if(keyboard_check(vk_left))
+	if(keyboard_check(vk_left) || keyboard_check(ord("A")))
 	{
 		global.xdistance = -32;
 		global.ydistance = 0;
 	}
-	else if(keyboard_check(vk_right))
+	else if(keyboard_check(vk_right) || keyboard_check(ord("D")))
 	{
 		global.xdistance = 32;
 		global.ydistance = 0;
 	}
-	else if(keyboard_check(vk_up))
+	else if(keyboard_check(vk_up) || keyboard_check(ord("W")))
 	{
 		global.xdistance = 0;
 		global.ydistance = -32;
 	}
-	else if(keyboard_check(vk_down))
+	else if(keyboard_check(vk_down) || keyboard_check(ord("S")))
 	{
 		global.xdistance = 0;
 		global.ydistance = 32;
 	}
 	
-	else if(global.canMove == true)
+	if(global.canMove == true)
 	{
 		if(keyboard_check_pressed(vk_space))
 		{
