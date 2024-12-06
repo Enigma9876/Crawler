@@ -352,7 +352,8 @@ function create_rooms(width, height)
 		for(w = 0; w < ds_grid_width(global.grid); w++)
 		{
 			//add fog
-			instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_FogOfWar", obj_Fog);
+			var fog = instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_FogOfWar", obj_Fog);
+			fog.image_index = 3;
 			
 			
 			//get adjacent tiles
@@ -368,7 +369,6 @@ function create_rooms(width, height)
 			//print wall
 			if(global.grid[# w,h] == -2)
 			{
-				
 				if(left == -2 && right == -2 && (up == 0 || up == -1) && (down == 10 || down == undefined || down == -2))
 				{
 					var rand = irandom_range(1,2)
