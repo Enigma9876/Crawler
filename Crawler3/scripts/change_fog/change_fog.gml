@@ -21,6 +21,7 @@ function change_fog()
 		{
 			for(var h = 0; h < 5; h++)
 			{
+				if(global.grid[# width, height] == )
 				var n = collision_point_list((width * 32) + (room_width div 4) + 16, (height * 32) + (room_height div 4) + 16, obj_Fog, false, true, instances, false);
 			}
 		}
