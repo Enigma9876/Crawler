@@ -353,7 +353,7 @@ function create_rooms(width, height)
 		{
 			//add fog
 			var fog = instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_FogOfWar", obj_Fog);
-			fog.image_index = 3;
+			fog.image_index = 2;
 			
 			
 			//get adjacent tiles
@@ -713,7 +713,7 @@ function create_rooms(width, height)
 	instance_create_layer(0, 0, "Instances_Background", obj_background);
 	
 	//change fog initially
-	change_fog();
+
 
 	//for printing grid
 	var gridString = "";

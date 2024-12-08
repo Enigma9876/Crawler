@@ -1,6 +1,5 @@
 //bugs: leaves intial position marked as non-moveable upon the fist movement, enemy and player can overlap, push through left wall
-xprevious2 = x;
-yprevious2 = y;
+
 Move_left = false;
 Move_right = false;
 Move_up = false;
@@ -43,3 +42,5 @@ down_move_target = 4; //change based on 60 -> 1 second
 
 global.canMove = true;
 inalarm = false;
+
+firstMove = true;

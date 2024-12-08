@@ -10,15 +10,12 @@ if(global.canMove == true)
 			Move_left = true;
 			global.canMove = false;
 			firstTouch = true;
-			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
-			{
-				global.grid[# (xprevious2 - (room_width div 4)) div 32 div 32, (yprevious2 - (room_height div 4)) div 32] = 0;
-				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 4;
-			}
+			global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 0;
 			global.turn += 1;
 			
 			global.xdistance = -32;
 			global.ydistance = 0;
+
 		}
 	}
 	else if(keyboard_check(ord("D")))
@@ -28,14 +25,11 @@ if(global.canMove == true)
 			Move_right = true;
 			global.canMove = false;
 			firstTouch = true;
-			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
-			{
-				global.grid[# (xprevious2 - (room_width div 4)) div 32 div 32, (yprevious2 - (room_height div 4)) div 32] = 0;
-				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 4;
-			}
+			global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 0;
 			global.turn += 1;
 			global.xdistance = 32;
 			global.ydistance = 0;
+			
 		}
 	}
 	else if(keyboard_check(ord("S")))
@@ -45,14 +39,11 @@ if(global.canMove == true)
 			Move_down = true;
 			global.canMove = false;
 			firstTouch = true;
-			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
-			{
-				global.grid[# (xprevious2 - (room_width div 4)) div 32 div 32, (yprevious2 - (room_height div 4)) div 32] = 0;
-				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 4;
-			}
+			global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 0;
 			global.turn += 1;
 			global.xdistance = 0;
 			global.ydistance = 32;
+			
 		}
 	}
 	else if(keyboard_check(ord("W")))
@@ -62,14 +53,11 @@ if(global.canMove == true)
 			Move_up = true;
 			global.canMove = false;
 			firstTouch = true;
-			if((x - (room_width div 4)) != xprevious2 - (room_width div 4) || (y - (room_height div 4)) != yprevious2 - (room_height div 4))
-			{
-				global.grid[# (xprevious2 - (room_width div 4)) div 32 div 32, (yprevious2 - (room_height div 4)) div 32] = 0;
-				global.grid[# (x - (room_width div 4)) div 32 div 32, (y - (room_height div 4)) div 32] = 4;
-			}
+			global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 0;
 			global.turn += 1;
 			global.xdistance = 0;
 			global.ydistance = -32;
+
 		}
 		
 	}
@@ -77,15 +65,6 @@ if(global.canMove == true)
 	
 	
 	
-	
-
-	if(x != xprevious2 || y != yprevious2)
-	{
-		xprevious2 = x;
-		yprevious2 = y;
-	}
-
-
 }
 else if(global.canMove == false && !inalarm)
 {
@@ -114,8 +93,10 @@ else if(global.canMove == false && !inalarm)
 		{
 			Move_left = false;
 			left_values = true;
-		
-			 left_move_progress = 0;
+			left_move_progress = 0;
+			global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 4;
+			change_fog();
+
 		}
 	}
 
@@ -140,8 +121,9 @@ else if(global.canMove == false && !inalarm)
 		{
 			Move_right = false;
 			right_values = true;
-		
-			 right_move_progress = 0;
+			right_move_progress = 0;
+			global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 4;
+			change_fog();
 		}
 	}
 
@@ -166,8 +148,9 @@ else if(global.canMove == false && !inalarm)
 		{
 			Move_up = false;
 			up_values = true;
-		
-			 up_move_progress = 0;
+			up_move_progress = 0;
+			global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 4;
+			change_fog();
 		}
 	}
 
@@ -192,8 +175,9 @@ else if(global.canMove == false && !inalarm)
 		{
 			Move_down = false;
 			down_values = true;
-		
-			 down_move_progress = 0;
+			down_move_progress = 0;
+			global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 4;
+			change_fog();
 		}
 	}
 
