@@ -353,7 +353,6 @@ function create_rooms(width, height)
 		{
 			//add fog
 			var fog = instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_FogOfWar", obj_Fog);
-			fog.image_index = 2;
 			
 			
 			//get adjacent tiles
@@ -598,6 +597,17 @@ function create_rooms(width, height)
 		}
 	}
 	
+		//set up above grid
+	ds_grid_resize(global.gridOrg, ds_grid_width(global.grid), ds_grid_height(global.grid))
+	
+	for(var i = 0; i < ds_grid_width(global.grid); i++)
+	{
+		for(var j = 0; j < ds_grid_height(global.grid); j++)
+		{
+			global.gridOrg[# i, j] = 0;
+		}
+	}
+	
 	
 	//print out boxes and potions
 	var maxLadders = 3;
@@ -640,14 +650,13 @@ function create_rooms(width, height)
 			else if(global.grid[# w,h] == 0 && rand <= 10 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1 && left != -2 && right != -2 && up != -2 && down != -2)
 			{
 				instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_Objects", obj_potion1);
-				global.grid[# w,h] = 2;
+				global.gridOrg[# w,h] = 2;
 			}
 			
 		}
 	}
 	
-	
-	
+
 
 	
 	
@@ -660,7 +669,7 @@ function create_rooms(width, height)
 		{
 			
 			//add possible spawn
-			if(global.grid[# w,h] == 0)
+			if(global.grid[# w,h] == 0 && global.grid[# w,h] != 2)
 			{
 				array_push(possibleSpawns, string(w) + " " + string(h));
 			}
@@ -675,7 +684,7 @@ function create_rooms(width, height)
 	
 	instance_create_layer((real(wPos) * 32) + (room_width div 4), (real(hPos) * 32) + (room_height div 4), "Instances_player", obj_player);
 	instance_create_layer((real(wPos) * 32) + (room_width div 4) - 32, (real(hPos) * 32) + (room_height div 4), "Instances_player", obj_selection);
-	global.grid[# wPos,hPos] = 4;
+	global.gridOrg[# wPos,hPos] = 4;
 	
 	
 	
@@ -694,14 +703,24 @@ function create_rooms(width, height)
 			var up2 = global.grid[# w ,h - 2];
 			var down2 = global.grid[# w ,h + 2];
 			
+			//get adjacent tiles on upper layer
+			var left3 = global.gridOrg[# w - 1,h];
+			var right3 = global.gridOrg[# w + 1,h];
+			var up3 = global.gridOrg[# w,h - 1];
+			var down3 = global.gridOrg[# w,h + 1];
+			var left4 = global.gridOrg[# w - 2,h];
+			var right4 = global.gridOrg[# w + 2,h];
+			var up4 = global.gridOrg[# w ,h - 2];
+			var down4 = global.gridOrg[# w ,h + 2];
+			
 			//deal with random
 			var rand = irandom_range(1,200);
 			
 			//add possible spawn
-			if(global.grid[# w,h] == 0 && rand == 1 && left != 4 && right != 4 && down != 4 && up != 4 && left2 != 4 && right2 != 4 && down2 != 4 && up2 != 4 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1)
+			if(global.gridOrg[# w,h] != 2 && global.gridOrg[# w,h] != 4 && global.grid[# w,h] == 0 && rand == 1 && left3 != 4 && right3 != 4 && down3 != 4 && up3 != 4 && left4 != 4 && right4 != 4 && down4 != 4 && up4 != 4 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1)
 			{
 				instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_player", obj_enemy1);
-				global.grid[# w,h] = 5;
+				global.gridOrg[# w,h] = 5;
 			}
 			
 		}
@@ -713,7 +732,7 @@ function create_rooms(width, height)
 	instance_create_layer(0, 0, "Instances_Background", obj_background);
 	
 	//change fog initially
-
+	change_fog();
 
 	//for printing grid
 	var gridString = "";
@@ -727,13 +746,4 @@ function create_rooms(width, height)
 	}
 	
 	show_debug_message(gridString);
-	ds_grid_resize(global.gridOrg, ds_grid_width(global.grid), ds_grid_height(global.grid))
-	
-	for(var i = 0; i < ds_grid_width(global.grid); i++)
-	{
-		for(var j = 0; j < ds_grid_height(global.grid); j++)
-		{
-			global.gridOrg[# i, j] = global.grid[# i, j];
-		}
-	}
 }

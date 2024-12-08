@@ -51,12 +51,12 @@ y = obj_player.y + global.ydistance;
 				ds_list_destroy(instances);
 				
 				//change door
-				if(left == -2 && right == -2 && (up == -1 || up == 0) && down == 0)
+				if((left == -2 || left == 4) && (right == -2 || right == 4) && (up == -1 || up == 0 || up == 4) && (down == 0 || down == 4))
 				{
 					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_doorclose1);
 				}
-				else if(left == 0 && (right == -1 || right == 0) && up == -2 && down == -2)
-				{
+				else if((left == 0 || left == 4) && (right == -1 || right == 0 || right == 4) && (up == -2 || up == 4) && (down == -2 || down == 4))
+				{ 
 						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_doorclose2);
 				}
 			
@@ -67,7 +67,7 @@ y = obj_player.y + global.ydistance;
 				global.grid[# w, h] = -1;
 				
 				//change the object
-				if(left == -2 && right == -2 && (up == -1 || up == 0) && down == 0)
+				if((left == -2 || left == 4) && (right == -2 || right == 4) && (up == -1 || up == 0 || up == 4) && (down == 0 || down == 4))
 				{
 					
 					//delete door
@@ -84,7 +84,7 @@ y = obj_player.y + global.ydistance;
 					//change door
 					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_Door1);
 				}
-				else if(left == 0 && (right == -1 || right == 0) && up == -2 && down == -2)
+				else if((left == 0 || left == 4) && (right == -1 || right == 0 || right == 4) && (up == -2 || up == 4) && (down == -2 || down == 4))
 				{
 					var instances = ds_list_create();
 					var n = collision_point_list(x, y, obj_doorclose2, false, true, instances, false);
@@ -100,6 +100,9 @@ y = obj_player.y + global.ydistance;
 					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_Door2);
 				}
 			}
+			
+			//update if any changes
+			change_fog();
 			
 		}
 	}

@@ -5,12 +5,12 @@ if(global.canMove == true)
 	//press and hold feature
 	if(keyboard_check(ord("A")))
 	{
-		if (global.grid[# ((x - (room_width div 4)) div 32 - 1), ((y - (room_height div 4)) div 32)] == 1 || global.grid[# ((x - (room_width div 4)) div 32 - 1), ((y - (room_height div 4)) div 32)] == 0 || global.grid[# ((x - (room_width div 4)) div 32 - 1), ((y - (room_height div 4)) div 32)] == 2)
+		if (global.grid[# ((x - (room_width div 4)) div 32 - 1), ((y - (room_height div 4)) div 32)] == 1 || global.grid[# ((x - (room_width div 4)) div 32 - 1), ((y - (room_height div 4)) div 32)] == 0)
 		{
 			Move_left = true;
 			global.canMove = false;
 			firstTouch = true;
-			global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 0;
+			global.gridOrg[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 0;
 			global.turn += 1;
 			
 			global.xdistance = -32;
@@ -20,12 +20,12 @@ if(global.canMove == true)
 	}
 	else if(keyboard_check(ord("D")))
 	{
-		if (global.grid[# (x - (room_width div 4)) div 32 + 1, (y - (room_height div 4)) div 32] == 1 || global.grid[# (x - (room_width div 4)) div 32 + 1, (y - (room_height div 4)) div 32] == 0 || global.grid[# (x - (room_width div 4)) div 32 + 1, (y - (room_height div 4)) div 32] == 2)
+		if (global.grid[# (x - (room_width div 4)) div 32 + 1, (y - (room_height div 4)) div 32] == 1 || global.grid[# (x - (room_width div 4)) div 32 + 1, (y - (room_height div 4)) div 32] == 0)
 		{
 			Move_right = true;
 			global.canMove = false;
 			firstTouch = true;
-			global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 0;
+			global.gridOrg[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 0;
 			global.turn += 1;
 			global.xdistance = 32;
 			global.ydistance = 0;
@@ -34,12 +34,12 @@ if(global.canMove == true)
 	}
 	else if(keyboard_check(ord("S")))
 	{
-		if (global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 + 1] == 1 || global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 + 1] == 0 || global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 + 1] == 2)
+		if (global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 + 1] == 1 || global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 + 1] == 0)
 		{
 			Move_down = true;
 			global.canMove = false;
 			firstTouch = true;
-			global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 0;
+			global.gridOrg[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 0;
 			global.turn += 1;
 			global.xdistance = 0;
 			global.ydistance = 32;
@@ -48,12 +48,12 @@ if(global.canMove == true)
 	}
 	else if(keyboard_check(ord("W")))
 	{
-		if (global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 - 1] == 1 || global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 - 1] == 0 || global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 - 1] == 2)
+		if (global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 - 1] == 1 || global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 - 1] == 0)
 		{
 			Move_up = true;
 			global.canMove = false;
 			firstTouch = true;
-			global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 0;
+			global.gridOrg[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 0;
 			global.turn += 1;
 			global.xdistance = 0;
 			global.ydistance = -32;
@@ -94,7 +94,7 @@ else if(global.canMove == false && !inalarm)
 			Move_left = false;
 			left_values = true;
 			left_move_progress = 0;
-			global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 4;
+			global.gridOrg[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 4;
 			change_fog();
 
 		}
@@ -122,7 +122,7 @@ else if(global.canMove == false && !inalarm)
 			Move_right = false;
 			right_values = true;
 			right_move_progress = 0;
-			global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 4;
+			global.gridOrg[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 4;
 			change_fog();
 		}
 	}
@@ -149,7 +149,7 @@ else if(global.canMove == false && !inalarm)
 			Move_up = false;
 			up_values = true;
 			up_move_progress = 0;
-			global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 4;
+			global.gridOrg[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 4;
 			change_fog();
 		}
 	}
@@ -176,7 +176,7 @@ else if(global.canMove == false && !inalarm)
 			Move_down = false;
 			down_values = true;
 			down_move_progress = 0;
-			global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 4;
+			global.gridOrg[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 4;
 			change_fog();
 		}
 	}
