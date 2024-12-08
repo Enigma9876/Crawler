@@ -180,6 +180,19 @@ else if(global.canMove == false && !inalarm)
 			change_fog();
 		}
 	}
+	
+			
+		//always set player tile to be 0
+		var instances = ds_list_create();
+		var n = collision_point_list(x, y, obj_Fog, false, true, instances, false);
+		var i = 0;
+		repeat ds_list_size(instances) 
+		{
+			instances[| i].image_index = 0;
+			i++
+		}
+		ds_list_destroy(instances);	
+					
 
 
 
