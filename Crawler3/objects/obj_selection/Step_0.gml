@@ -32,8 +32,20 @@ y = obj_player.y + global.ydistance;
 			var right = global.grid[# w + 1,h];
 			var up = global.grid[# w,h - 1];
 			var down = global.grid[# w,h + 1];
-			
-			if(global.grid[# w, h] == -1)
+			if(global.gridOrg[# w, h] == 5)
+			{
+				var instances = ds_list_create();
+					var n = collision_point_list(x + 16, y + 16, obj_enemy1, false, true, instances, false);
+					var i = 0;
+					repeat ds_list_size(instances) 
+					{
+						instances[| i].hp -= 15;
+						i++
+					}
+					ds_list_destroy(instances);
+					global.turn += 1;
+			}
+			else if(global.grid[# w, h] == -1)
 			{
 				//set to open door
 				global.grid[# w, h] = 1;
@@ -59,6 +71,7 @@ y = obj_player.y + global.ydistance;
 				{ 
 						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_doorclose2);
 				}
+				global.turn += 1;
 			
 			}
 			else if(global.grid[# w, h] == 1)
@@ -86,6 +99,7 @@ y = obj_player.y + global.ydistance;
 				}
 				else if((left == 0 || left == 4) && (right == -1 || right == 0 || right == 4) && (up == -2 || up == 4) && (down == -2 || down == 4))
 				{
+					global.turn += 1;
 					var instances = ds_list_create();
 					var n = collision_point_list(x, y, obj_doorclose2, false, true, instances, false);
 					var i = 0;
@@ -99,10 +113,29 @@ y = obj_player.y + global.ydistance;
 					//change door
 					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_Door2);
 				}
+				global.turn += 1;
 			}
 			
 			//update if any changes
 			change_fog();
+			
+			//pickup potion
+			if(global.gridOrg[# w,h] == 2)
+			{
+				global.gridOrg[# w,h] = 0;
+				var instances = ds_list_create();
+					var n = collision_point_list(x + 16, y + 16, obj_potion1, false, true, instances, false);
+					var i = 0;
+					repeat ds_list_size(instances) 
+					{
+						instance_destroy(instances[| i]);
+						i++
+						global.hp += 25;
+					}
+					ds_list_destroy(instances);
+					global.turn += 1;
+				
+			}
 			
 		}
 	}

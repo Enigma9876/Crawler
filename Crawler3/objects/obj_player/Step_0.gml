@@ -5,13 +5,12 @@ if(global.canMove == true)
 	//press and hold feature
 	if(keyboard_check(ord("A")))
 	{
-		if (global.grid[# ((x - (room_width div 4)) div 32 - 1), ((y - (room_height div 4)) div 32)] == 1 || global.grid[# ((x - (room_width div 4)) div 32 - 1), ((y - (room_height div 4)) div 32)] == 0)
+		if (global.gridOrg[# (x - (room_width div 4)) div 32 - 1, (y - (room_height div 4)) div 32] != 5 && (global.grid[# ((x - (room_width div 4)) div 32 - 1), ((y - (room_height div 4)) div 32)] == 1 || global.grid[# ((x - (room_width div 4)) div 32 - 1), ((y - (room_height div 4)) div 32)] == 0))
 		{
 			Move_left = true;
 			global.canMove = false;
 			firstTouch = true;
 			global.gridOrg[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 0;
-			global.turn += 1;
 			
 			global.xdistance = -32;
 			global.ydistance = 0;
@@ -20,13 +19,12 @@ if(global.canMove == true)
 	}
 	else if(keyboard_check(ord("D")))
 	{
-		if (global.grid[# (x - (room_width div 4)) div 32 + 1, (y - (room_height div 4)) div 32] == 1 || global.grid[# (x - (room_width div 4)) div 32 + 1, (y - (room_height div 4)) div 32] == 0)
+		if (global.gridOrg[# (x - (room_width div 4)) div 32 + 1, (y - (room_height div 4)) div 32] != 5 && (global.grid[# (x - (room_width div 4)) div 32 + 1, (y - (room_height div 4)) div 32] == 1 || global.grid[# (x - (room_width div 4)) div 32 + 1, (y - (room_height div 4)) div 32] == 0))
 		{
 			Move_right = true;
 			global.canMove = false;
 			firstTouch = true;
 			global.gridOrg[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 0;
-			global.turn += 1;
 			global.xdistance = 32;
 			global.ydistance = 0;
 			
@@ -34,13 +32,12 @@ if(global.canMove == true)
 	}
 	else if(keyboard_check(ord("S")))
 	{
-		if (global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 + 1] == 1 || global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 + 1] == 0)
+		if (global.gridOrg[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 + 1] != 5 && (global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 + 1] == 1 || global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 + 1] == 0))
 		{
 			Move_down = true;
 			global.canMove = false;
 			firstTouch = true;
 			global.gridOrg[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 0;
-			global.turn += 1;
 			global.xdistance = 0;
 			global.ydistance = 32;
 			
@@ -48,13 +45,12 @@ if(global.canMove == true)
 	}
 	else if(keyboard_check(ord("W")))
 	{
-		if (global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 - 1] == 1 || global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 - 1] == 0)
+		if (global.gridOrg[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 - 1] != 5 && (global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 - 1] == 1 || global.grid[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32 - 1] == 0))
 		{
 			Move_up = true;
 			global.canMove = false;
 			firstTouch = true;
 			global.gridOrg[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 0;
-			global.turn += 1;
 			global.xdistance = 0;
 			global.ydistance = -32;
 
@@ -96,6 +92,7 @@ else if(global.canMove == false && !inalarm)
 			left_move_progress = 0;
 			global.gridOrg[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 4;
 			change_fog();
+			global.turn += 1;
 
 		}
 	}
@@ -124,6 +121,7 @@ else if(global.canMove == false && !inalarm)
 			right_move_progress = 0;
 			global.gridOrg[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 4;
 			change_fog();
+			global.turn += 1;
 		}
 	}
 
@@ -151,6 +149,7 @@ else if(global.canMove == false && !inalarm)
 			up_move_progress = 0;
 			global.gridOrg[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 4;
 			change_fog();
+			global.turn += 1;
 		}
 	}
 
@@ -178,6 +177,7 @@ else if(global.canMove == false && !inalarm)
 			down_move_progress = 0;
 			global.gridOrg[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 4;
 			change_fog();
+			global.turn += 1;
 		}
 	}
 	
@@ -191,7 +191,14 @@ else if(global.canMove == false && !inalarm)
 			instances[| i].image_index = 0;
 			i++
 		}
-		ds_list_destroy(instances);	
+		ds_list_destroy(instances);
+		
+if(global.hp <= 0)
+{
+	//die
+	
+	room_goto (rm_startingRoom);
+}
 					
 
 

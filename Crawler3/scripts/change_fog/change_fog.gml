@@ -17,9 +17,10 @@ function change_fog()
 		}
 		
 		var instancesIndex0 = ds_list_create();
+		var instancesIndexSpecial = ds_list_create();
 		
 		//get all the values to highlight
-		var radius = 10;
+		var radius = 5;
 		var WallDetected = false;
 		var WallDetected2 = false;
 		for(var h = -radius; h <= radius; h++)
@@ -570,10 +571,11 @@ function change_fog()
 					down2 = layer_instance_get_instance(down).image_index;
 				}		
 				
-				if(pos2 == 0 && (left2 == 3 || right2 == 3 || up2 == 3 || down2 == 3))
+				if(pos2 == 3 && (left2 == 0 || right2 == 0 || up2 == 0 || down2 == 0))
 				{
 					layer_instance_get_instance(gridFog[# w, h]).image_index = 2;
 				}
+				//show_debug_message(right2);
 			}
 		}
 		
@@ -612,6 +614,6 @@ function change_fog()
 				}
 			}
 		}
-					
+				
 }
 	

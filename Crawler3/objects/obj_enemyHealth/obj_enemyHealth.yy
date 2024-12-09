@@ -1,11 +1,9 @@
 {
   "$GMObject":"",
-  "%Name":"obj_potion1",
-  "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},"eventNum":0,"eventType":4,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "%Name":"obj_enemyHealth",
+  "eventList":[],
   "managed":true,
-  "name":"obj_potion1",
+  "name":"obj_enemyHealth",
   "overriddenProperties":[],
   "parent":{
     "name":"Objects",
@@ -30,8 +28,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_potion",
-    "path":"sprites/spr_potion/spr_potion.yy",
+    "name":"spr_enemyHealth",
+    "path":"sprites/spr_enemyHealth/spr_enemyHealth.yy",
   },
   "spriteMaskId":null,
   "visible":true,

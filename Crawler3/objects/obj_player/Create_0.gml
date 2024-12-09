@@ -1,4 +1,4 @@
-//bugs: leaves intial position marked as non-moveable upon the fist movement, enemy and player can overlap, push through left wall
+//bugs: enemy and player can overlap, fog: see through doors, fog: occasionally left & right are completely black
 
 Move_left = false;
 Move_right = false;
