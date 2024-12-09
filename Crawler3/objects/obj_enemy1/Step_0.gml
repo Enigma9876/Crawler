@@ -25,6 +25,7 @@ else
 		   if(global.gridOrg[# move_x, move_y] == 4)
 		   {
 				global.hp -= 7;
+				sprite_index = spr_enemy1Attack;
 		   }
 		   else
 		   {
@@ -47,11 +48,13 @@ else
 				   if(move_x > (x - (room_width div 4)) div 32)
 				   {
 					   Move_right = true;
+					   image_xscale = 1;
 					   global.gridOrg[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 0;
 				   }
 				   else if(move_x < (x - (room_width div 4)) div 32)
 				   {
 					   Move_left = true;
+					   	image_xscale = -1;
 					   global.gridOrg[# (x - (room_width div 4)) div 32, (y - (room_height div 4)) div 32] = 0;
 				   }
 			   }
@@ -188,3 +191,7 @@ else
 	border.y = y - 10;
 }
 
+if(sprite_index == spr_enemy1Attack && image_index >= 2)
+{
+	sprite_index = spr_enemy1;
+}
