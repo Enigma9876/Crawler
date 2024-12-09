@@ -43,6 +43,7 @@ down_move_target = 5; //change based on 60 -> 1 second
 //health
 hp_max = 25;
 hp = hp_max;
+oldhp = hp_max;
 healthBar_width = 56;
 healthBar_x = x - 5;
 healthBar_y = y - 10;
@@ -51,4 +52,7 @@ border = instance_create_layer(healthBar_x, healthBar_y, "Instances_FogOfWar", o
 border.image_xscale = 1;
 border.image_yscale = 1;
 healthIm = instance_create_layer(healthBar_x, healthBar_y, "Instances_FogOfWar", obj_enemyHealth);
+
+attacking = false;
+damaged = false;
 

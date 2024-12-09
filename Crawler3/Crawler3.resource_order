@@ -92,6 +92,7 @@
     {"name":"spr_DoorClose1","order":69,"path":"sprites/spr_DoorClose1/spr_DoorClose1.yy",},
     {"name":"spr_doorClose2","order":70,"path":"sprites/spr_doorClose2/spr_doorClose2.yy",},
     {"name":"spr_enemy1","order":9,"path":"sprites/spr_enemy1/spr_enemy1.yy",},
+    {"name":"spr_enemyDamage","order":74,"path":"sprites/spr_enemyDamage/spr_enemyDamage.yy",},
     {"name":"spr_enemy1Attack","order":73,"path":"sprites/spr_enemy1Attack/spr_enemy1Attack.yy",},
     {"name":"spr_enemyHealth","order":72,"path":"sprites/spr_enemyHealth/spr_enemyHealth.yy",},
     {"name":"spr_enemyHealthBorder","order":71,"path":"sprites/spr_enemyHealthBorder/spr_enemyHealthBorder.yy",},

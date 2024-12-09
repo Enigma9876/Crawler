@@ -1,7 +1,7 @@
 if(hp <= 0)
 {
 	//die
-	global.gridOrg[# ((x - (room_width div 4)) div 32) + 16, ((y - (room_height div 4)) div 32) + 16] = 0;
+	global.gridOrg[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 0;
 	instance_destroy(border);
 	instance_destroy(healthIm);
 	instance_destroy(id, false);
@@ -12,7 +12,7 @@ else
 	{
 	
 	   //list to store the found path
-	    var path = find_path(((x - (room_width div 4)) div 32) - 16, ((y - (room_height div 4)) div 32) - 16, (obj_player.x - (room_width div 4)) div 32, (obj_player.y - (room_height div 4)) div 32);
+	    var path = find_path((x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32, (obj_player.x - (room_width div 4)) div 32, (obj_player.y - (room_height div 4)) div 32);
 		
 		//show_debug_message("path: " + string(path));
 	
@@ -25,37 +25,38 @@ else
 		   if(global.gridOrg[# move_x, move_y] == 4)
 		   {
 				global.hp -= 7;
+				attacking = true;
 				sprite_index = spr_enemy1Attack;
 		   }
 		   else
 		   {
 		   		//move toward player
-			   if(move_x == ((x - (room_width div 4)) div 32) - 16)
+			   if(move_x == ((x - 16 - (room_width div 4)) div 32))
 			   {
-				   if(move_y < ((y - (room_height div 4)) div 32) - 16)
+				   if(move_y < ((y - 16 - (room_height div 4)) div 32))
 				   {
 					   Move_up = true;
-					  global.gridOrg[# ((x - (room_width div 4)) div 32) - 16, ((y - (room_height div 4)) div 32) - 16] = 0;
+					  global.gridOrg[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 0;
 				   }
-				   else if(move_y > ((y - (room_height div 4)) div 32) - 16)
+				   else if(move_y > ((y - 16 - (room_height div 4)) div 32))
 				   {
 					   Move_down = true;
-					   global.gridOrg[# ((x - (room_width div 4)) div 32) - 16, ((y - (room_height div 4)) div 32) - 16] = 0;
+					   global.gridOrg[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 0;
 				   }
 			   }
-			   else if(move_y == ((y - (room_height div 4)) div 32) - 16)
+			   else if(move_y == ((y - 16 - (room_height div 4)) div 32))
 			   {
-				   if(move_x > ((x - (room_width div 4)) div 32) - 16)
+				   if(move_x > ((x - 16 - (room_width div 4)) div 32))
 				   {
 					   Move_right = true;
 					   image_xscale = 1;
-					   global.gridOrg[# ((x - (room_width div 4)) div 32) - 16, ((y - (room_height div 4)) div 32) - 16] = 0;
+					   global.gridOrg[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 0;
 				   }
-				   else if(move_x < ((x - (room_width div 4)) div 32) - 16)
+				   else if(move_x < ((x - 16 - (room_width div 4)) div 32))
 				   {
 					   Move_left = true;
-					   	image_xscale = -1;
-					   global.gridOrg[# ((x - (room_width div 4)) div 32) - 16, ((y - (room_height div 4)) div 32) - 16] = 0;
+					   image_xscale = -1;
+					   global.gridOrg[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 0;
 				   }
 			   }
 		   }
@@ -92,7 +93,7 @@ else
 		{
 			Move_left = false;
 			left_values = true;
-			global.gridOrg[# ((x - (room_width div 4)) div 32) - 16, ((y - (room_height div 4)) div 32) - 16] = 5;
+			global.gridOrg[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 5;
 			left_move_progress = 0;
 		}
 	}
@@ -118,7 +119,7 @@ else
 		{
 			Move_right = false;
 			right_values = true;
-			global.gridOrg[# ((x - (room_width div 4)) div 32) - 16, ((y - (room_height div 4)) div 32) - 16] = 5;
+			global.gridOrg[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 5;
 			right_move_progress = 0;
 		}
 	}
@@ -144,7 +145,7 @@ else
 		{
 			Move_up = false;
 			up_values = true;
-			global.gridOrg[# ((x - (room_width div 4)) div 32) - 16, ((y - (room_height div 4)) div 32) - 16] = 5;
+			global.gridOrg[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 5;
 			up_move_progress = 0;
 		}
 	}
@@ -170,7 +171,7 @@ else
 		{
 			Move_down = false;
 			down_values = true;
-			global.gridOrg[# ((x - (room_width div 4)) div 32) - 16, ((y - (room_height div 4)) div 32) - 16] = 5;
+			global.gridOrg[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 5;
 			down_move_progress = 0;
 		}
 	}
@@ -185,13 +186,16 @@ else
 	healthIm.image_xscale = (hp/hp_max) * healthBar_width;
 	healthIm.image_yscale = 1.5;
 
-	healthIm.x = x - 9;
-	healthIm.y = y - 10;
-	border.x = x - 10;
-	border.y = y - 10;
+	healthIm.x = x - 25;
+	healthIm.y = y - 15;
+	border.x = x - 26;
+	border.y = y - 15;
 }
 
-if(sprite_index == spr_enemy1Attack && image_index >= 2)
+if(attacking && image_index >= 2)
 {
+	sprite_index == spr_enemy1Attack;
 	sprite_index = spr_enemy1;
 }
+
+old_hp =

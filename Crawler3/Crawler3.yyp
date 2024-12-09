@@ -113,6 +113,7 @@
     {"id":{"name":"spr_DoorClose1","path":"sprites/spr_DoorClose1/spr_DoorClose1.yy",},},
     {"id":{"name":"spr_doorClose2","path":"sprites/spr_doorClose2/spr_doorClose2.yy",},},
     {"id":{"name":"spr_enemy1","path":"sprites/spr_enemy1/spr_enemy1.yy",},},
+    {"id":{"name":"spr_enemyDamage","path":"sprites/spr_enemyDamage/spr_enemyDamage.yy",},},
     {"id":{"name":"spr_enemy1Attack","path":"sprites/spr_enemy1Attack/spr_enemy1Attack.yy",},},
     {"id":{"name":"spr_enemyHealth","path":"sprites/spr_enemyHealth/spr_enemyHealth.yy",},},
     {"id":{"name":"spr_enemyHealthBorder","path":"sprites/spr_enemyHealthBorder/spr_enemyHealthBorder.yy",},},
