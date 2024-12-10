@@ -100,6 +100,8 @@ else
 		    var _progress_factor = left_move_progress / left_move_target;
 		    x = round(lerp(left_start_x, left_end_x, _progress_factor));
 		    y = round(lerp(left_start_y, left_end_y, _progress_factor));
+			isAttacking = false;
+			attacking = false;
 		}
 		else
 		{
@@ -133,6 +135,8 @@ else
 			right_values = true;
 			global.gridOrg[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 5;
 			right_move_progress = 0;
+			isAttacking = false;
+			attacking = false;
 		}
 	}
 
@@ -152,6 +156,8 @@ else
 		    var _progress_factor = up_move_progress / up_move_target;
 		    x = round(lerp(up_start_x, up_end_x, _progress_factor));
 		    y = round(lerp(up_start_y, up_end_y, _progress_factor));
+			isAttacking = false;
+			attacking = false;
 		}
 		else
 		{
@@ -178,6 +184,8 @@ else
 		    var _progress_factor = down_move_progress / down_move_target;
 		    x = round(lerp(down_start_x, down_end_x, _progress_factor));
 		    y = round(lerp(down_start_y, down_end_y, _progress_factor));
+			isAttacking = false;
+			attacking = false;
 		}
 		else
 		{
@@ -204,23 +212,36 @@ else
 	border.y = y - 15;
 }
 
-if(damaged)
+if(damaged && !isAttacking)
 {
+	image_index = 0;
+	damaged = false;
+	isDamaged = true;
 	sprite_index = spr_enemyDamage;
 }
-else if(attacking)
+else if(attacking && !isDamaged)
 {
+	image_index = 0;
+	attacking = false;
+	isAttacking = true;
 	sprite_index = spr_enemy1Attack;
 }
 
-if(sprite_index == spr_enemyDamage && image_index >= 3)
+if(sprite_index == spr_enemyDamage && image_index >= 2 && isDamaged)
 {
 	damaged = false;
+	isDamaged = false;
 	sprite_index = spr_enemy1;
 }
-if(sprite_index == spr_enemy1Attack && image_index >= 2)
+if(sprite_index == spr_enemy1Attack && image_index >= 2 && isAttacking)
 {
 	attacking = false;
+	isAttacking = false;
+	sprite_index = spr_enemy1;
+}
+
+if(sprite_index == spr_enemy1Attack && !isAttacking && !attacking)
+{
 	sprite_index = spr_enemy1;
 }
 
