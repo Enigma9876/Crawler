@@ -1,7 +1,3 @@
-if(keyboard_check_pressed(ord("Q")))
-{
-	global.hp -= 5;
-}
 
 if(global.hp > global.hp_max)
 {

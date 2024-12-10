@@ -32,10 +32,12 @@ y = obj_player.y + global.ydistance;
 			var right = global.grid[# w + 1,h];
 			var up = global.grid[# w,h - 1];
 			var down = global.grid[# w,h + 1];
-			if(global.gridOrg[# w, h] == 5)
+			if(global.gridOrg[# w, h] == 5 || global.gridPow[# w,h] == 6) //enemy
 			{
+				if(global.gridOrg[# w, h] == 5) //enemy
+				{
 				var instances = ds_list_create();
-					var n = collision_point_list(x + 16, y + 16, obj_enemy1, false, true, instances, false);
+					var n = collision_point_list(x, y, obj_enemy1, false, true, instances, false);
 					var i = 0;
 					repeat ds_list_size(instances) 
 					{
@@ -45,6 +47,25 @@ y = obj_player.y + global.ydistance;
 					}
 					ds_list_destroy(instances);
 					global.turn += 1;
+				}
+					
+				//pickup arrow
+				else if(global.gridPow[# w,h] == 6)
+				{
+					global.gridPow[# w,h] = 0;
+					var instances = ds_list_create();
+						var n = collision_point_list(x, y, obj_arrow, false, true, instances, false);
+						var i = 0;
+						repeat ds_list_size(instances)
+						{
+							instance_destroy(instances[| i]);
+							global.arrowCount++;
+							i++
+						}
+						ds_list_destroy(instances);
+						global.turn += 1;
+				
+				}
 			}
 			else if(global.grid[# w, h] == -1)
 			{
@@ -73,6 +94,8 @@ y = obj_player.y + global.ydistance;
 						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_doorclose2);
 				}
 				global.turn += 1;
+				//update if any changes
+				change_fog();
 			
 			}
 			else if(global.grid[# w, h] == 1)
@@ -115,17 +138,17 @@ y = obj_player.y + global.ydistance;
 					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_Door2);
 				}
 				global.turn += 1;
+				//update if any changes
+				change_fog();
 			}
 			
-			//update if any changes
-			change_fog();
 			
 			//pickup potion
 			if(global.gridOrg[# w,h] == 2)
 			{
 				global.gridOrg[# w,h] = 0;
 				var instances = ds_list_create();
-					var n = collision_point_list(x + 16, y + 16, obj_potion1, false, true, instances, false);
+					var n = collision_point_list(x, y, obj_potion1, false, true, instances, false);
 					var i = 0;
 					repeat ds_list_size(instances) 
 					{

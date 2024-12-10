@@ -1,4 +1,4 @@
-//bugs: enemy and player can overlap, fog: see through doors, fog: occasionally left & right are completely black
+//bugs:fog: occasionally left & right are completely black, when spamming and enemies filling the spots can not attack anymore
 
 Move_left = false;
 Move_right = false;

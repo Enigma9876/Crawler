@@ -3,6 +3,7 @@ function create_rooms(width, height)
 	//indexes meanings
 	//10 = empty space out side grid
 	//9 = ladder
+	//6 arrows
 	//5 = enemies
 	//4 = player
 	//3 = box
@@ -695,7 +696,7 @@ function create_rooms(width, height)
 	var hPos = string_copy(string(array_get(possibleSpawns, indexofPlayer)),  string_last_pos(" ", string(array_get(possibleSpawns, indexofPlayer))) + 1, string_length(string(array_get(possibleSpawns, indexofPlayer))));
 	show_debug_message(string(wPos) + " " + string(hPos));
 	
-	instance_create_layer((real(wPos) * 32) + (room_width div 4), (real(hPos) * 32) + (room_height div 4), "Instances_player", obj_player);
+	instance_create_layer((real(wPos) * 32) + (room_width div 4) + 16, (real(hPos) * 32) + (room_height div 4) + 16, "Instances_player", obj_player);
 	instance_create_layer((real(wPos) * 32) + (room_width div 4) - 32, (real(hPos) * 32) + (room_height div 4), "Instances_player", obj_selection);
 	global.gridOrg[# wPos,hPos] = 4;
 	
@@ -740,12 +741,14 @@ function create_rooms(width, height)
 	}
 	
 	ds_grid_resize(global.gridRes, ds_grid_width(global.gridOrg), ds_grid_height(global.gridOrg))
+	ds_grid_resize(global.gridPow, ds_grid_width(global.gridOrg), ds_grid_height(global.gridOrg))
 	
 	for(var i = 0; i < ds_grid_height(global.gridOrg); i++)
 	{
 		for(var j = 0; j < ds_grid_width(global.gridOrg); j++)
 		{
 			global.gridRes[# i, j] = global.gridOrg[# i, j];
+			global.gridPow[# i, j] = 0;
 		}
 	}
 	

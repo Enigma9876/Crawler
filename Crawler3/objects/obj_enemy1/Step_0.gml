@@ -1,10 +1,16 @@
 if(hp <= 0)
 {
 	//die
-	global.gridOrg[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 0;
+	if(!death)
+	{
+		global.gridPow[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 6;
+		global.gridOrg[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 0;
+		instance_create_layer(x, y , "Instances_Enemies", obj_arrow);
+		death = true;
+	}
 	instance_destroy(border);
 	instance_destroy(healthIm);
-	instance_destroy(id, false);
+	sprite_index = spr_enemy1Death;
 }
 else
 {
@@ -38,7 +44,6 @@ else
 		   if(!checkifMove)
 		   {
 			   //don't move
-			   show_debug_message("proc!");
 		   }
 		   else
 		   {
@@ -197,52 +202,58 @@ else
 	}
 
 
-	//update health position
-	if(hp > hp_max)
+		//update health position
+		if(hp > hp_max)
+		{
+			hp = hp_max;
+		}
+		//draw health bar
+		healthIm.image_xscale = (hp/hp_max) * healthBar_width;
+		healthIm.image_yscale = 1.5;
+
+		healthIm.x = x - 25;
+		healthIm.y = y - 15;
+		border.x = x - 26;
+		border.y = y - 15;
+
+	if(damaged && !isAttacking)
 	{
-		hp = hp_max;
+		image_index = 0;
+		damaged = false;
+		isDamaged = true;
+		sprite_index = spr_enemyDamage;
 	}
-	//draw health bar
-	healthIm.image_xscale = (hp/hp_max) * healthBar_width;
-	healthIm.image_yscale = 1.5;
+	else if(attacking && !isDamaged)
+	{
+		image_index = 0;
+		attacking = false;
+		isAttacking = true;
+		sprite_index = spr_enemy1Attack;
+	}
 
-	healthIm.x = x - 25;
-	healthIm.y = y - 15;
-	border.x = x - 26;
-	border.y = y - 15;
-}
+	if(sprite_index == spr_enemyDamage && image_index >= 2 && isDamaged)
+	{
+		damaged = false;
+		isDamaged = false;
+		sprite_index = spr_enemy1;
+	}
+	if(sprite_index == spr_enemy1Attack && image_index >= 2 && isAttacking)
+	{
+		attacking = false;
+		isAttacking = false;
+		sprite_index = spr_enemy1;
+	}
 
-if(damaged && !isAttacking)
-{
-	image_index = 0;
-	damaged = false;
-	isDamaged = true;
-	sprite_index = spr_enemyDamage;
-}
-else if(attacking && !isDamaged)
-{
-	image_index = 0;
-	attacking = false;
-	isAttacking = true;
-	sprite_index = spr_enemy1Attack;
-}
+	if(sprite_index == spr_enemy1Attack && !isAttacking && !attacking)
+	{
+		sprite_index = spr_enemy1;
+	}
 
-if(sprite_index == spr_enemyDamage && image_index >= 2 && isDamaged)
-{
-	damaged = false;
-	isDamaged = false;
-	sprite_index = spr_enemy1;
-}
-if(sprite_index == spr_enemy1Attack && image_index >= 2 && isAttacking)
-{
-	attacking = false;
-	isAttacking = false;
-	sprite_index = spr_enemy1;
+	checkifMove = false;
 }
 
-if(sprite_index == spr_enemy1Attack && !isAttacking && !attacking)
+if(sprite_index == spr_enemy1Death && image_index >= 5)
 {
-	sprite_index = spr_enemy1;
+	global.gridOrg[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 0;
+	instance_destroy(id, false);
 }
-
-checkifMove = false;

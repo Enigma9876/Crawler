@@ -59,4 +59,5 @@ isDamaged = false;
 isAttacking = false;
 
 checkifMove = false;
+death = false;
 

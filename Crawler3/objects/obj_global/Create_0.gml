@@ -7,6 +7,9 @@ global.enemyCount = 0;
 global.xdistance = -32;
 global.ydistance = 0;
 global.gridOrg = ds_grid_create(0, 0);
+global.gridPow = ds_grid_create(0,0);
+global.arrowCount = 0;
+
 // Create a reservation grid (same size as global.gridOrg)
 global.reservationGrid = ds_grid_create(ds_grid_width(global.gridOrg), ds_grid_height(global.gridOrg));
 ds_grid_clear(global.reservationGrid, 0);
