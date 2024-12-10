@@ -28,6 +28,8 @@ function create_rooms(width, height)
 		}
 	}
 	
+	show_debug_message(ds_grid_height(roomGrid));
+	
 	//setting up the binary
 	for(var w = 0; w < width; w++)
 	{

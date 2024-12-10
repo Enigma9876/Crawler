@@ -4,7 +4,7 @@ if(global.canMove == true)
 	//press and hold feature
 	if(keyboard_check(ord("W")))
 	{
-		if (global.gridOrg[# (x - 16 - (room_width div 4) div 32), (y - 16 - (room_height div 4)) div 32 - 1] != 5 && (global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 - 1] == 1 || global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 - 1] == 0))
+		if (global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 - 1] != 5 && (global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 - 1] == 1 || global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 - 1] == 0))
 		{
 			Move_up = true;
 			global.canMove = false;
