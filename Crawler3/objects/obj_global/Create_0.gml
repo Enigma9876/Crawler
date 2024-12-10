@@ -22,6 +22,8 @@ global.tile_size = 32;   // The size of each cell 32x32
 // Create a grid to represent walkable (0) and non-walkable (1) areas
 global.grid = ds_grid_create(global.grid_width, global.grid_height);
 
+global.gridRes = ds_grid_create(0,0);
+
 // fill the grid with walkable cells initially
 for (var i = 0; i < global.grid_width; i++) {
     for (var j = 0; j < global.grid_height; j++) {

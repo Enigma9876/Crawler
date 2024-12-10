@@ -22,11 +22,23 @@ else
 		   var position = path[1];
 		   var move_x = string_copy(position, 1, string_last_pos("_", position) - 1);
 		   var move_y = string_copy(position,  string_last_pos("_", position) + 1, string_length(position));
+		   
+		   if(global.gridRes[# move_x, move_y] == 0)
+		   {
+			   global.gridRes[# move_x, move_y] = 1;
+			   global.gridRes[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 0;
+			   checkifMove = true
+		   }
 		   if(global.gridOrg[# move_x, move_y] == 4)
 		   {
 				global.hp -= 7;
 				attacking = true;
-				sprite_index = spr_enemy1Attack;
+		   }
+		   
+		   if(!checkifMove)
+		   {
+			   //don't move
+			   show_debug_message("proc!");
 		   }
 		   else
 		   {
@@ -192,10 +204,24 @@ else
 	border.y = y - 15;
 }
 
-if(attacking && image_index >= 2)
+if(damaged)
 {
-	sprite_index == spr_enemy1Attack;
+	sprite_index = spr_enemyDamage;
+}
+else if(attacking)
+{
+	sprite_index = spr_enemy1Attack;
+}
+
+if(sprite_index == spr_enemyDamage && image_index >= 3)
+{
+	damaged = false;
+	sprite_index = spr_enemy1;
+}
+if(sprite_index == spr_enemy1Attack && image_index >= 2)
+{
+	attacking = false;
 	sprite_index = spr_enemy1;
 }
 
-old_hp =
+checkifMove = false;

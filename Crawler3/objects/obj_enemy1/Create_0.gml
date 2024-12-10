@@ -56,3 +56,5 @@ healthIm = instance_create_layer(healthBar_x, healthBar_y, "Instances_FogOfWar",
 attacking = false;
 damaged = false;
 
+checkifMove = false;
+

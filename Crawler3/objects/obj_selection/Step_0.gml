@@ -40,6 +40,7 @@ y = obj_player.y + global.ydistance;
 					repeat ds_list_size(instances) 
 					{
 						instances[| i].hp -= 15;
+						instances[| i].damaged = true;
 						i++
 					}
 					ds_list_destroy(instances);

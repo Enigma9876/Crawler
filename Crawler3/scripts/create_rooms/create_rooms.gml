@@ -660,7 +660,7 @@ function create_rooms(width, height)
 				global.grid[# w,h] = 3;
 			}
 			//potions
-			else if(global.grid[# w,h] == 0 && w != ds_grid_width(global.grid) - 1 && w != ds_grid_width(global.grid) - 2 && h != ds_grid_height(global.grid) - 1 && h != ds_grid_height(global.grid) - 2 && rand <= 10 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1 && left != -2 && right != -2 && up != -2 && down != -2)
+			else if(global.grid[# w,h] == 0 && w != ds_grid_width(global.grid) - 1 && w != ds_grid_width(global.grid) - 2 && h != ds_grid_height(global.grid) - 1 && h != ds_grid_height(global.grid) - 2 && rand <= 40 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1 && left != -2 && right != -2 && up != -2 && down != -2)
 			{
 				instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_Objects", obj_potion1);
 				global.gridOrg[# w,h] = 2;
@@ -739,6 +739,16 @@ function create_rooms(width, height)
 		}
 	}
 	
+	ds_grid_resize(global.gridRes, ds_grid_width(global.gridOrg), ds_grid_height(global.gridOrg))
+	
+	for(var i = 0; i < ds_grid_height(global.gridOrg); i++)
+	{
+		for(var j = 0; j < ds_grid_width(global.gridOrg); j++)
+		{
+			global.gridRes[# i, j] = global.gridOrg[# i, j];
+		}
+	}
+	
 	
 
 	//add background
@@ -772,4 +782,5 @@ function create_rooms(width, height)
 	}
 	
 	//show_debug_message(gridString);
+	
 }

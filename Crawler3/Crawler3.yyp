@@ -30,7 +30,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.2.0.132",
+    "IDEVersion":"2024.8.1.171",
   },
   "name":"Crawler3",
   "resources":[
@@ -113,8 +113,8 @@
     {"id":{"name":"spr_DoorClose1","path":"sprites/spr_DoorClose1/spr_DoorClose1.yy",},},
     {"id":{"name":"spr_doorClose2","path":"sprites/spr_doorClose2/spr_doorClose2.yy",},},
     {"id":{"name":"spr_enemy1","path":"sprites/spr_enemy1/spr_enemy1.yy",},},
-    {"id":{"name":"spr_enemyDamage","path":"sprites/spr_enemyDamage/spr_enemyDamage.yy",},},
     {"id":{"name":"spr_enemy1Attack","path":"sprites/spr_enemy1Attack/spr_enemy1Attack.yy",},},
+    {"id":{"name":"spr_enemyDamage","path":"sprites/spr_enemyDamage/spr_enemyDamage.yy",},},
     {"id":{"name":"spr_enemyHealth","path":"sprites/spr_enemyHealth/spr_enemyHealth.yy",},},
     {"id":{"name":"spr_enemyHealthBorder","path":"sprites/spr_enemyHealthBorder/spr_enemyHealthBorder.yy",},},
     {"id":{"name":"spr_floor1","path":"sprites/spr_floor1/spr_floor1.yy",},},
@@ -166,6 +166,7 @@
     {"id":{"name":"spr_wallForward3","path":"sprites/spr_wallForward3/spr_wallForward3.yy",},},
     {"id":{"name":"spr_wallturnaroundleft1","path":"sprites/spr_wallturnaroundleft1/spr_wallturnaroundleft1.yy",},},
     {"id":{"name":"spr_wallturnaroundright1","path":"sprites/spr_wallturnaroundright1/spr_wallturnaroundright1.yy",},},
+    {"id":{"name":"Sprite65","path":"sprites/Sprite65/Sprite65.yy",},},
     {"id":{"name":"ts_tilesDungeon","path":"tilesets/ts_tilesDungeon/ts_tilesDungeon.yy",},},
   ],
   "resourceType":"GMProject",

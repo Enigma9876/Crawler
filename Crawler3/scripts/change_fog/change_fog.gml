@@ -579,7 +579,7 @@ function change_fog()
 			}
 		}
 		
-		for(var h = 0; h < ds_grid_height(gridFog); h++)
+		/*for(var h = 0; h < ds_grid_height(gridFog); h++)
 		{
 			for(var w = 0; w < ds_grid_width(gridFog); w++)
 			{
@@ -610,10 +610,10 @@ function change_fog()
 				
 				if(pos2 == 0 && (left2 == 2 || right2 == 2 || up2 == 2 || down2 == 2))
 				{
-					layer_instance_get_instance(gridFog[# w, h]).image_index = 1;
+					//layer_instance_get_instance(gridFog[# w, h]).image_index = 1;
 				}
 			}
-		}
+		} */
 				
 }
 	
