@@ -8,7 +8,7 @@ global.xdistance = -32;
 global.ydistance = 0;
 global.gridOrg = ds_grid_create(0, 0);
 global.gridPow = ds_grid_create(0,0);
-global.arrowCount = 0;
+global.arrowCount = 3;
 
 // Create a reservation grid (same size as global.gridOrg)
 global.reservationGrid = ds_grid_create(ds_grid_width(global.gridOrg), ds_grid_height(global.gridOrg));
@@ -36,6 +36,6 @@ for (var i = 0; i < global.grid_width; i++) {
 
 
 //create room and its contents
-create_rooms(7,7);
+create_rooms(irandom_range(2,3),irandom_range(2,3));
 
 

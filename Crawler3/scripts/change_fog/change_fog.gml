@@ -1,6 +1,6 @@
 function change_fog()
 {
-		var objects = layer_get_all_elements("Instances_FogOfWar");
+		/*var objects = layer_get_all_elements("Instances_FogOfWar");
 		var width = 0;
 		var height = 0;
 		//get the player location
