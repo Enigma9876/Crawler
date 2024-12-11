@@ -26,6 +26,7 @@ y = obj_player.y + global.ydistance;
 	{
 		if(keyboard_check_pressed(vk_space))
 		{
+			global.canMove = false;
 			var w = ((x - (room_width div 4)) div 32);
 			var h = ((y - (room_height div 4)) div 32);
 			var left = global.grid[# w - 1,h];

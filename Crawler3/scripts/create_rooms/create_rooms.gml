@@ -18,17 +18,16 @@ function create_rooms(width, height)
 	//set up individual rooms with random heights and widths
 	for(var w = 0; w < width; w++)
 	{
-		var randomWidth = irandom_range((global.grid_height div width) div 2 - 1, (global.grid_height div width) + 1);
+		var randomWidth = irandom_range(((global.grid_width - 2) div width) div 2, ((global.grid_width - 2) div width));
 		for(var h = 0; h < height; h++)
 		{
-			var randomHeight = irandom_range((global.grid_height div height) div 2 - 1, (global.grid_height div height) + 1);
+			var randomHeight = irandom_range(((global.grid_height - 2) div height) div 2, ((global.grid_height - 2) div height));
 			
 			var roomGrid = ds_grid_create(randomWidth,randomHeight);
 			arrayWithRooms[w,h] = roomGrid;
 		}
 	}
 	
-	show_debug_message(ds_grid_height(roomGrid));
 	
 	//setting up the binary
 	for(var w = 0; w < width; w++)
@@ -45,7 +44,7 @@ function create_rooms(width, height)
 					//set borders to 1 (walls/no-walkables)
 					if((w1 == 0 || h1 == 0) || (w1 == ds_grid_width(roomGrid) - 1 || h1 == ds_grid_height(roomGrid) - 1))
 					{
-						roomGrid[# w1,h1] = -2;
+						roomGrid[# w1,h1] = -2; 
 					}
 				}
 			}
@@ -311,7 +310,7 @@ function create_rooms(width, height)
 	var previousRoomLeaveHeight = 0;
 	var h2 = 0;
 	var w2 = 0;
-	ds_grid_resize(global.grid, ds_grid_width(global.grid) + 2, ds_grid_height(global.grid) + 2);
+	//ds_grid_resize(global.grid, ds_grid_width(global.grid) + 2, ds_grid_height(global.grid) + 2);
 	
 	for(var h = 0; h < ds_grid_height(global.grid); h++)
 	{

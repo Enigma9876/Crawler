@@ -1,4 +1,4 @@
-//bugs:fog: occasionally left & right are completely black, when spamming and enemies filling the spots can not attack anymore
+//bugs:fog: occasionally left & right are completely black
 
 Move_left = false;
 Move_right = false;
@@ -44,3 +44,4 @@ global.canMove = true;
 inalarm = false;
 
 firstMove = true;
+pluh = 0;

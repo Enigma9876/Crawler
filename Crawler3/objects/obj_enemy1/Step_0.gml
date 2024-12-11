@@ -38,10 +38,11 @@ else
 		   if(global.gridOrg[# move_x, move_y] == 4)
 		   {
 				global.hp -= 7;
+				checkifMove = true;
 				attacking = true;
 		   }
 		   
-		   if(!checkifMove)
+		   if(!checkifMove || global.gridOrg[# move_x, move_y] == 4)
 		   {
 			   //don't move
 		   }
@@ -254,6 +255,5 @@ else
 
 if(sprite_index == spr_enemy1Death && image_index >= 5)
 {
-	global.gridOrg[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 0;
 	instance_destroy(id, false);
 }
