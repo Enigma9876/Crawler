@@ -234,8 +234,7 @@ else if(global.canMove == false && !inalarm)
 if(global.hp <= 0)
 {
 	//die
-	
-	room_goto (rm_startingRoom);
+	room_goto (rm_main);
 }
 					
 

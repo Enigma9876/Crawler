@@ -53,12 +53,19 @@ y = obj_player.y + global.ydistance;
 				//pickup arrow
 				else if(global.gridPow[# w,h] == 6)
 				{
-					global.gridPow[# w,h] = 0;
+					show_debug_message("pick up arrow");
 					var instances = ds_list_create();
-						var n = collision_point_list(x, y, obj_arrow, false, true, instances, false);
+					for(var h2 = 16; h2 >= -16; h2--)
+					{
+						for(var w2 = 16; w2 >= -16; w2--)
+						{
+							var n = collision_point_list(x + w2, y + h2, obj_arrow, false, true, instances, false);
+						}
+					}
 						var i = 0;
 						repeat ds_list_size(instances)
 						{
+							global.gridPow[# w,h] = 0;
 							instance_destroy(instances[| i]);
 							global.arrowCount++;
 							i++

@@ -1,374 +1,22 @@
-function create_rooms(width, height)
+function tutorial_room()
 {
-	//indexes meanings
-	//10 = empty space out side grid
-	//9 = ladder
-	//6 arrows
-	//5 = enemies
-	//4 = player
-	//3 = box
-	//2 = potion
-	//1 = open doors
-	//0 = floor
-	//-1 = doors
-	//-2 = walls
-		
-	var arrayWithRooms = ds_grid_create(width, height)
+	ds_grid_resize(global.gridOrg, ds_grid_width(global.grid), ds_grid_height(global.grid));
 	
-	//set up individual rooms with random heights and widths
-	for(var w = 0; w < width; w++)
+	for(var i = 0; i < ds_grid_height(global.grid); i++)
 	{
-		var randomWidth = irandom_range(((global.grid_width - 2) div width) div 2, ((global.grid_width - 2) div width));
-		for(var h = 0; h < height; h++)
+		for(var j = 0; j < ds_grid_width(global.grid); j++)
 		{
-			var randomHeight = irandom_range(((global.grid_height - 2) div height) div 2, ((global.grid_height - 2) div height));
-			
-			var roomGrid = ds_grid_create(randomWidth,randomHeight);
-			arrayWithRooms[w,h] = roomGrid;
+			global.gridOrg[# i, j] = 0;
 		}
 	}
 	
-	
-	//setting up the binary
-	for(var w = 0; w < width; w++)
-	{
-		for(var h = 0; h < height; h++)
-		{
-			var roomGrid = arrayWithRooms[w,h];
-		
-			
-			for(var w1 = 0; w1 < ds_grid_width(roomGrid); w1++)
-			{
-				for(var h1 = 0; h1 < ds_grid_height(roomGrid); h1++)
-				{
-					//set borders to 1 (walls/no-walkables)
-					if((w1 == 0 || h1 == 0) || (w1 == ds_grid_width(roomGrid) - 1 || h1 == ds_grid_height(roomGrid) - 1))
-					{
-						roomGrid[# w1,h1] = -2; 
-					}
-				}
-			}
-			
-			arrayWithRooms[w,h] = roomGrid;
-		}
-	}
-		
-	//add door
-	for(var w = 0; w < width; w++)
-	{
-		for(var h = 0; h < height; h++)
-		{
-			var roomGrid = arrayWithRooms[w,h];
-			
-			//checksides
-			var left = true;
-			var right = true;
-			var up = true;
-			var down = true;
-			
-			if(w == 0)
-				left = false;
-			if(h == 0)
-				up = false;
-			if(w == width - 1)
-				right = false
-			if(h = height - 1)
-				down = false;
-				
-				
-			//check for adding door
-			
-			if(down)
-			{
-				//create arrays that will check
-				var FirstCheck = array_create(0);
-				var SecondCheck = array_create(0);
-				var ThirdCheck = array_create(0);
-				
-				//grid to check it
-				var roomGridCheck = arrayWithRooms[w,h + 1];
-				
-				//first line
-				for(var w1 = 0; w1 < ds_grid_width(roomGrid); w1++)
-				{
-					array_push(FirstCheck, roomGrid[# w1,ds_grid_height(roomGrid) - 1]);
-				}
-				
-				//second line
-				for(var w1 = 0; w1 < ds_grid_width(roomGridCheck); w1++)
-				{
-					array_push(SecondCheck, roomGridCheck[# w1,0]);
-				}
-				
-				//third line
-				for(var w1 = 0; w1 < ds_grid_width(roomGridCheck); w1++)
-				{
-					array_push(ThirdCheck, roomGridCheck[# w1,1]);
-				}
-				
-				//search for valid index
-				var AlreadyDoor = false;
-				var listofPossible = array_create(0); 
-				for(var w1 = 1; w1 < ds_grid_width(roomGridCheck); w1++)
-				{
-					
-					var firstIndex = array_get(FirstCheck,w1);
-					var SecondIndex = array_get(SecondCheck,w1);
-					var ThirdIndex = array_get(ThirdCheck,w1);
-					
-					if(firstIndex == -2 && SecondIndex == -2 && ThirdIndex == 0)
-					{
-						array_push(listofPossible, w1);
-					}
-					else if(firstIndex == 0 && SecondIndex == 0 && ThirdIndex == 0)
-					{
-						AlreadyDoor = true;
-					}
-
-				}
-				
-				//select random index to be door
-				if(!AlreadyDoor && array_length(listofPossible) > 0)
-				{
-					var index = irandom_range(0, array_length(listofPossible) - 1);
-					
-					roomGrid[# array_get(listofPossible, index), ds_grid_height(roomGrid) - 1] = -1;
-					roomGridCheck[# array_get(listofPossible, index), 0] = -1;
-					
-				}
-			}
-			
-			
-			//for side doors
-			if(right)
-			{
-				//get what room to connect
-				var startingPoint = 0;
-				var endingPoint = 0;
-				for(var h1 = 0; h1 < h; h1++)
-				{
-					startingPoint += ds_grid_height(arrayWithRooms[w,h1]);
-				}
-				endingPoint = startingPoint + ds_grid_height(roomGrid);
-				
-				//add the rroms to connect to this array if 0 then no connections
-				var arrayOfRoomsToConnect = array_create(0);
-				
-				var checkHeightStart = 0;
-				var checkHeightEnd = 0;
-				for(var h1 = 0; h1 < height; h1++)
-				{
-					checkHeightEnd = checkHeightStart + ds_grid_height(arrayWithRooms[w + 1,h1]);
-					//check
-					if((checkHeightEnd > startingPoint && checkHeightEnd < endingPoint) || (checkHeightStart >= startingPoint && checkHeightStart < endingPoint))
-					{
-						//add room to list for connection
-						array_push(arrayOfRoomsToConnect, h1);
-						
-					}
-					checkHeightStart += ds_grid_height(arrayWithRooms[w + 1,h1]);
-				}
-				
-				
-				//adding doors to the various connections
-				for(i = 0; i < array_length(arrayOfRoomsToConnect); i++)
-				{
-					var roomGridCheck = arrayWithRooms[w + 1,array_get(arrayOfRoomsToConnect, i)];
-					
-					var startingPoint1 = 0;
-					var startingPoint2 = 0;
-					var	endingPoint1 = 0;
-					var endingPoint2 = 0;
-					
-					//original room
-					for(var h1 = 0; h1 < h; h1++)
-					{
-						startingPoint1 += ds_grid_height(arrayWithRooms[w,h1]);
-					}
-					endingPoint1 = startingPoint1 + ds_grid_height(roomGrid);
-					
-					//room getting connected
-					for(var h1 = 0; h1 < array_get(arrayOfRoomsToConnect, i); h1++)
-					{
-						startingPoint2 += ds_grid_height(arrayWithRooms[w + 1,h1]);
-					}
-					endingPoint2 = startingPoint2 + ds_grid_height(roomGridCheck);
-					
-					
-					//get starting and ending points
-					var start;
-					if(startingPoint1 >= startingPoint2)
-					{
-						start = 0;
-					}
-					else if(startingPoint1 < startingPoint2)
-					{
-						start = abs(startingPoint1 - startingPoint2);
-					}
-					
-					var ending;
-					if(endingPoint1 <= endingPoint2)
-					{
-						ending = ds_grid_height(roomGrid) - 1;
-					}
-					else if(endingPoint1 > endingPoint2)
-					{
-						ending = ds_grid_height(roomGrid) - abs(endingPoint1 - endingPoint2) - 1;
-					}
-					
-					var start2;
-					if(startingPoint1 > startingPoint2)
-					{
-						start2 = abs(startingPoint1 - startingPoint2);
-					}
-					else if(startingPoint1 <= startingPoint2)
-					{
-						start2 = 0;
-					}
-					
-					var ending2;
-					if(endingPoint1 < endingPoint2)
-					{
-						ending2 = (ds_grid_height(roomGridCheck) - 1) - abs(endingPoint1 - endingPoint2);
-					}
-					else if(endingPoint1 >= endingPoint2)
-					{
-						ending2 = ds_grid_height(roomGridCheck) - 1;
-					}
-					
-					//get door and place it
-					var FirstCheck = array_create(0);
-					var SecondCheck = array_create(0);
-					var ThirdCheck = array_create(0);
-				
-					
-					//first line
-					for(var h1 = start; h1 <= ending; h1++)
-					{
-						array_push(FirstCheck, roomGrid[# ds_grid_width(roomGrid) - 1, h1]);
-					}
-				
-					//second line
-					for(var h1 = start2; h1 <= ending2; h1++)
-					{
-						array_push(SecondCheck, roomGridCheck[# 0,h1]);
-					}
-				
-					//third line
-					for(var h1 = start2; h1 <= ending2; h1++)
-					{
-						array_push(ThirdCheck, roomGridCheck[# 1,h1]);
-					}
-					
-					//search for valid index
-					var AlreadyDoor = false;
-					var listofPossible = array_create(0); 
-					for(var h1 = 1; h1 < ending - start; h1++)
-					{
-					
-						var firstIndex = array_get(FirstCheck,h1);
-						var SecondIndex = array_get(SecondCheck,h1);
-						var ThirdIndex = array_get(ThirdCheck,h1);
-					
-						if(firstIndex == -2 && SecondIndex == -2 && ThirdIndex == 0)
-						{
-							array_push(listofPossible, h1);
-						}
-						else if(firstIndex == 0 && SecondIndex == 0 && ThirdIndex == 0)
-						{
-							AlreadyDoor = true;
-						}
-
-					}
-					
-				
-					//select random index to be door
-					if(!AlreadyDoor && array_length(listofPossible) > 0)
-					{
-						var index = irandom_range(0, array_length(listofPossible) - 1);
-					
-						roomGrid[# ds_grid_width(roomGrid) - 1, array_get(listofPossible, index) + start] = -1;
-						roomGridCheck[# 0, array_get(listofPossible, index) + start2] = -1;
-					}
-					
-					
-					
-				} 
-				
-				
-			} 
-		}
-				
-		}
-	
-	
-	
-	
-	
-	//combine into main grid
-	var previousRoomLeaveWidth = 0;
-	var previousRoomLeaveHeight = 0;
-	var h2 = 0;
-	var w2 = 0;
-	//ds_grid_resize(global.grid, ds_grid_width(global.grid) + 2, ds_grid_height(global.grid) + 2);
-	
+	//set up above grid
 	for(var h = 0; h < ds_grid_height(global.grid); h++)
 	{
 		for(var w = 0; w < ds_grid_width(global.grid); w++)
 		{
-			if(h == 0 || w == 0 || h == 1 || w == 1)
-			{
-				global.grid[# w,h] = 10;
-			}
-			
-		}
-	}
-	
-	for(var h = 0; h < height; h++)
-	{
-		for(var w = 0; w < width; w++)
-		{
-			
-			var roomGrid = arrayWithRooms[w,h];
-			//changes heights to fill smoothly
-			previousRoomLeaveWidth = 0;
-			previousRoomLeaveHeight = 0;
-			for(var prvh = 0; prvh < h; prvh++)
-			{
-				previousRoomLeaveHeight += ds_grid_height(arrayWithRooms[w,prvh]);
-			}
-			for(var prvw = 0; prvw < w; prvw++)
-			{
-				previousRoomLeaveWidth += ds_grid_width(arrayWithRooms[prvw,h]);
-			}
-
-			//get each individual square
-			w2 = 0;
-			for(var w1 = previousRoomLeaveWidth; w1 < ds_grid_width(roomGrid) + previousRoomLeaveWidth; w1++)
-			{
-				h2 = 0;
-				for(var h1 = previousRoomLeaveHeight; h1 < ds_grid_height(roomGrid) + previousRoomLeaveHeight; h1++)
-				{
-					global.grid[# w1 + 2, h1 + 2] = roomGrid[# w2,h2];
-					h2++;
-				}
-				w2++;
-			}
-		}
-		
-		
-	}
-	
-	
-	
-	//print walls and floor and doors
-	for(h = 0; h < ds_grid_height(global.grid); h++)
-	{
-		for(w = 0; w < ds_grid_width(global.grid); w++)
-		{
 			//add fog
 			var fog = instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_FogOfWar", obj_Fog);
-			
 			
 			//get adjacent tiles
 			var left = global.grid[# w - 1,h];
@@ -380,6 +28,12 @@ function create_rooms(width, height)
 			var topright = global.grid[# w + 1,h - 1];
 			var bottomright = global.grid[# w + 1,h + 1];
 			
+			if(global.grid == 4)
+			{
+				//set and print player
+				instance_create_layer((real(w) * 32) + (room_width div 4) + 16, (real(h) * 32) + (room_height div 4) + 16, "Instances_player", obj_player);
+				instance_create_layer((real(w) * 32) + (room_width div 4) - 32, (real(h) * 32) + (room_height div 4), "Instances_player", obj_selection);
+			}
 			//print wall
 			if(global.grid[# w,h] == -2)
 			{
@@ -609,23 +263,21 @@ function create_rooms(width, height)
 				}
 			}
 			
+			if(w == 5 && h == 5)
+			{
+				global.gridOrg[# w,h] = 4;
+				global.grid[# w, h] = 0;
+				instance_create_layer((real(w) * 32) + (room_width div 4) + 16, (real(h) * 32) + (room_height div 4) + 16, "Instances_player", obj_player);
+				instance_create_layer((real(w) * 32) + (room_width div 4) - 32, (real(h) * 32) + (room_height div 4), "Instances_player", obj_selection);
+			}
+			
 		}
 	}
 	
-		//set up above grid
-	ds_grid_resize(global.gridOrg, ds_grid_width(global.grid), ds_grid_height(global.grid))
-	
-	for(var i = 0; i < ds_grid_height(global.grid); i++)
-	{
-		for(var j = 0; j < ds_grid_width(global.grid); j++)
-		{
-			global.gridOrg[# i, j] = 0;
-		}
-	}
 	
 	
 	//print out boxes and potions
-	var maxLadders = 3;
+	/*var maxLadders = 3;
 	var ladderCount = 0;
 	var mandLadder = 0;
 	for(var h = 0; h < ds_grid_height(global.grid); h++)
@@ -676,31 +328,6 @@ function create_rooms(width, height)
 	
 	
 	
-	//set and print player
-	var possibleSpawns = array_create(0);
-	for(var h = 0; h < ds_grid_height(global.grid); h++)
-	{
-		for(var w = 0; w < ds_grid_width(global.grid); w++)
-		{
-			
-			//add possible spawn
-			if(global.grid[# w,h] == 0 && global.grid[# w,h] != 2 && w != ds_grid_width(global.grid) - 1 && w != ds_grid_width(global.grid) - 2 && h != ds_grid_height(global.grid) - 1 && h != ds_grid_height(global.grid) - 2)
-			{
-				array_push(possibleSpawns, string(w) + " " + string(h));
-			}
-			
-		}
-	}
-	var indexofPlayer = irandom_range(0, array_length(possibleSpawns) - 1)
-	
-	var wPos = string_copy(string(array_get(possibleSpawns, indexofPlayer)), 1, string_last_pos(" ", string(array_get(possibleSpawns, indexofPlayer))) - 1);
-	var hPos = string_copy(string(array_get(possibleSpawns, indexofPlayer)),  string_last_pos(" ", string(array_get(possibleSpawns, indexofPlayer))) + 1, string_length(string(array_get(possibleSpawns, indexofPlayer))));
-	show_debug_message(string(wPos) + " " + string(hPos));
-	
-	instance_create_layer((real(wPos) * 32) + (room_width div 4) + 16, (real(hPos) * 32) + (room_height div 4) + 16, "Instances_player", obj_player);
-	instance_create_layer((real(wPos) * 32) + (room_width div 4) - 32, (real(hPos) * 32) + (room_height div 4), "Instances_player", obj_selection);
-	global.gridOrg[# wPos,hPos] = 4;
-	
 	
 	
 	//add enemies
@@ -739,7 +366,7 @@ function create_rooms(width, height)
 			}
 			
 		}
-	}
+	} */
 	
 	ds_grid_resize(global.gridRes, ds_grid_width(global.gridOrg), ds_grid_height(global.gridOrg))
 	ds_grid_resize(global.gridPow, ds_grid_width(global.gridOrg), ds_grid_height(global.gridOrg))
@@ -760,31 +387,4 @@ function create_rooms(width, height)
 	
 	//change fog initially
 	change_fog();
-
-	//for printing grid
-	var gridString = "";
-	for(var i = 0; i < global.grid_height; i++)
-	{
-		for(var j = 0; j < global.grid_width; j++)
-		{
-			gridString += string(string(global.grid[# j, i]) + " ");
-		}
-		gridString += "\n";
-	}
-	
-	//show_debug_message(gridString);
-	
-	//for printing grid
-	var gridString = "";
-	for(var i = 0; i < ds_grid_height(global.gridOrg); i++)
-	{
-		for(var j = 0; j < ds_grid_width(global.gridOrg); j++)
-		{
-			gridString += string(string(global.gridOrg[# j, i]) + " ");
-		}
-		gridString += "\n";
-	}
-	
-	//show_debug_message(gridString);
-	
 }
