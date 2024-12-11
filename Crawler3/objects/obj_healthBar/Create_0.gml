@@ -1,5 +1,5 @@
 //healthBar
-global.hp_max = 1000;
+global.hp_max = 100;
 global.hp = global.hp_max;
 healthBar_width = 250;
 healthBar_height = 50;

@@ -1,6 +1,6 @@
 function change_fog()
 {
-		/*var objects = layer_get_all_elements("Instances_FogOfWar");
+		var objects = layer_get_all_elements("Instances_FogOfWar");
 		var width = 0;
 		var height = 0;
 		//get the player location
@@ -608,9 +608,9 @@ function change_fog()
 					down2 = layer_instance_get_instance(down).image_index;
 				}		
 				
-				if(pos2 == 0 && (left2 == 2 || right2 == 2 || up2 == 2 || down2 == 2))
+				if(pos2 == 2 && (left2 == 3 || right2 == 3 || up2 == 3 || down2 == 3))
 				{
-					//layer_instance_get_instance(gridFog[# w, h]).image_index = 1;
+					layer_instance_get_instance(gridFog[# w, h]).image_index = 1;
 				}
 			}
 		} */
