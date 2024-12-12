@@ -41,16 +41,18 @@ if(room == rm_level1)
 }
 else if(room == rm_tutorialRoom)
 {
-	global.grid = ds_grid_create(25, 7);
+	global.grid = ds_grid_create(25, 25);
+	ds_grid_clear(global.grid, 10);
 	for(var w1 = 0; w1 < ds_grid_width(global.grid); w1++)
 			{
 				for(var h1 = 0; h1 < ds_grid_height(global.grid); h1++)
 				{
 					//set borders to 1 (walls/no-walkables)
-					if((w1 == 0 || h1 == 0) || (w1 == ds_grid_width(global.grid) - 1 || h1 == ds_grid_height(global.grid) - 1))
+					if(w1 == 0 || h1 == 0 || (w1 == ds_grid_width(global.grid) - 1 || h1 == ds_grid_height(global.grid) - 1))
 					{
 						global.grid[# w1,h1] = -2; 
 					}
+					
 				}
 			}
 

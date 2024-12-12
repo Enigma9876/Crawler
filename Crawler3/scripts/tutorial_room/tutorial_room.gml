@@ -263,7 +263,7 @@ function tutorial_room()
 				}
 			}
 			
-			if(w == 5 && h == 5)
+			if(w == 16 && h == 16)
 			{
 				global.gridOrg[# w,h] = 4;
 				global.grid[# w, h] = 0;
