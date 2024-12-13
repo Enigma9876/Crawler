@@ -44,4 +44,3 @@ global.canMove = true;
 inalarm = false;
 
 firstMove = true;
-pluh = 0;

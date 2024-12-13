@@ -48,9 +48,21 @@ else if(room == rm_tutorialRoom)
 				for(var h1 = 0; h1 < ds_grid_height(global.grid); h1++)
 				{
 					//set borders to 1 (walls/no-walkables)
-					if(w1 == 0 || h1 == 0 || (w1 == ds_grid_width(global.grid) - 1 || h1 == ds_grid_height(global.grid) - 1))
+					if(w1 <= 8 || h1 <= 8)
+					{
+						global.grid[# w1, h1] = 0;
+					}
+					if(w1 == 0 || h1 == 0 || (w1 == 8 && h1 > 8) || (h1 == 8 && w1 >= 8) || (w1 == ds_grid_width(global.grid) - 1 && h1 <= 8) || (h1 == ds_grid_height(global.grid) - 1 && w1 <= 8))
 					{
 						global.grid[# w1,h1] = -2; 
+					}
+					if(w1 <= 8 && h1 == 10)
+					{
+						global.grid[# w1,h1] = -2;
+					}
+					if(w1 == 4 && h1 == 10)
+					{
+						global.grid[# w1, h1] = -1;
 					}
 					
 				}
