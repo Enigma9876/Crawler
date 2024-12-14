@@ -85,6 +85,7 @@
     {"name":"change_door","order":2,"path":"scripts/change_door/change_door.yy",},
     {"name":"change_fog","order":3,"path":"scripts/change_fog/change_fog.yy",},
     {"name":"create_rooms","order":1,"path":"scripts/create_rooms/create_rooms.yy",},
+    {"name":"destroy_room","order":5,"path":"scripts/destroy_room/destroy_room.yy",},
     {"name":"tutorial_room","order":4,"path":"scripts/tutorial_room/tutorial_room.yy",},
     {"name":"spr_archer","order":76,"path":"sprites/spr_archer/spr_archer.yy",},
     {"name":"spr_arrow","order":77,"path":"sprites/spr_arrow/spr_arrow.yy",},

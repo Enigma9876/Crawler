@@ -169,5 +169,13 @@ y = obj_player.y + global.ydistance;
 				
 			}
 			
+			//pickup potion
+			if(global.grid[# w,h] == 9)
+			{
+				destroy_room();
+				create_rooms(irandom_range(2,3),irandom_range(2,3));
+				
+			}
+			
 		}
 	}

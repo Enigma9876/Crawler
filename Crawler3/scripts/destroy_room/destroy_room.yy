@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"find_path",
+  "%Name":"destroy_room",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"find_path",
+  "name":"destroy_room",
   "parent":{
     "name":"Scripts",
     "path":"folders/Scripts.yy",

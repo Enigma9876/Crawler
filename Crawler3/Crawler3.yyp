@@ -30,7 +30,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.2.0.132",
+    "IDEVersion":"2024.8.1.171",
   },
   "name":"Crawler3",
   "resources":[
@@ -105,6 +105,7 @@
     {"id":{"name":"change_door","path":"scripts/change_door/change_door.yy",},},
     {"id":{"name":"change_fog","path":"scripts/change_fog/change_fog.yy",},},
     {"id":{"name":"create_rooms","path":"scripts/create_rooms/create_rooms.yy",},},
+    {"id":{"name":"destroy_room","path":"scripts/destroy_room/destroy_room.yy",},},
     {"id":{"name":"find_path","path":"scripts/find_path/find_path.yy",},},
     {"id":{"name":"tutorial_room","path":"scripts/tutorial_room/tutorial_room.yy",},},
     {"id":{"name":"spr_archer","path":"sprites/spr_archer/spr_archer.yy",},},
