@@ -30,7 +30,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.8.1.171",
+    "IDEVersion":"2024.2.0.132",
   },
   "name":"Crawler3",
   "resources":[
@@ -179,6 +179,7 @@
     {"id":{"name":"spr_wallForward3","path":"sprites/spr_wallForward3/spr_wallForward3.yy",},},
     {"id":{"name":"spr_wallturnaroundleft1","path":"sprites/spr_wallturnaroundleft1/spr_wallturnaroundleft1.yy",},},
     {"id":{"name":"spr_wallturnaroundright1","path":"sprites/spr_wallturnaroundright1/spr_wallturnaroundright1.yy",},},
+    {"id":{"name":"spr_transition","path":"sprites/spr_transition/spr_transition.yy",},},
     {"id":{"name":"ts_tilesDungeon","path":"tilesets/ts_tilesDungeon/ts_tilesDungeon.yy",},},
   ],
   "resourceType":"GMProject",

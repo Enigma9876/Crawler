@@ -157,5 +157,6 @@
     {"name":"spr_wallForward3","order":53,"path":"sprites/spr_wallForward3/spr_wallForward3.yy",},
     {"name":"spr_wallturnaroundleft1","order":29,"path":"sprites/spr_wallturnaroundleft1/spr_wallturnaroundleft1.yy",},
     {"name":"spr_wallturnaroundright1","order":30,"path":"sprites/spr_wallturnaroundright1/spr_wallturnaroundright1.yy",},
+    {"name":"spr_transition","order":83,"path":"sprites/spr_transition/spr_transition.yy",},
   ],
 }

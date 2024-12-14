@@ -627,7 +627,6 @@ function create_rooms(width, height)
 	//print out boxes and potions
 	var maxLadders = 3;
 	var ladderCount = 0;
-	var mandLadder = 0;
 	for(var h = 0; h < ds_grid_height(global.grid); h++)
 	{
 		for(var w = 0; w < ds_grid_width(global.grid); w++)
@@ -644,31 +643,63 @@ function create_rooms(width, height)
 			
 			//deal with random
 			var rand = irandom_range(1,200);
-			if(global.grid[# w,h] == 0 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1)
-			{
-				mandLadder++;
-			}
 			
 			//add possible spawn
-			if(global.grid[# w,h] == 0 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1 && (ladderCount < maxLadders && (rand == 11 || mandLadder == 20)))
+			if(global.grid[# w,h] == 0 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1 && (ladderCount < maxLadders && rand <= 3))
 			{
 				instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_Objects", obj_ladder);
 				global.grid[# w,h] = 9;
-				 ladderCount ++;
+				ladderCount ++;
 			}
-			else if(global.grid[# w,h] == 0 && rand <= 15 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1 && left != -2 && right != -2 && up != -2 && down != -2)
+			else if(global.grid[# w,h] == 0 && rand <= 18 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1 && left != -2 && right != -2 && up != -2 && down != -2)
 			{
 				instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_Objects", obj_box1);
 				global.grid[# w,h] = 3;
 			}
 			//potions
-			else if(global.grid[# w,h] == 0 && w != ds_grid_width(global.grid) - 1 && w != ds_grid_width(global.grid) - 2 && h != ds_grid_height(global.grid) - 1 && h != ds_grid_height(global.grid) - 2 && rand <= 25 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1 && left != -2 && right != -2 && up != -2 && down != -2)
+			else if(global.grid[# w,h] == 0 && w != ds_grid_width(global.grid) - 1 && w != ds_grid_width(global.grid) - 2 && h != ds_grid_height(global.grid) - 1 && h != ds_grid_height(global.grid) - 2 && rand <= 30 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1 && left != -2 && right != -2 && up != -2 && down != -2)
 			{
 				instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_Objects", obj_potion1);
 				global.gridOrg[# w,h] = 2;
 			}
 			
 		}
+	}
+	
+	//make sure that a ladder spawns in the room
+	if(ladderCount == 0)
+	{
+		//set and print player
+		var possibleSpawns = array_create(0);
+		for(var h = 0; h < ds_grid_height(global.grid); h++)
+		{
+			for(var w = 0; w < ds_grid_width(global.grid); w++)
+			{
+				//get adjacent tiles
+				var left = global.grid[# w - 1,h];
+				var right = global.grid[# w + 1,h];
+				var up = global.grid[# w,h - 1];
+				var down = global.grid[# w,h + 1];
+				var left2 = global.grid[# w - 2,h];
+				var right2 = global.grid[# w + 2,h];
+				var up2 = global.grid[# w ,h - 2];
+				var down2 = global.grid[# w ,h + 2];
+				
+				//add possible spawn
+				if(global.gridOrg[# w,h] != 2 && global.grid[# w,h] == 0 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1)
+				{
+					array_push(possibleSpawns, string(w) + " " + string(h));
+				}
+			
+			}
+		}
+		var indexofLadder = irandom_range(0, array_length(possibleSpawns) - 1)
+	
+		var wPos = string_copy(string(array_get(possibleSpawns, indexofLadder)), 1, string_last_pos(" ", string(array_get(possibleSpawns, indexofLadder))) - 1);
+		var hPos = string_copy(string(array_get(possibleSpawns, indexofLadder)),  string_last_pos(" ", string(array_get(possibleSpawns, indexofLadder))) + 1, string_length(string(array_get(possibleSpawns, indexofLadder))));
+	
+		instance_create_layer((real(wPos) * 32) + (room_width div 4), (real(hPos) * 32) + (room_height div 4), "Instances_Objects", obj_ladder);
+		global.grid[# wPos,hPos] = 9;
 	}
 	
 
@@ -695,7 +726,6 @@ function create_rooms(width, height)
 	
 	var wPos = string_copy(string(array_get(possibleSpawns, indexofPlayer)), 1, string_last_pos(" ", string(array_get(possibleSpawns, indexofPlayer))) - 1);
 	var hPos = string_copy(string(array_get(possibleSpawns, indexofPlayer)),  string_last_pos(" ", string(array_get(possibleSpawns, indexofPlayer))) + 1, string_length(string(array_get(possibleSpawns, indexofPlayer))));
-	show_debug_message(string(wPos) + " " + string(hPos));
 	
 	instance_create_layer((real(wPos) * 32) + (room_width div 4) + 16, (real(hPos) * 32) + (room_height div 4) + 16, "Instances_player", obj_player);
 	instance_create_layer((real(wPos) * 32) + (room_width div 4) - 32, (real(hPos) * 32) + (room_height div 4), "Instances_player", obj_selection);
@@ -732,7 +762,7 @@ function create_rooms(width, height)
 			var rand = irandom_range(1,50);
 			
 			//add possible spawn
-			if(global.gridOrg[# w,h] != 2 && global.gridOrg[# w,h] != 4 && global.grid[# w,h] == 0 && rand <= 3 && left3 != 4 && right3 != 4 && down3 != 4 && up3 != 4 && left4 != 4 && right4 != 4 && down4 != 4 && up4 != 4 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1 && w != ds_grid_width(global.grid) - 1 && w != ds_grid_width(global.grid) - 2 && h != ds_grid_height(global.grid) - 1 && h != ds_grid_height(global.grid) - 2)
+			if(global.gridOrg[# w,h] != 2 && global.gridOrg[# w,h] != 4 && global.grid[# w,h] == 0 && rand <= ((global.levelCount + 2)/3) && left3 != 4 && right3 != 4 && down3 != 4 && up3 != 4 && left4 != 4 && right4 != 4 && down4 != 4 && up4 != 4 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1 && w != ds_grid_width(global.grid) - 1 && w != ds_grid_width(global.grid) - 2 && h != ds_grid_height(global.grid) - 1 && h != ds_grid_height(global.grid) - 2)
 			{
 				instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_Enemies", obj_enemy1);
 				global.gridOrg[# w,h] = 5;
