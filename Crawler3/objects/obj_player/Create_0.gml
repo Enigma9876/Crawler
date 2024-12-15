@@ -1,4 +1,4 @@
-//bugs:fog: occasionally left & right are completely black
+//bugs:fog: occasionally left & right are completely black, door randomly after death of some kind not closing: no idea why
 
 Move_left = false;
 Move_right = false;

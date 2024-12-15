@@ -35,7 +35,7 @@ y = obj_player.y + global.ydistance;
 			var right = global.grid[# w + 1,h];
 			var up = global.grid[# w,h - 1];
 			var down = global.grid[# w,h + 1];
-			if(global.gridOrg[# w, h] == 5 || global.gridPow[# w,h] == 6) //enemy
+			if(global.gridOrg[# w, h] == 5 || global.gridPow[# w,h] == 6 || global.gridPow[# w,h] == 7) //enemy
 			{
 				if(global.gridOrg[# w, h] == 5) //enemy
 				{
@@ -54,7 +54,7 @@ y = obj_player.y + global.ydistance;
 				}
 					
 				//pickup arrow
-				else if(global.gridPow[# w,h] == 6)
+				else if(global.gridPow[# w,h] == 6 || global.gridPow[# w,h] == 7)
 				{
 					var instances = ds_list_create();
 					for(var h2 = 16; h2 >= -16; h2--)
@@ -73,13 +73,7 @@ y = obj_player.y + global.ydistance;
 							i++
 						}
 						ds_list_destroy(instances);
-						global.turn += 1;
-				
-				}
-			}
-			else if(global.gridPow[# w,h] == 7)
-			{
-				var instances = ds_list_create();
+						var instances = ds_list_create();
 					for(var h2 = 16; h2 >= -16; h2--)
 					{
 						for(var w2 = 16; w2 >= -16; w2--)
@@ -97,7 +91,10 @@ y = obj_player.y + global.ydistance;
 						}
 						ds_list_destroy(instances);
 						global.turn += 1;
+						
+						global.gridPow[# w,h] = 0;
 				
+				}
 			}
 			else if(global.grid[# w, h] == -1)
 			{

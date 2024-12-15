@@ -4,6 +4,8 @@ function create_rooms(width, height)
 	//11 signs (only for tutorial)
 	//10 = empty space out side grid
 	//9 = ladder
+	//8 trap
+	//7 small potion
 	//6 arrows
 	//5 = enemies
 	//4 = player
@@ -662,6 +664,11 @@ function create_rooms(width, height)
 			{
 				instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_Objects", obj_potion1);
 				global.gridOrg[# w,h] = 2;
+			}
+			else if(global.grid[# w,h] == 0 && global.gridOrg[# w,h] != 2 && rand <= 40 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1 && left != -2 && right != -2 && up != -2 && down != -2)
+			{
+				instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_Objects", obj_trap1);
+				global.grid[# w,h] = 8;
 			}
 			
 		}

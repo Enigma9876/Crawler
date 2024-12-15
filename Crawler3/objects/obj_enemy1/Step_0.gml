@@ -262,7 +262,7 @@ else
 	checkifMove = false;
 }
 
-if(sprite_index == spr_enemy1Death && image_index >= 4)
+if(sprite_index == spr_enemy1Death && image_index >= 4 && death)
 {
 	instance_destroy(id, false);
 }
