@@ -4,7 +4,7 @@ if(global.canMove == true)
 	//press and hold feature
 	if(keyboard_check(ord("W")))
 	{
-		if (global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 - 1] != 5 && (global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 - 1] == 1 || global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 - 1] == 0))
+		if (global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 - 1] != 5 && (global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 - 1] == 1 || global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 - 1] == 0) || global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 - 1] == 9)
 		{
 			Move_up = true;
 			global.canMove = false;
@@ -17,7 +17,7 @@ if(global.canMove == true)
 	}
 	else if(keyboard_check(ord("D")))
 	{
-		if (global.gridOrg[# (x - 16 - (room_width div 4)) div 32 + 1, (y - 16 - (room_height div 4)) div 32] != 5 && (global.grid[# (x - 16 - (room_width div 4)) div 32 + 1, (y - 16 - (room_height div 4)) div 32] == 1 || global.grid[# (x - 16 - (room_width div 4)) div 32 + 1, (y - 16 - (room_height div 4)) div 32] == 0))
+		if (global.gridOrg[# (x - 16 - (room_width div 4)) div 32 + 1, (y - 16 - (room_height div 4)) div 32] != 5 && (global.grid[# (x - 16 - (room_width div 4)) div 32 + 1, (y - 16 - (room_height div 4)) div 32] == 1 || global.grid[# (x - 16 - (room_width div 4)) div 32 + 1, (y - 16 - (room_height div 4)) div 32] == 0) || global.grid[# (x - 16 - (room_width div 4)) div 32 + 1, (y - 16 - (room_height div 4)) div 32] == 9)
 		{
 			Move_right = true;
 			global.canMove = false;
@@ -30,7 +30,7 @@ if(global.canMove == true)
 	}
 	else if(keyboard_check(ord("S")))
 	{
-		if (global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 + 1] != 5 && (global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 + 1] == 1 || global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 + 1] == 0))
+		if (global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 + 1] != 5 && (global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 + 1] == 1 || global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 + 1] == 0) || global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 + 1] == 9)
 		{
 			Move_down = true;
 			global.canMove = false;
@@ -43,7 +43,7 @@ if(global.canMove == true)
 	}
 	else if(keyboard_check(ord("A")))
 	{
-		if (global.gridOrg[# (x - 16 - (room_width div 4)) div 32 - 1, (y - 16 - (room_height div 4)) div 32] != 5 && (global.grid[# ((x - 16 - (room_width div 4)) div 32 - 1), ((y - 16 - (room_height div 4)) div 32)] == 1 || global.grid[# ((x - 16 - (room_width div 4)) div 32 - 1), ((y - 16 - (room_height div 4)) div 32)] == 0))
+		if (global.gridOrg[# (x - 16 - (room_width div 4)) div 32 - 1, (y - 16 - (room_height div 4)) div 32] != 5 && (global.grid[# ((x - 16 - (room_width div 4)) div 32 - 1), ((y - 16 - (room_height div 4)) div 32)] == 1 || global.grid[# ((x - 16 - (room_width div 4)) div 32 - 1), ((y - 16 - (room_height div 4)) div 32)] == 0) || global.grid[# (x - 16 - (room_width div 4)) div 32 - 1, (y - 16 - (room_height div 4)) div 32] == 9)
 		{
 			Move_left = true;
 			global.canMove = false;
@@ -59,7 +59,7 @@ if(global.canMove == true)
 	
 	if(keyboard_check_pressed(ord("Q")))
 	{
-		if(global.arrowCount > 0)
+		if(global.arrowCount > 0 && global.activeArrow == 1)
 		{
 			var arrow = instance_create_layer(x, y, "Instances_projectiles", obj_arrowFire);
 			if(global.xdistance = -32 && global.ydistance = 0)
@@ -93,6 +93,85 @@ if(global.canMove == true)
 			//delete arrow from amount
 			global.turn++;
 			global.arrowCount--;
+		}
+		else if(global.arrowCount2 > 0 && global.activeArrow == 2)
+		{
+			var arrow = instance_create_layer(x, y, "Instances_projectiles", obj_arrow2Fire);
+			if(global.xdistance = -32 && global.ydistance = 0)
+			{
+				arrow.image_angle = 135;
+				arrow.speed = -5;
+			}
+			else if(global.xdistance = 32 && global.ydistance = 0)
+			{
+				arrow.image_angle = 315;
+				arrow.speed = 5;
+			}
+			else if(global.xdistance = 0 && global.ydistance = 32)
+			{
+				arrow.image_angle = 225;
+				arrow.vspeed = 5;
+			}
+			else if(global.xdistance = 0 && global.ydistance = -32)
+			{
+				arrow.image_angle = 45;
+				arrow.vspeed = -5;
+			}
+			else
+			{
+				//default to right if problem
+				arrow.image_angle = 315;
+				arrow.speed = 5;
+			}
+			
+			
+			//delete arrow from amount
+			global.turn++;
+			global.arrowCount2--;
+		}
+		else if(global.arrowCount3 > 0 && global.activeArrow == 3)
+		{
+			var arrow1 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
+			var arrow2 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
+			var arrow3 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
+			var arrow4 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
+			var arrow5 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
+			var arrow6 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
+			var arrow7 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
+			var arrow8 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
+			arrow1.image_angle = 135;
+			arrow1.speed = -5;
+			arrow2.image_angle = 315;
+			arrow2.speed = 5;
+			arrow3.image_angle = 225;
+			arrow3.vspeed = 5;
+			arrow4.image_angle = 45;
+			arrow4.vspeed = -5;
+			arrow5.image_angle = 90;
+			arrow5.speed = -4;
+			arrow5.vspeed = -3;
+			arrow6.image_angle = 180;
+			arrow6.speed = -4;
+			arrow6.vspeed = 3;
+			arrow7.image_angle = 270;
+			arrow7.speed = 4;
+			arrow7.vspeed = 3;
+			arrow8.image_angle = 360;
+			arrow8.speed = 4;
+			arrow8.vspeed = -3;
+			
+			//delete arrow from amount
+			global.turn++;
+			global.arrowCount3--;
+		}
+	}
+	//change arrow selection
+	if(keyboard_check_pressed(ord("E")))
+	{
+		global.activeArrow++;
+		if(global.activeArrow > 3)
+		{
+			global.activeArrow = 1;
 		}
 	}
 	

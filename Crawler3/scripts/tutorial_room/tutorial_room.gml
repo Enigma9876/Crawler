@@ -262,8 +262,12 @@ function tutorial_room()
 						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floor4);
 				}
 			}
-			
-			if(w == 4 && h == 23)
+			if(w == 4 && h == 40)
+			{
+				global.grid[# w,h] = 11;
+				instance_create_layer((real(w) * 32) + (room_width div 4), (real(h) * 32) + (room_height div 4), "Instances_player", obj_sign1);
+			}
+			if(w == 4 && h == 41)
 			{
 				global.gridOrg[# w,h] = 4;
 				global.grid[# w, h] = 0;

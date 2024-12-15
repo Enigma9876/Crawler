@@ -8,7 +8,10 @@ randomize();
 	global.ydistance = 0;
 	global.gridOrg = ds_grid_create(0, 0);
 	global.gridPow = ds_grid_create(0,0);
+	global.activeArrow = 1;
 	global.arrowCount = 3;
+	global.arrowCount2 = 3;
+	global.arrowCount3 = 4;
 	global.levelCount = 1;
 
 	// Create a reservation grid (same size as global.gridOrg)
@@ -42,7 +45,7 @@ if(room == rm_level1)
 }
 else if(room == rm_tutorialRoom)
 {
-	global.grid = ds_grid_create(25, 25);
+	global.grid = ds_grid_create(45, 45);
 	ds_grid_clear(global.grid, 10);
 	for(var w1 = 0; w1 < ds_grid_width(global.grid); w1++)
 			{

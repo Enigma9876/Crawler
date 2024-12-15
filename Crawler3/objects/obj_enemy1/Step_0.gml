@@ -3,9 +3,18 @@ if(hp <= 0)
 	//die
 	if(!death)
 	{
-		global.gridPow[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 6;
 		global.gridOrg[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 0;
-		instance_create_layer(x, y , "Instances_Enemies", obj_arrow);
+		var rand = irandom_range(1,2);
+		if(rand == 1)
+		{
+			global.gridPow[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 6;
+			instance_create_layer(x, y , "Instances_Enemies", obj_arrow);
+		}
+		else if(rand == 2)
+		{
+			global.gridPow[# ((x - (room_width div 4)) div 32), ((y - (room_height div 4)) div 32)] = 7;
+			instance_create_layer(x - 16, y - 16, "Instances_Enemies", obj_potion2);
+		}
 		death = true;
 	}
 	instance_destroy(border);
@@ -253,7 +262,7 @@ else
 	checkifMove = false;
 }
 
-if(sprite_index == spr_enemy1Death && image_index >= 5)
+if(sprite_index == spr_enemy1Death && image_index >= 4)
 {
 	instance_destroy(id, false);
 }

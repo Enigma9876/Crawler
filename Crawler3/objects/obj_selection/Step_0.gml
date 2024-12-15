@@ -1,26 +1,28 @@
 x = obj_player.x + global.xdistance;
 y = obj_player.y + global.ydistance;
 
-	if(keyboard_check(vk_left) || keyboard_check(ord("A")))
+	if(keyboard_check(ord("A")) || keyboard_check_pressed(vk_left))
 	{
 		global.xdistance = -32;
 		global.ydistance = 0;
 	}
-	else if(keyboard_check(vk_right) || keyboard_check(ord("D")))
+	else if(keyboard_check(ord("D")) || keyboard_check_pressed(vk_right))
 	{
 		global.xdistance = 32;
 		global.ydistance = 0;
 	}
-	else if(keyboard_check(vk_up) || keyboard_check(ord("W")))
+	else if(keyboard_check(ord("W")) || keyboard_check_pressed(vk_up))
 	{
 		global.xdistance = 0;
 		global.ydistance = -32;
 	}
-	else if(keyboard_check(vk_down) || keyboard_check(ord("S")))
+	else if(keyboard_check(ord("S")) || keyboard_check_pressed(vk_down))
 	{
 		global.xdistance = 0;
 		global.ydistance = 32;
 	}
+	
+	
 	
 	if(global.canMove == true)
 	{
@@ -39,6 +41,7 @@ y = obj_player.y + global.ydistance;
 				{
 				var instances = ds_list_create();
 					var n = collision_point_list(x, y, obj_enemy1, false, true, instances, false);
+					var n = collision_point_list(x, y, obj_enemy1Elite, false, true, instances, false);
 					var i = 0;
 					repeat ds_list_size(instances) 
 					{
@@ -53,7 +56,6 @@ y = obj_player.y + global.ydistance;
 				//pickup arrow
 				else if(global.gridPow[# w,h] == 6)
 				{
-					show_debug_message("pick up arrow");
 					var instances = ds_list_create();
 					for(var h2 = 16; h2 >= -16; h2--)
 					{
@@ -74,6 +76,28 @@ y = obj_player.y + global.ydistance;
 						global.turn += 1;
 				
 				}
+			}
+			else if(global.gridPow[# w,h] == 7)
+			{
+				var instances = ds_list_create();
+					for(var h2 = 16; h2 >= -16; h2--)
+					{
+						for(var w2 = 16; w2 >= -16; w2--)
+						{
+							var n = collision_point_list(x + w2, y + h2, obj_potion2, false, true, instances, false);
+						}
+					}
+						var i = 0;
+						repeat ds_list_size(instances)
+						{
+							global.gridPow[# w,h] = 0;
+							instance_destroy(instances[| i]);
+							global.hp += 10;
+							i++
+						}
+						ds_list_destroy(instances);
+						global.turn += 1;
+				
 			}
 			else if(global.grid[# w, h] == -1)
 			{
@@ -195,6 +219,21 @@ y = obj_player.y + global.ydistance;
 				
 				destroy_room();
 				
+			}
+			
+			if(global.grid[# w,h] == 3)
+			{
+				global.grid[# w,h] = 0;
+				var instances = ds_list_create();
+				var n = collision_point_list(x, y, obj_box1, false, true, instances, false);
+				var i = 0;
+				repeat ds_list_size(instances) 
+				{
+					instances[| i].destroy = true;
+					i++
+				}
+				ds_list_destroy(instances);
+				global.turn += 1;
 			}
 			
 		}

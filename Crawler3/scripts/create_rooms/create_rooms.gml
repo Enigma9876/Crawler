@@ -1,6 +1,7 @@
 function create_rooms(width, height)
 {
 	//indexes meanings
+	//11 signs (only for tutorial)
 	//10 = empty space out side grid
 	//9 = ladder
 	//6 arrows
@@ -764,7 +765,15 @@ function create_rooms(width, height)
 			//add possible spawn
 			if(global.gridOrg[# w,h] != 2 && global.gridOrg[# w,h] != 4 && global.grid[# w,h] == 0 && rand <= ((global.levelCount + 2)/3) && left3 != 4 && right3 != 4 && down3 != 4 && up3 != 4 && left4 != 4 && right4 != 4 && down4 != 4 && up4 != 4 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1 && w != ds_grid_width(global.grid) - 1 && w != ds_grid_width(global.grid) - 2 && h != ds_grid_height(global.grid) - 1 && h != ds_grid_height(global.grid) - 2)
 			{
-				instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_Enemies", obj_enemy1);
+				var rand2 = irandom_range(1,10);
+				if(rand2 == 1)
+				{
+					instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_Enemies", obj_enemy1Elite);
+				}
+				else
+				{
+					instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_Enemies", obj_enemy1);
+				}
 				global.gridOrg[# w,h] = 5;
 			}
 			
