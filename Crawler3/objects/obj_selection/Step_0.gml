@@ -23,14 +23,14 @@ y = obj_player.y + global.ydistance;
 	}
 	
 	
-	
+
 	if(global.canMove == true)
 	{
+		var w = ((x - (room_width div 4)) div 32);
+		var h = ((y - (room_height div 4)) div 32);
 		if(keyboard_check_pressed(vk_space))
 		{
 			global.canMove = false;
-			var w = ((x - (room_width div 4)) div 32);
-			var h = ((y - (room_height div 4)) div 32);
 			var left = global.grid[# w - 1,h];
 			var right = global.grid[# w + 1,h];
 			var up = global.grid[# w,h - 1];

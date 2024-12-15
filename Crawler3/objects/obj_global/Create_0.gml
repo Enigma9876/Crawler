@@ -4,8 +4,8 @@ randomize();
 	//globals
 	global.turn = 0;
 	global.enemyCount = 0;
-	global.xdistance = -32;
-	global.ydistance = 0;
+	global.xdistance = 0;
+	global.ydistance = -32;
 	global.gridOrg = ds_grid_create(0, 0);
 	global.gridPow = ds_grid_create(0,0);
 	global.activeArrow = 1;

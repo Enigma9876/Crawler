@@ -154,6 +154,7 @@
     {"name":"spr_sideDoorRight1","order":24,"path":"sprites/spr_sideDoorRight1/spr_sideDoorRight1.yy",},
     {"name":"spr_sideDoorRight2","order":50,"path":"sprites/spr_sideDoorRight2/spr_sideDoorRight2.yy",},
     {"name":"spr_sign","order":92,"path":"sprites/spr_sign/spr_sign.yy",},
+    {"name":"spr_signshow","order":93,"path":"sprites/spr_signshow/spr_signshow.yy",},
     {"name":"spr_specialFloor","order":58,"path":"sprites/spr_specialFloor/spr_specialFloor.yy",},
     {"name":"spr_specialFloor2","order":59,"path":"sprites/spr_specialFloor2/spr_specialFloor2.yy",},
     {"name":"spr_specialFloor3","order":61,"path":"sprites/spr_specialFloor3/spr_specialFloor3.yy",},

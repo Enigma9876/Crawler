@@ -176,6 +176,7 @@
     {"id":{"name":"spr_sideDoorRight1","path":"sprites/spr_sideDoorRight1/spr_sideDoorRight1.yy",},},
     {"id":{"name":"spr_sideDoorRight2","path":"sprites/spr_sideDoorRight2/spr_sideDoorRight2.yy",},},
     {"id":{"name":"spr_sign","path":"sprites/spr_sign/spr_sign.yy",},},
+    {"id":{"name":"spr_signshow","path":"sprites/spr_signshow/spr_signshow.yy",},},
     {"id":{"name":"spr_specialFloor","path":"sprites/spr_specialFloor/spr_specialFloor.yy",},},
     {"id":{"name":"spr_specialFloor2","path":"sprites/spr_specialFloor2/spr_specialFloor2.yy",},},
     {"id":{"name":"spr_specialFloor3","path":"sprites/spr_specialFloor3/spr_specialFloor3.yy",},},
