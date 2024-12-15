@@ -262,18 +262,40 @@ function tutorial_room()
 						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floor4);
 				}
 			}
-			if(w == 4 && h == 40)
+			if((w == 4 && h == 30) || (w == 3 && h == 26) || (w == 2 && h == 13) || (w == 4 && h == 6) || (w == 3 && h == 8))
 			{
 				global.grid[# w,h] = 11;
 				instance_create_layer((real(w) * 32) + (room_width div 4), (real(h) * 32) + (room_height div 4), "Instances_player", obj_sign1);
 			}
-			if(w == 4 && h == 41)
+			if(w == 4 && h == 31)
 			{
 				global.gridOrg[# w,h] = 4;
 				global.grid[# w, h] = 0;
 				instance_create_layer((real(w) * 32) + (room_width div 4) + 16, (real(h) * 32) + (room_height div 4) + 16, "Instances_player", obj_player);
 				instance_create_layer((real(w) * 32) + (room_width div 4) - 32, (real(h) * 32) + (room_height div 4), "Instances_player", obj_selection);
 			}
+			if((w == 3 && h == 15) || (w == 5 && h == 18) || (w == 6 && h == 13))
+			{
+				instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_Enemies", obj_enemy1);
+				global.gridOrg[# w,h] = 5;
+			}
+			else if(w == 2 && h == 12)
+			{
+				instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_Objects", obj_trap1);
+				global.grid[# w,h] = 8;
+			}
+			else if((w == 2 && h == 3) || (w == 7 && h == 5) || (w == 3 && h == 4))
+			{
+				instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_Objects", obj_box1);
+				global.grid[# w,h] = 3;
+			}
+			//potions
+			else if((w == 1 && h == 4))
+			{
+				instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_Objects", obj_potion1);
+				global.gridOrg[# w,h] = 2;
+			}
+			
 			
 		}
 	}
