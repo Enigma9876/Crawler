@@ -8,12 +8,12 @@ if(hp <= 0)
 		if(rand == 1)
 		{
 			global.gridPow[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 6;
-			instance_create_layer(x, y , "Instances_Enemies", obj_arrow);
+			instance_create_layer(x, y , "Instances_Enemies", obj_arrow2);
 		}
 		else if(rand == 2)
 		{
-			global.gridPow[# ((x - (room_width div 4)) div 32), ((y - (room_height div 4)) div 32)] = 7;
-			instance_create_layer(x - 16, y - 16, "Instances_Enemies", obj_potion2);
+			global.gridPow[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 6;
+			instance_create_layer(x, y , "Instances_Enemies", obj_arrow3);
 		}
 		death = true;
 	}

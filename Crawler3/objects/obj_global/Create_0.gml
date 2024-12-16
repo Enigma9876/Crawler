@@ -49,6 +49,8 @@ else if(room == rm_tutorialRoom)
 	global.arrowCount2 = 0;
 	global.arrowCount3 = 0;
 	global.grid = ds_grid_create(45, 35);
+	global.grid_width = 45;  // Number of cells in the grid's width
+	global.grid_height = 35; // Number of cells in the grid's height
 	ds_grid_clear(global.grid, 10);
 	for(var w1 = 0; w1 < ds_grid_width(global.grid); w1++)
 			{

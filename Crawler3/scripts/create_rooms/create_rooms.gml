@@ -15,6 +15,8 @@ function create_rooms(width, height)
 	//0 = floor
 	//-1 = doors
 	//-2 = walls
+	
+	global.canMove = false;
 		
 	var arrayWithRooms = ds_grid_create(width, height)
 	
@@ -660,12 +662,12 @@ function create_rooms(width, height)
 				global.grid[# w,h] = 3;
 			}
 			//potions
-			else if(global.grid[# w,h] == 0 && w != ds_grid_width(global.grid) - 1 && w != ds_grid_width(global.grid) - 2 && h != ds_grid_height(global.grid) - 1 && h != ds_grid_height(global.grid) - 2 && rand <= 30 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1 && left != -2 && right != -2 && up != -2 && down != -2)
+			else if(global.grid[# w,h] == 0 && w != ds_grid_width(global.grid) - 1 && w != ds_grid_width(global.grid) - 2 && h != ds_grid_height(global.grid) - 1 && h != ds_grid_height(global.grid) - 2 && rand <= 25 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1 && left != -2 && right != -2 && up != -2 && down != -2)
 			{
 				instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_Objects", obj_potion1);
 				global.gridOrg[# w,h] = 2;
 			}
-			else if(global.grid[# w,h] == 0 && global.gridOrg[# w,h] != 2 && rand <= 40 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1 && left != -2 && right != -2 && up != -2 && down != -2)
+			else if(global.grid[# w,h] == 0 && global.gridOrg[# w,h] != 2 && rand <= 35 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1 && left != -2 && right != -2 && up != -2 && down != -2)
 			{
 				instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_Objects", obj_trap1);
 				global.grid[# w,h] = 8;
@@ -723,7 +725,7 @@ function create_rooms(width, height)
 		{
 			
 			//add possible spawn
-			if(global.grid[# w,h] == 0 && global.grid[# w,h] != 2 && w != ds_grid_width(global.grid) - 1 && w != ds_grid_width(global.grid) - 2 && h != ds_grid_height(global.grid) - 1 && h != ds_grid_height(global.grid) - 2)
+			if(global.grid[# w,h] == 0 && global.gridOrg[# w,h] != 2 && w != ds_grid_width(global.grid) - 1 && w != ds_grid_width(global.grid) - 2 && h != ds_grid_height(global.grid) - 1 && h != ds_grid_height(global.grid) - 2)
 			{
 				array_push(possibleSpawns, string(w) + " " + string(h));
 			}
@@ -772,14 +774,29 @@ function create_rooms(width, height)
 			//add possible spawn
 			if(global.gridOrg[# w,h] != 2 && global.gridOrg[# w,h] != 4 && global.grid[# w,h] == 0 && rand <= ((global.levelCount + 2)/3) && left3 != 4 && right3 != 4 && down3 != 4 && up3 != 4 && left4 != 4 && right4 != 4 && down4 != 4 && up4 != 4 && left != -1 && right != -1 && down != -1 && up != -1 && left2 != -1 && right2 != -1 && down2 != -1 && up2 != -1 && w != ds_grid_width(global.grid) - 1 && w != ds_grid_width(global.grid) - 2 && h != ds_grid_height(global.grid) - 1 && h != ds_grid_height(global.grid) - 2)
 			{
-				var rand2 = irandom_range(1,10);
-				if(rand2 == 1)
+				var rand2 = irandom_range(1,20);
+				if(rand2 == 1 && global.levelCount > 2)
 				{
 					instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_Enemies", obj_enemy1Elite);
 				}
+				else if(rand2 <= 2 && global.levelCount > 2)
+				{
+					instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_Enemies", obj_enemy2Elite);
+				}
+				else if(rand2 <= 3 && global.levelCount > 4)
+				{
+					instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_Enemies", obj_enemy3);
+				}
 				else
 				{
-					instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_Enemies", obj_enemy1);
+					if(rand2 <= 12 && global.levelCount > 3)
+					{
+						instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_Enemies", obj_enemy2);
+					}
+					else if(rand2 <= 20)
+					{
+						instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_Enemies", obj_enemy1);
+					}
 				}
 				global.gridOrg[# w,h] = 5;
 			}
@@ -832,5 +849,6 @@ function create_rooms(width, height)
 	}
 	
 	//show_debug_message(gridString);
+	global.canMove = false;
 	
 }

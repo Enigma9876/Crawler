@@ -28,8 +28,16 @@ if(global.grid[# w, h] == 11)
 		}	
 		else if(x == 652 && y == 716)
 		{
-			draw_text(10, 110, "Break the boxes");
+			draw_text(10, 110, "Break the boxes\ncollect the loot using SPACE\nor walking onto the tile\n\nHeal up using the potions");
 		}	
+		else if(x == 812 && y == 620)
+		{
+			draw_text(10, 110, "Use Q to shoot arrows\nat enemies");
+		}
+		else if(x == 1388 && y == 620)
+		{
+			draw_text(10, 110, "Use E to swap arrow\ntypes\n\nKill the Elite enemy and\nmake it to the ladder");
+		}
 		i++
 	}
 	ds_list_destroy(instances);

@@ -6,12 +6,48 @@ if(global.canMove == true)
 	{
 		if (global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 - 1] != 5 && (global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 - 1] == 1 || global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 - 1] == 0) || global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 - 1] == 9 || global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 - 1] == 8)
 		{
-			Move_up = true;
-			global.canMove = false;
-			firstTouch = true;
-			global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 0;
-			global.xdistance = 0;
-			global.ydistance = -32;
+			if(global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 - 1] == 9)
+			{
+				global.canMove = false;
+				if(room == rm_tutorialRoom)
+				{
+					room = rm_main
+				}
+				else
+				{
+					global.levelCount++
+					global.gridOrg = ds_grid_create(0, 0);
+					global.gridPow = ds_grid_create(0,0);
+					global.enemyCount = 0;
+				
+					// Create a reservation grid (same size as global.gridOrg)
+					global.reservationGrid = ds_grid_create(ds_grid_width(global.gridOrg), ds_grid_height(global.gridOrg));
+					ds_grid_clear(global.reservationGrid, 0);
+				
+					// Create a grid to represent walkable (0) and non-walkable (1) areas
+					global.grid = ds_grid_create(global.grid_width, global.grid_height);
+
+					global.gridRes = ds_grid_create(0,0);
+
+					// fill the grid with walkable cells initially
+					for (var i = 0; i < global.grid_width; i++) {
+					    for (var j = 0; j < global.grid_height; j++) {
+					        global.grid[# i, j] = 10; // set empty space outside
+					    }
+					}
+				
+					destroy_room();
+				}
+			}
+			else
+			{
+				Move_up = true;
+				global.canMove = false;
+				firstTouch = true;
+				global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 0;
+				global.xdistance = 0;
+				global.ydistance = -32;
+			}
 
 		}
 	}
@@ -19,12 +55,49 @@ if(global.canMove == true)
 	{
 		if (global.gridOrg[# (x - 16 - (room_width div 4)) div 32 + 1, (y - 16 - (room_height div 4)) div 32] != 5 && (global.grid[# (x - 16 - (room_width div 4)) div 32 + 1, (y - 16 - (room_height div 4)) div 32] == 1 || global.grid[# (x - 16 - (room_width div 4)) div 32 + 1, (y - 16 - (room_height div 4)) div 32] == 0) || global.grid[# (x - 16 - (room_width div 4)) div 32 + 1, (y - 16 - (room_height div 4)) div 32] == 9 || global.grid[# (x - 16 - (room_width div 4)) div 32 + 1, (y - 16 - (room_height div 4)) div 32] == 8)
 		{
-			Move_right = true;
-			global.canMove = false;
-			firstTouch = true;
-			global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 0;
-			global.xdistance = 32;
-			global.ydistance = 0;
+			image_xscale = 1;
+			if(global.grid[# (x - 16 - (room_width div 4)) div 32 + 1, (y - 16 - (room_height div 4)) div 32] == 9)
+			{
+				global.canMove = false;
+				if(room == rm_tutorialRoom)
+				{
+					room = rm_main
+				}
+				else
+				{
+					global.levelCount++
+					global.gridOrg = ds_grid_create(0, 0);
+					global.gridPow = ds_grid_create(0,0);
+					global.enemyCount = 0;
+				
+					// Create a reservation grid (same size as global.gridOrg)
+					global.reservationGrid = ds_grid_create(ds_grid_width(global.gridOrg), ds_grid_height(global.gridOrg));
+					ds_grid_clear(global.reservationGrid, 0);
+				
+					// Create a grid to represent walkable (0) and non-walkable (1) areas
+					global.grid = ds_grid_create(global.grid_width, global.grid_height);
+
+					global.gridRes = ds_grid_create(0,0);
+
+					// fill the grid with walkable cells initially
+					for (var i = 0; i < global.grid_width; i++) {
+					    for (var j = 0; j < global.grid_height; j++) {
+					        global.grid[# i, j] = 10; // set empty space outside
+					    }
+					}
+				
+					destroy_room();
+				}
+			}
+			else
+			{
+				Move_right = true;
+				global.canMove = false;
+				firstTouch = true;
+				global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 0;
+				global.xdistance = 32;
+				global.ydistance = 0;
+			}
 			
 		}
 	}
@@ -32,12 +105,48 @@ if(global.canMove == true)
 	{
 		if (global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 + 1] != 5 && (global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 + 1] == 1 || global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 + 1] == 0) || global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 + 1] == 9 || global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 + 1] == 8)
 		{
-			Move_down = true;
-			global.canMove = false;
-			firstTouch = true;
-			global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 0;
-			global.xdistance = 0;
-			global.ydistance = 32;
+			if(global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 + 1] == 9)
+			{
+				global.canMove = false;
+				if(room == rm_tutorialRoom)
+				{
+					room = rm_main
+				}
+				else
+				{
+					global.levelCount++
+					global.gridOrg = ds_grid_create(0, 0);
+					global.gridPow = ds_grid_create(0,0);
+					global.enemyCount = 0;
+				
+					// Create a reservation grid (same size as global.gridOrg)
+					global.reservationGrid = ds_grid_create(ds_grid_width(global.gridOrg), ds_grid_height(global.gridOrg));
+					ds_grid_clear(global.reservationGrid, 0);
+				
+					// Create a grid to represent walkable (0) and non-walkable (1) areas
+					global.grid = ds_grid_create(global.grid_width, global.grid_height);
+
+					global.gridRes = ds_grid_create(0,0);
+
+					// fill the grid with walkable cells initially
+					for (var i = 0; i < global.grid_width; i++) {
+					    for (var j = 0; j < global.grid_height; j++) {
+					        global.grid[# i, j] = 10; // set empty space outside
+					    }
+					}
+				
+					destroy_room();
+				}
+			}
+			else
+			{
+				Move_down = true;
+				global.canMove = false;
+				firstTouch = true;
+				global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 0;
+				global.xdistance = 0;
+				global.ydistance = 32;
+			}
 			
 		}
 	}
@@ -45,13 +154,50 @@ if(global.canMove == true)
 	{
 		if (global.gridOrg[# (x - 16 - (room_width div 4)) div 32 - 1, (y - 16 - (room_height div 4)) div 32] != 5 && (global.grid[# ((x - 16 - (room_width div 4)) div 32 - 1), ((y - 16 - (room_height div 4)) div 32)] == 1 || global.grid[# ((x - 16 - (room_width div 4)) div 32 - 1), ((y - 16 - (room_height div 4)) div 32)] == 0) || global.grid[# (x - 16 - (room_width div 4)) div 32 - 1, (y - 16 - (room_height div 4)) div 32] == 9 || global.grid[# (x - 16 - (room_width div 4)) div 32 - 1, (y - 16 - (room_height div 4)) div 32] == 8)
 		{
-			Move_left = true;
-			global.canMove = false;
-			firstTouch = true;
-			global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 0;
+			image_xscale = -1;
+			if(global.grid[# (x - 16 - (room_width div 4)) div 32 - 1, (y - 16 - (room_height div 4)) div 32] == 9)
+			{
+				global.canMove = false;
+				if(room == rm_tutorialRoom)
+				{
+					room = rm_main
+				}
+				else
+				{
+					global.levelCount++
+					global.gridOrg = ds_grid_create(0, 0);
+					global.gridPow = ds_grid_create(0,0);
+					global.enemyCount = 0;
+				
+					// Create a reservation grid (same size as global.gridOrg)
+					global.reservationGrid = ds_grid_create(ds_grid_width(global.gridOrg), ds_grid_height(global.gridOrg));
+					ds_grid_clear(global.reservationGrid, 0);
+				
+					// Create a grid to represent walkable (0) and non-walkable (1) areas
+					global.grid = ds_grid_create(global.grid_width, global.grid_height);
+
+					global.gridRes = ds_grid_create(0,0);
+
+					// fill the grid with walkable cells initially
+					for (var i = 0; i < global.grid_width; i++) {
+					    for (var j = 0; j < global.grid_height; j++) {
+					        global.grid[# i, j] = 10; // set empty space outside
+					    }
+					}
+				
+					destroy_room();
+				}
+			}
+			else
+			{
+				Move_left = true;
+				global.canMove = false;
+				firstTouch = true;
+				global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 0;
 			
-			global.xdistance = -32;
-			global.ydistance = 0;
+				global.xdistance = -32;
+				global.ydistance = 0;
+			}
 
 		}
 		
@@ -96,33 +242,30 @@ if(global.canMove == true)
 		}
 		else if(global.arrowCount2 > 0 && global.activeArrow == 2)
 		{
-			var arrow = instance_create_layer(x, y, "Instances_projectiles", obj_arrow2Fire);
-			if(global.xdistance = -32 && global.ydistance = 0)
+			global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 - 1] = 0;
+			var possibleSpawns = array_create(0);
+			
+			for(var h = 0; h < ds_grid_height(global.grid); h++)
 			{
-				arrow.image_angle = 135;
-				arrow.speed = -5;
+				for(var w = 0; w < ds_grid_width(global.grid); w++)
+				{
+			
+					//add possible spawn
+					if(global.grid[# w,h] == 0 && global.gridOrg[# w,h] != 5 && global.gridOrg[# w,h] != 2 && w != ds_grid_width(global.grid) - 1 && w != ds_grid_width(global.grid) - 2 && h != ds_grid_height(global.grid) - 1 && h != ds_grid_height(global.grid) - 2)
+					{
+						array_push(possibleSpawns, string(w) + " " + string(h));
+					}
+			
+				}
 			}
-			else if(global.xdistance = 32 && global.ydistance = 0)
-			{
-				arrow.image_angle = 315;
-				arrow.speed = 5;
-			}
-			else if(global.xdistance = 0 && global.ydistance = 32)
-			{
-				arrow.image_angle = 225;
-				arrow.vspeed = 5;
-			}
-			else if(global.xdistance = 0 && global.ydistance = -32)
-			{
-				arrow.image_angle = 45;
-				arrow.vspeed = -5;
-			}
-			else
-			{
-				//default to right if problem
-				arrow.image_angle = 315;
-				arrow.speed = 5;
-			}
+			var indexofPlayer = irandom_range(0, array_length(possibleSpawns) - 1)
+	
+			var wPos = string_copy(string(array_get(possibleSpawns, indexofPlayer)), 1, string_last_pos(" ", string(array_get(possibleSpawns, indexofPlayer))) - 1);
+			var hPos = string_copy(string(array_get(possibleSpawns, indexofPlayer)),  string_last_pos(" ", string(array_get(possibleSpawns, indexofPlayer))) + 1, string_length(string(array_get(possibleSpawns, indexofPlayer))));
+	
+			obj_player.x = (real(wPos) * 32) + (room_width div 4) + 16
+			obj_player.y = (real(hPos) * 32) + (room_height div 4) + 16;
+			global.gridOrg[# wPos,hPos] = 4;
 			
 			
 			//delete arrow from amount

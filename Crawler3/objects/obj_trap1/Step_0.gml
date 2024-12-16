@@ -12,10 +12,13 @@ if(attack == true)
 	var instances = ds_list_create();
 	var n = collision_point_list(x + 16, y + 16, obj_enemy1, false, true, instances, false);
 	var n = collision_point_list(x + 16, y + 16, obj_enemy1Elite, false, true, instances, false);
+	var n = collision_point_list(x + 16, y + 16, obj_enemy2, false, true, instances, false);
+	var n = collision_point_list(x + 16, y + 16, obj_enemy3, false, true, instances, false);
 	var i = 0;
 	repeat ds_list_size(instances)
 	{
 		instances[| i].hp -= 15;
+		instances[| i].damaged = true;
 		i++;
 	}
 	ds_list_destroy(instances);

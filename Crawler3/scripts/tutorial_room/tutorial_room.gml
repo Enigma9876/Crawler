@@ -1,12 +1,14 @@
 function tutorial_room()
 {
 	ds_grid_resize(global.gridOrg, ds_grid_width(global.grid), ds_grid_height(global.grid));
+	ds_grid_resize(global.gridPow, ds_grid_width(global.grid), ds_grid_height(global.grid));
 	
 	for(var i = 0; i < ds_grid_height(global.grid); i++)
 	{
 		for(var j = 0; j < ds_grid_width(global.grid); j++)
 		{
-			global.gridOrg[# i, j] = 0;
+			global.gridOrg[# j, i] = 0;
+			global.gridPow[# j, i] = 0;
 		}
 	}
 	
@@ -28,12 +30,6 @@ function tutorial_room()
 			var topright = global.grid[# w + 1,h - 1];
 			var bottomright = global.grid[# w + 1,h + 1];
 			
-			if(global.grid == 4)
-			{
-				//set and print player
-				instance_create_layer((real(w) * 32) + (room_width div 4) + 16, (real(h) * 32) + (room_height div 4) + 16, "Instances_player", obj_player);
-				instance_create_layer((real(w) * 32) + (room_width div 4) - 32, (real(h) * 32) + (room_height div 4), "Instances_player", obj_selection);
-			}
 			//print wall
 			if(global.grid[# w,h] == -2)
 			{
@@ -262,7 +258,7 @@ function tutorial_room()
 						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floor4);
 				}
 			}
-			if((w == 4 && h == 30) || (w == 3 && h == 26) || (w == 2 && h == 13) || (w == 4 && h == 6) || (w == 3 && h == 8))
+			if((w == 4 && h == 30) || (w == 3 && h == 26) || (w == 2 && h == 13) || (w == 4 && h == 6) || (w == 3 && h == 8) || (w == 9 && h == 3) || (w == 27 && h == 3))
 			{
 				global.grid[# w,h] = 11;
 				instance_create_layer((real(w) * 32) + (room_width div 4), (real(h) * 32) + (room_height div 4), "Instances_player", obj_sign1);
@@ -274,7 +270,7 @@ function tutorial_room()
 				instance_create_layer((real(w) * 32) + (room_width div 4) + 16, (real(h) * 32) + (room_height div 4) + 16, "Instances_player", obj_player);
 				instance_create_layer((real(w) * 32) + (room_width div 4) - 32, (real(h) * 32) + (room_height div 4), "Instances_player", obj_selection);
 			}
-			if((w == 3 && h == 15) || (w == 5 && h == 18) || (w == 6 && h == 13))
+			if((w == 3 && h == 15) || (w == 5 && h == 18) || (w == 6 && h == 13) || (w == 13 && h == 2) || (w == 15 && h == 4) || (w == 36 && h == 3) || (w == 37 && h == 3) || (w == 38 && h == 3) || (w == 36 && h == 5) || (w == 37 && h == 5) || (w == 38 && h == 5))
 			{
 				instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_Enemies", obj_enemy1);
 				global.gridOrg[# w,h] = 5;
@@ -290,10 +286,30 @@ function tutorial_room()
 				global.grid[# w,h] = 3;
 			}
 			//potions
-			else if((w == 1 && h == 4))
+			else if((w == 1 && h == 4) || (w == 25 && h == 3) || (w == 22 && h == 6))
 			{
 				instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_Objects", obj_potion1);
 				global.gridOrg[# w,h] = 2;
+			}
+			if((w == 5 && h == 3) || (w == 7 && h == 4))
+			{
+				instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_Objects", obj_arrow);
+				global.gridPow[# w,h] = 6;
+			}
+			if((w == 22 && h == 3) || (w == 24 && h == 4))
+			{
+				instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_Objects", obj_arrow3);
+				global.gridPow[# w,h] = 6;
+			}
+			if((w == 39 && h == 4))
+			{
+				instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_Enemies", obj_enemy1Elite);
+				global.gridOrg[# w,h] = 5;
+			}
+			if((w == 42 && h == 4))
+			{
+				instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_Objects", obj_ladder);
+				global.grid[# w,h] = 9;
 			}
 			
 			
@@ -395,14 +411,12 @@ function tutorial_room()
 	} */
 	
 	ds_grid_resize(global.gridRes, ds_grid_width(global.gridOrg), ds_grid_height(global.gridOrg))
-	ds_grid_resize(global.gridPow, ds_grid_width(global.gridOrg), ds_grid_height(global.gridOrg))
 	
 	for(var i = 0; i < ds_grid_height(global.gridOrg); i++)
 	{
 		for(var j = 0; j < ds_grid_width(global.gridOrg); j++)
 		{
 			global.gridRes[# i, j] = global.gridOrg[# i, j];
-			global.gridPow[# i, j] = 0;
 		}
 	}
 	

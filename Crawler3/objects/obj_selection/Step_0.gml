@@ -42,6 +42,9 @@ y = obj_player.y + global.ydistance;
 				var instances = ds_list_create();
 					var n = collision_point_list(x, y, obj_enemy1, false, true, instances, false);
 					var n = collision_point_list(x, y, obj_enemy1Elite, false, true, instances, false);
+					var n = collision_point_list(x, y, obj_enemy2, false, true, instances, false);
+					var n = collision_point_list(x, y, obj_enemy2Elite, false, true, instances, false);
+					var n = collision_point_list(x, y, obj_enemy3, false, true, instances, false);
 					var i = 0;
 					repeat ds_list_size(instances) 
 					{
@@ -57,6 +60,7 @@ y = obj_player.y + global.ydistance;
 				else if(global.gridPow[# w,h] == 6 || global.gridPow[# w,h] == 7)
 				{
 					var instances = ds_list_create();
+					var usedInstances = ds_list_create();
 					for(var h2 = 16; h2 >= -16; h2--)
 					{
 						for(var w2 = 16; w2 >= -16; w2--)
@@ -67,13 +71,91 @@ y = obj_player.y + global.ydistance;
 						var i = 0;
 						repeat ds_list_size(instances)
 						{
-							global.gridPow[# w,h] = 0;
-							instance_destroy(instances[| i]);
-							global.arrowCount++;
+							var add = true;
+							for(var j = 0; j < ds_list_size(usedInstances);j++)
+							{
+								show_debug_message(usedInstances[| i]);
+								if(instances[| i] == usedInstances[| j])
+								{
+									add = false;
+								}
+							}
+							if(add)
+							{
+								ds_list_add(usedInstances, instances[| i]);
+								instance_destroy(instances[| i]);
+								global.arrowCount++;
+							}
 							i++
 						}
 						ds_list_destroy(instances);
-						var instances = ds_list_create();
+						ds_list_destroy(usedInstances);
+					var instances = ds_list_create();
+					var usedInstances = ds_list_create();
+					for(var h2 = 16; h2 >= -16; h2--)
+					{
+						for(var w2 = 16; w2 >= -16; w2--)
+						{
+							var n = collision_point_list(x + w2, y + h2, obj_arrow2, false, true, instances, false);
+						}
+					}
+						var i = 0;
+						repeat ds_list_size(instances)
+						{
+							var add = true;
+							for(var j = 0; j < ds_list_size(usedInstances);j++)
+							{
+								show_debug_message(usedInstances[| i]);
+								if(instances[| i] == usedInstances[| j])
+								{
+									add = false;
+								}
+							}
+							if(add)
+							{
+								ds_list_add(usedInstances, instances[| i]);
+								instance_destroy(instances[| i]);
+								global.arrowCount2++;
+							}
+							i++
+							
+						}
+						ds_list_destroy(instances);
+						ds_list_destroy(usedInstances);
+					var instances = ds_list_create();
+					var usedInstances = ds_list_create();
+					for(var h2 = 16; h2 >= -16; h2--)
+					{
+						for(var w2 = 16; w2 >= -16; w2--)
+						{
+							var n = collision_point_list(x + w2, y + h2, obj_arrow3, false, true, instances, false);
+						}
+					}
+						var i = 0;
+						repeat ds_list_size(instances)
+						{
+							var add = true;
+							for(var j = 0; j < ds_list_size(usedInstances);j++)
+							{
+								show_debug_message(usedInstances[| i]);
+								if(instances[| i] == usedInstances[| j])
+								{
+									add = false;
+								}
+							}
+							if(add)
+							{
+								ds_list_add(usedInstances, instances[| i]);
+								instance_destroy(instances[| i]);
+								global.arrowCount3++;
+							}
+							i++
+							
+						}
+						ds_list_destroy(instances);
+						ds_list_destroy(usedInstances);
+					var instances = ds_list_create();
+					var usedInstances = ds_list_create();
 					for(var h2 = 16; h2 >= -16; h2--)
 					{
 						for(var w2 = 16; w2 >= -16; w2--)
@@ -84,17 +166,29 @@ y = obj_player.y + global.ydistance;
 						var i = 0;
 						repeat ds_list_size(instances)
 						{
-							global.gridPow[# w,h] = 0;
-							instance_destroy(instances[| i]);
-							global.hp += 10;
+							var add = true;
+							for(var j = 0; j < ds_list_size(usedInstances);j++)
+							{
+								show_debug_message(usedInstances[| i]);
+								if(instances[| i] == usedInstances[| j])
+								{
+									add = false;
+								}
+							}
+							if(add)
+							{
+								ds_list_add(usedInstances, instances[| i]);
+								instance_destroy(instances[| i]);
+								global.hp += 10;
+							}
 							i++
+							
 						}
 						ds_list_destroy(instances);
-						global.turn += 1;
-						
-						global.gridPow[# w,h] = 0;
+						ds_list_destroy(usedInstances);
 				
 				}
+				global.gridPow[# w,h] = 0;
 			}
 			else if(global.grid[# w, h] == -1)
 			{
@@ -193,28 +287,35 @@ y = obj_player.y + global.ydistance;
 			//walk into ladder
 			if(global.grid[# w,h] == 9)
 			{
-				global.levelCount++
-				global.gridOrg = ds_grid_create(0, 0);
-				global.gridPow = ds_grid_create(0,0);
-				global.enemyCount = 0;
-				
-				// Create a reservation grid (same size as global.gridOrg)
-				global.reservationGrid = ds_grid_create(ds_grid_width(global.gridOrg), ds_grid_height(global.gridOrg));
-				ds_grid_clear(global.reservationGrid, 0);
-				
-				// Create a grid to represent walkable (0) and non-walkable (1) areas
-				global.grid = ds_grid_create(global.grid_width, global.grid_height);
-
-				global.gridRes = ds_grid_create(0,0);
-
-				// fill the grid with walkable cells initially
-				for (var i = 0; i < global.grid_width; i++) {
-				    for (var j = 0; j < global.grid_height; j++) {
-				        global.grid[# i, j] = 10; // set empty space outside
-				    }
+				if(room == rm_tutorialRoom)
+				{
+					room = rm_main
 				}
+				else
+				{
+					global.levelCount++
+					global.gridOrg = ds_grid_create(0, 0);
+					global.gridPow = ds_grid_create(0,0);
+					global.enemyCount = 0;
 				
-				destroy_room();
+					// Create a reservation grid (same size as global.gridOrg)
+					global.reservationGrid = ds_grid_create(ds_grid_width(global.gridOrg), ds_grid_height(global.gridOrg));
+					ds_grid_clear(global.reservationGrid, 0);
+				
+					// Create a grid to represent walkable (0) and non-walkable (1) areas
+					global.grid = ds_grid_create(global.grid_width, global.grid_height);
+
+					global.gridRes = ds_grid_create(0,0);
+
+					// fill the grid with walkable cells initially
+					for (var i = 0; i < global.grid_width; i++) {
+					    for (var j = 0; j < global.grid_height; j++) {
+					        global.grid[# i, j] = 10; // set empty space outside
+					    }
+					}
+				
+					destroy_room();
+				}
 				
 			}
 			
