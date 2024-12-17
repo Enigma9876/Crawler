@@ -31,13 +31,13 @@ down_start_y = 0;
 down_end_y = 0;
 
 left_move_progress = 0;
-left_move_target = 5; //change based on 60 -> 1 second
+left_move_target = 10; //change based on 60 -> 1 second
 right_move_progress = 0;
-right_move_target = 5; //change based on 60 -> 1 second
+right_move_target = 10; //change based on 60 -> 1 second
 up_move_progress = 0;
-up_move_target = 5; //change based on 60 -> 1 second
+up_move_target = 10; //change based on 60 -> 1 second
 down_move_progress = 0;
-down_move_target = 5; //change based on 60 -> 1 second
+down_move_target = 10; //change based on 60 -> 1 second
 
 
 //health
@@ -60,4 +60,5 @@ isAttacking = false;
 
 checkifMove = false;
 death = false;
+canMove = true;
 

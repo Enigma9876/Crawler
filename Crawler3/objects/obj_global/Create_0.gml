@@ -13,6 +13,7 @@ randomize();
 	global.arrowCount2 = 3;
 	global.arrowCount3 = 4;
 	global.levelCount = 1;
+	global.consecutive = 0;
 
 	// Create a reservation grid (same size as global.gridOrg)
 	global.reservationGrid = ds_grid_create(ds_grid_width(global.gridOrg), ds_grid_height(global.gridOrg));

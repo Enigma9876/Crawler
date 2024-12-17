@@ -8,7 +8,6 @@ if(global.canMove == true)
 		{
 			if(global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 - 1] == 9)
 			{
-				global.canMove = false;
 				if(room == rm_tutorialRoom)
 				{
 					room = rm_main
@@ -42,7 +41,6 @@ if(global.canMove == true)
 			else
 			{
 				Move_up = true;
-				global.canMove = false;
 				firstTouch = true;
 				global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 0;
 				global.xdistance = 0;
@@ -58,7 +56,6 @@ if(global.canMove == true)
 			image_xscale = 1;
 			if(global.grid[# (x - 16 - (room_width div 4)) div 32 + 1, (y - 16 - (room_height div 4)) div 32] == 9)
 			{
-				global.canMove = false;
 				if(room == rm_tutorialRoom)
 				{
 					room = rm_main
@@ -92,7 +89,6 @@ if(global.canMove == true)
 			else
 			{
 				Move_right = true;
-				global.canMove = false;
 				firstTouch = true;
 				global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 0;
 				global.xdistance = 32;
@@ -107,7 +103,6 @@ if(global.canMove == true)
 		{
 			if(global.grid[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 + 1] == 9)
 			{
-				global.canMove = false;
 				if(room == rm_tutorialRoom)
 				{
 					room = rm_main
@@ -141,7 +136,6 @@ if(global.canMove == true)
 			else
 			{
 				Move_down = true;
-				global.canMove = false;
 				firstTouch = true;
 				global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 0;
 				global.xdistance = 0;
@@ -157,7 +151,6 @@ if(global.canMove == true)
 			image_xscale = -1;
 			if(global.grid[# (x - 16 - (room_width div 4)) div 32 - 1, (y - 16 - (room_height div 4)) div 32] == 9)
 			{
-				global.canMove = false;
 				if(room == rm_tutorialRoom)
 				{
 					room = rm_main
@@ -191,7 +184,6 @@ if(global.canMove == true)
 			else
 			{
 				Move_left = true;
-				global.canMove = false;
 				firstTouch = true;
 				global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 0;
 			
@@ -203,7 +195,7 @@ if(global.canMove == true)
 		
 	}
 	
-	if(keyboard_check_pressed(ord("Q")))
+	else if(keyboard_check_pressed(ord("Q")))
 	{
 		if(global.arrowCount > 0 && global.activeArrow == 1)
 		{
@@ -211,28 +203,28 @@ if(global.canMove == true)
 			if(global.xdistance = -32 && global.ydistance = 0)
 			{
 				arrow.image_angle = 135;
-				arrow.speed = -5;
+				arrow.speed = -10;
 			}
 			else if(global.xdistance = 32 && global.ydistance = 0)
 			{
 				arrow.image_angle = 315;
-				arrow.speed = 5;
+				arrow.speed = 10;
 			}
 			else if(global.xdistance = 0 && global.ydistance = 32)
 			{
 				arrow.image_angle = 225;
-				arrow.vspeed = 5;
+				arrow.vspeed = 10;
 			}
 			else if(global.xdistance = 0 && global.ydistance = -32)
 			{
 				arrow.image_angle = 45;
-				arrow.vspeed = -5;
+				arrow.vspeed = -10;
 			}
 			else
 			{
 				//default to right if problem
 				arrow.image_angle = 315;
-				arrow.speed = 5;
+				arrow.speed = 10;
 			}
 			
 			
@@ -242,7 +234,7 @@ if(global.canMove == true)
 		}
 		else if(global.arrowCount2 > 0 && global.activeArrow == 2)
 		{
-			global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32 - 1] = 0;
+			global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 0;
 			var possibleSpawns = array_create(0);
 			
 			for(var h = 0; h < ds_grid_height(global.grid); h++)
@@ -271,6 +263,7 @@ if(global.canMove == true)
 			//delete arrow from amount
 			global.turn++;
 			global.arrowCount2--;
+			change_fog();
 		}
 		else if(global.arrowCount3 > 0 && global.activeArrow == 3)
 		{
@@ -308,24 +301,8 @@ if(global.canMove == true)
 			global.arrowCount3--;
 		}
 	}
-	//change arrow selection
-	if(keyboard_check_pressed(ord("E")))
-	{
-		global.activeArrow++;
-		if(global.activeArrow > 3)
-		{
-			global.activeArrow = 1;
-		}
-	}
+
 	
-	
-	
-	
-}
-else if(global.canMove == false && !inalarm)
-{
-	alarm[0] = 10;
-	inalarm = true;
 }
 
 	if(Move_left)
@@ -340,16 +317,19 @@ else if(global.canMove == false && !inalarm)
 		left_values = false;
 		if (left_move_progress < left_move_target)
 		{
-		    left_move_progress++;
-		    var _progress_factor = left_move_progress / left_move_target;
-		    obj_player.x = round(lerp(left_start_x, left_end_x, _progress_factor));
-		    obj_player.y = round(lerp(left_start_y, left_end_y, _progress_factor));
+		    left_move_progress += 7.5;
+		    var _progress_factor = (sin(left_move_progress / left_move_target * (pi / 2)));
+
+	        // Apply the easing to the lerp
+	        obj_player.x = round(lerp(left_start_x, left_end_x, _progress_factor));
+	        obj_player.y = round(lerp(left_start_y, left_end_y, _progress_factor));
 		}
 		else
 		{
 			Move_left = false;
 			left_values = true;
 			left_move_progress = 0;
+			show_debug_message("x value: " + string(x));
 			global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 4;
 			change_fog();
 			global.turn += 1;
@@ -369,10 +349,12 @@ else if(global.canMove == false && !inalarm)
 		right_values = false;
 		if (right_move_progress < right_move_target)
 		{
-		    right_move_progress++;
-		    var _progress_factor = right_move_progress / right_move_target;
-		    obj_player.x = round(lerp(right_start_x, right_end_x, _progress_factor));
-		    obj_player.y = round(lerp(right_start_y, right_end_y, _progress_factor));
+		    right_move_progress += 7.5;
+		    var _progress_factor_right = (sin(right_move_progress / right_move_target * (pi / 2)));
+
+			// Apply the easing to the lerp for right movement
+			obj_player.x = round(lerp(right_start_x, right_end_x, _progress_factor_right));
+			obj_player.y = round(lerp(right_start_y, right_end_y, _progress_factor_right));
 		}
 		else
 		{
@@ -397,10 +379,12 @@ else if(global.canMove == false && !inalarm)
 		up_values = false;
 		if (up_move_progress < up_move_target)
 		{
-		    up_move_progress++;
-		    var _progress_factor = up_move_progress / up_move_target;
-		    obj_player.x = round(lerp(up_start_x, up_end_x, _progress_factor));
-		    obj_player.y = round(lerp(up_start_y, up_end_y, _progress_factor));
+		    up_move_progress += 7.5;
+		    var _progress_factor_up = (sin(up_move_progress / up_move_target * (pi / 2)));
+
+			// Apply the easing to the lerp for up movement
+			obj_player.x = round(lerp(up_start_x, up_end_x, _progress_factor_up));
+			obj_player.y = round(lerp(up_start_y, up_end_y, _progress_factor_up));
 		}
 		else
 		{
@@ -425,10 +409,12 @@ else if(global.canMove == false && !inalarm)
 		down_values = false;
 		if (down_move_progress < down_move_target)
 		{
-		    down_move_progress++;
-		    var _progress_factor = down_move_progress / down_move_target;
-		    obj_player.x = round(lerp(down_start_x, down_end_x, _progress_factor));
-		    obj_player.y = round(lerp(down_start_y, down_end_y, _progress_factor));
+		    down_move_progress += 7.5;
+		    var _progress_factor_down = (sin(down_move_progress / down_move_target * (pi / 2)));
+
+			// Apply the easing to the lerp for down movement
+			obj_player.x = round(lerp(down_start_x, down_end_x, _progress_factor_down));
+			obj_player.y = round(lerp(down_start_y, down_end_y, _progress_factor_down));
 		}
 		else
 		{
@@ -458,7 +444,15 @@ if(global.hp <= 0)
 	//die
 	room_goto (rm_main);
 }
-					
+
+	if(keyboard_check_pressed(ord("E")))
+	{
+		global.activeArrow++;
+		if(global.activeArrow > 3)
+		{
+			global.activeArrow = 1;
+		}
+	}
 
 
 

@@ -111,10 +111,12 @@ else
 		left_values = false;
 		if (left_move_progress < left_move_target)
 		{
-		    left_move_progress++;
-		    var _progress_factor = left_move_progress / left_move_target;
-		    x = round(lerp(left_start_x, left_end_x, _progress_factor));
-		    y = round(lerp(left_start_y, left_end_y, _progress_factor));
+		    left_move_progress += 1.25;
+		    var _progress_factor = (sin(left_move_progress / left_move_target * (pi / 2)));
+
+	        // Apply the easing to the lerp
+	        x = round(lerp(left_start_x, left_end_x, _progress_factor));
+	        y = round(lerp(left_start_y, left_end_y, _progress_factor));
 			isAttacking = false;
 			attacking = false;
 		}
@@ -139,10 +141,14 @@ else
 		right_values = false;
 		if (right_move_progress < right_move_target)
 		{
-		    right_move_progress++;
-		    var _progress_factor = right_move_progress / right_move_target;
-		    x = round(lerp(right_start_x, right_end_x, _progress_factor));
-		    y = round(lerp(right_start_y, right_end_y, _progress_factor));
+		    right_move_progress += 1.25;
+		    var _progress_factor_right = (sin(right_move_progress / right_move_target * (pi / 2)));
+
+			// Apply the easing to the lerp for right movement
+			x = round(lerp(right_start_x, right_end_x, _progress_factor_right));
+			y = round(lerp(right_start_y, right_end_y, _progress_factor_right));
+			isAttacking = false;
+			attacking = false;
 		}
 		else
 		{
@@ -167,10 +173,12 @@ else
 		up_values = false;
 		if (up_move_progress < up_move_target)
 		{
-		    up_move_progress++;
-		    var _progress_factor = up_move_progress / up_move_target;
-		    x = round(lerp(up_start_x, up_end_x, _progress_factor));
-		    y = round(lerp(up_start_y, up_end_y, _progress_factor));
+		    up_move_progress += 1.25;
+		    var _progress_factor_up = (sin(up_move_progress / up_move_target * (pi / 2)));
+
+			// Apply the easing to the lerp for up movement
+			x = round(lerp(up_start_x, up_end_x, _progress_factor_up));
+			y = round(lerp(up_start_y, up_end_y, _progress_factor_up));
 			isAttacking = false;
 			attacking = false;
 		}
@@ -195,10 +203,12 @@ else
 		down_values = false;
 		if (down_move_progress < down_move_target)
 		{
-		    down_move_progress++;
-		    var _progress_factor = down_move_progress / down_move_target;
-		    x = round(lerp(down_start_x, down_end_x, _progress_factor));
-		    y = round(lerp(down_start_y, down_end_y, _progress_factor));
+		    down_move_progress += 1.25;
+		    var _progress_factor_down = (sin(down_move_progress / down_move_target * (pi / 2)));
+
+			// Apply the easing to the lerp for down movement
+			x = round(lerp(down_start_x, down_end_x, _progress_factor_down));
+			y = round(lerp(down_start_y, down_end_y, _progress_factor_down));
 			isAttacking = false;
 			attacking = false;
 		}
