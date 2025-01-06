@@ -1,5 +1,5 @@
 {
-  "$GMScript":"v1",
+  "$GMScript":"",
   "%Name":"destroy_room",
   "isCompatibility":false,
   "isDnD":false,

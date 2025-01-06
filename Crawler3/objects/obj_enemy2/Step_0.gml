@@ -19,23 +19,23 @@ if(hp <= 0)
 		}
 		if(Move_left)
 		{
-			x = left_start_x;
-			y = left_start_y;
+			x = left_end_x;
+			y = left_end_y;
 		}
 		if(Move_right)
 		{
-			x = right_start_x;
-			y = right_start_y;
+			x = right_end_x;
+			y = right_end_y;
 		}
 		if(Move_down)
 		{
-			x = down_start_x;
-			y = down_start_y;
+			x = down_end_x;
+			y = down_end_y;
 		}
 		if(Move_up)
 		{
-			x = up_start_x;
-			y = up_start_y;
+			x = up_end_x;
+			y = up_end_y;
 		}
 		global.gridOrg[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 0;
 		var rand = irandom_range(1,2);
@@ -50,10 +50,11 @@ if(hp <= 0)
 			instance_create_layer(x - 16, y - 16, "Instances_Enemies", obj_potion2);
 		}
 		death = true;
+		sprite_index = spr_enemy2Death;
+		image_index = 0;
 	}
 	instance_destroy(border);
 	instance_destroy(healthIm);
-	sprite_index = spr_enemy2Death;
 }
 else
 {
@@ -84,13 +85,7 @@ else
 		   var move_x = string_copy(position, 1, string_last_pos("_", position) - 1);
 		   var move_y = string_copy(position,  string_last_pos("_", position) + 1, string_length(position));
 		   
-		   if(global.gridRes[# move_x, move_y] == 0)
-		   {
-			   global.gridRes[# move_x, move_y] = 1;
-			   global.gridRes[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 0;
-			   checkifMove = true
-		   }
-		   if((((x - 16 - (room_width div 4)) div 32) == playerx) || (((y - 16 - (room_height div 4)) div 32) == playery))
+		   if((x - 16 - (room_width div 4)) div 32 == playerx || (y - 16 - (room_height div 4)) div 32 == playery)
 		   {
 			   if(obj_player.x < x)
 			   {
@@ -101,25 +96,25 @@ else
 				   image_xscale = 1;
 			   }
 				var fireball = instance_create_layer(x, y, "Instances_projectiles", obj_fireball);
-				if((x - 16 - (room_width div 4)) div 32 == (obj_player.x - 16 - (room_width div 4)) div 32 && y > obj_player.y)
+				if((x - 16 - (room_width div 4)) div 32 == playerx && (y - 16 - (room_height div 4)) div 32 > playery)
 				{
 					fireball.image_angle = 90;
-					fireball.vspeed = -5;
+					fireball.vspeed = -10;
 				}
-				else if((x - 16 - (room_width div 4)) div 32 == (obj_player.x - 16 - (room_width div 4)) div 32 && y < obj_player.y)
+				else if((x - 16 - (room_width div 4)) div 32 == playerx && (y - 16 - (room_height div 4)) div 32 < playery)
 				{
 					fireball.image_angle = 270;
-					fireball.vspeed = 5;
+					fireball.vspeed = 10;
 				}
-				else if((y - 16 - (room_height div 4)) div 32 == (obj_player.y - 16 - (room_height div 4)) div 32 && x > obj_player.x)
+				else if((y - 16 - (room_height div 4)) div 32 == playery && (x - 16 - (room_width div 4)) div 32 > playerx)
 				{
 					fireball.image_angle = 180;
-					fireball.speed = -5;
+					fireball.speed = -10;
 				}
-				else if((y - 16 - (room_height div 4)) div 32 == (obj_player.y - 16 - (room_height div 4)) div 32 && x < obj_player.x)
+				else if((y - 16 - (room_height div 4)) div 32 == playery && (x - 16 - (room_width div 4)) div 32 < playerx)
 				{
 					fireball.image_angle = 360;
-					fireball.speed = 5;
+					fireball.speed = 10;
 				}
 				else
 				{
@@ -127,9 +122,15 @@ else
 					//fireball.image_angle = 360;
 					//fireball.speed = 5;
 				}
-				checkifMove = true;
+				checkifMove = false;
 				attacking = true;
 				goTowardsPlayer = true;
+		   }
+		   else if(global.gridRes[# move_x, move_y] == 0)
+		   {
+			   global.gridRes[# move_x, move_y] = 1;
+			   global.gridRes[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 0;
+			   checkifMove = true;
 		   }
 		   
 		   if(!checkifMove || global.gridOrg[# move_x, move_y] == 4)
@@ -402,12 +403,12 @@ else
 	checkifMove = false;
 }
 
-if(sprite_index == spr_enemy2Death && image_index >= 4 && death)
+if(sprite_index == spr_enemy2Death && image_index >= 3 && death)
 {
 	instance_destroy(id, false);
 }
 
-if(sprite_index == spr_enemy2)
+if(sprite_index == spr_enemy2 || sprite_index == spr_enemy2)
 {
 	isIdle = true;
 }

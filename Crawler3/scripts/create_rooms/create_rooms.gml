@@ -795,7 +795,7 @@ function create_rooms(width, height)
 					}
 					else if(rand2 <= 20)
 					{
-						instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_Enemies", obj_enemy2); //enemy1
+						instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_Enemies", obj_enemy1); //enemy1
 					}
 				}
 				global.gridOrg[# w,h] = 5;
