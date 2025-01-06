@@ -9,7 +9,7 @@ randomize();
 	global.gridOrg = ds_grid_create(0, 0);
 	global.gridPow = ds_grid_create(0,0);
 	global.activeArrow = 1;
-	global.arrowCount = 3;
+	global.arrowCount = 15;
 	global.arrowCount2 = 3;
 	global.arrowCount3 = 4;
 	global.levelCount = 1;

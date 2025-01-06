@@ -1,4 +1,4 @@
-//bugs:fog: occasionally left & right are completely black, door randomly after death of some kind not closing: no idea why
+//bugs: open spot when you go into ladder in fo of war, enemy dies with arrow and drops potion breaks game
 
 Move_left = false;
 Move_right = false;
@@ -39,8 +39,31 @@ up_move_target = 60; //change based on 60 -> 1 second
 down_move_progress = 0;
 down_move_target = 60; //change based on 60 -> 1 second
 
+attack_start_x = 0;
+attack_end_x = 0;
+attack_start_y = 0;
+attack_end_y = 0;
+attack_move_progress = 0;
+attack_move_target = 10; //change based on 60 -> 1 second
+attack_values = true;
+moveBack = false;
+
 
 global.canMove = true;
 inalarm = false;
 
 firstMove = true;
+
+global.shootarrow = false;
+
+attack = false;
+isIdle = true;
+
+attackx = undefined;
+attacky = undefined;
+
+arrowdirx = undefined;
+arrowdiry = undefined;
+
+teleport = false;
+heal = false;

@@ -1,4 +1,4 @@
-if(global.canMove == true)
+if(global.canMove == true && !attack)
 {
 	
 	//press and hold feature
@@ -10,11 +10,11 @@ if(global.canMove == true)
 			{
 				if(room == rm_tutorialRoom)
 				{
-					room = rm_main
+					room = rm_main;
 				}
 				else
 				{
-					global.levelCount++
+					global.levelCount++;
 					global.gridOrg = ds_grid_create(0, 0);
 					global.gridPow = ds_grid_create(0,0);
 					global.enemyCount = 0;
@@ -29,8 +29,10 @@ if(global.canMove == true)
 					global.gridRes = ds_grid_create(0,0);
 
 					// fill the grid with walkable cells initially
-					for (var i = 0; i < global.grid_width; i++) {
-					    for (var j = 0; j < global.grid_height; j++) {
+					for (var i = 0; i < global.grid_width; i++)
+					{
+					    for (var j = 0; j < global.grid_height; j++) 
+						{
 					        global.grid[# i, j] = 10; // set empty space outside
 					    }
 					}
@@ -43,6 +45,8 @@ if(global.canMove == true)
 				Move_up = true;
 				firstTouch = true;
 				global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 0;
+				global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 48 - (room_height div 4)) div 32] = 4;
+				global.turn += 1;
 				global.xdistance = 0;
 				global.ydistance = -32;
 			}
@@ -91,6 +95,8 @@ if(global.canMove == true)
 				Move_right = true;
 				firstTouch = true;
 				global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 0;
+				global.gridOrg[# (x + 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 4;
+				global.turn += 1;
 				global.xdistance = 32;
 				global.ydistance = 0;
 			}
@@ -138,6 +144,8 @@ if(global.canMove == true)
 				Move_down = true;
 				firstTouch = true;
 				global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 0;
+				global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y + 16 - (room_height div 4)) div 32] = 4;
+				global.turn += 1;
 				global.xdistance = 0;
 				global.ydistance = 32;
 			}
@@ -153,7 +161,7 @@ if(global.canMove == true)
 			{
 				if(room == rm_tutorialRoom)
 				{
-					room = rm_main
+					room = rm_main;
 				}
 				else
 				{
@@ -186,7 +194,8 @@ if(global.canMove == true)
 				Move_left = true;
 				firstTouch = true;
 				global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 0;
-			
+				global.gridOrg[# (x - 48 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 4;
+				global.turn += 1;
 				global.xdistance = -32;
 				global.ydistance = 0;
 			}
@@ -195,110 +204,25 @@ if(global.canMove == true)
 		
 	}
 	
-	else if(keyboard_check_pressed(ord("Q")))
+	else if(keyboard_check_pressed(ord("Q")) && !attack)
 	{
 		if(global.arrowCount > 0 && global.activeArrow == 1)
 		{
-			var arrow = instance_create_layer(x, y, "Instances_projectiles", obj_arrowFire);
-			if(global.xdistance = -32 && global.ydistance = 0)
-			{
-				arrow.image_angle = 135;
-				arrow.speed = -10;
-			}
-			else if(global.xdistance = 32 && global.ydistance = 0)
-			{
-				arrow.image_angle = 315;
-				arrow.speed = 10;
-			}
-			else if(global.xdistance = 0 && global.ydistance = 32)
-			{
-				arrow.image_angle = 225;
-				arrow.vspeed = 10;
-			}
-			else if(global.xdistance = 0 && global.ydistance = -32)
-			{
-				arrow.image_angle = 45;
-				arrow.vspeed = -10;
-			}
-			else
-			{
-				//default to right if problem
-				arrow.image_angle = 315;
-				arrow.speed = 10;
-			}
-			
-			
-			//delete arrow from amount
-			global.turn++;
-			global.arrowCount--;
+			arrowdirx = global.xdistance;
+			arrowdiry = global.ydistance;
+			global.shootarrow = true;
+			alarm_set(0, 32);
 		}
 		else if(global.arrowCount2 > 0 && global.activeArrow == 2)
 		{
-			global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 0;
-			var possibleSpawns = array_create(0);
-			
-			for(var h = 0; h < ds_grid_height(global.grid); h++)
-			{
-				for(var w = 0; w < ds_grid_width(global.grid); w++)
-				{
-			
-					//add possible spawn
-					if(global.grid[# w,h] == 0 && global.gridOrg[# w,h] != 5 && global.gridOrg[# w,h] != 2 && w != ds_grid_width(global.grid) - 1 && w != ds_grid_width(global.grid) - 2 && h != ds_grid_height(global.grid) - 1 && h != ds_grid_height(global.grid) - 2)
-					{
-						array_push(possibleSpawns, string(w) + " " + string(h));
-					}
-			
-				}
-			}
-			var indexofPlayer = irandom_range(0, array_length(possibleSpawns) - 1)
-	
-			var wPos = string_copy(string(array_get(possibleSpawns, indexofPlayer)), 1, string_last_pos(" ", string(array_get(possibleSpawns, indexofPlayer))) - 1);
-			var hPos = string_copy(string(array_get(possibleSpawns, indexofPlayer)),  string_last_pos(" ", string(array_get(possibleSpawns, indexofPlayer))) + 1, string_length(string(array_get(possibleSpawns, indexofPlayer))));
-	
-			obj_player.x = (real(wPos) * 32) + (room_width div 4) + 16
-			obj_player.y = (real(hPos) * 32) + (room_height div 4) + 16;
-			global.gridOrg[# wPos,hPos] = 4;
-			
-			
-			//delete arrow from amount
-			global.turn++;
-			global.arrowCount2--;
-			change_fog();
+			global.shootarrow = true;
+			teleport = true;
+			alarm_set(1, 90);
 		}
 		else if(global.arrowCount3 > 0 && global.activeArrow == 3)
 		{
-			var arrow1 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
-			var arrow2 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
-			var arrow3 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
-			var arrow4 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
-			var arrow5 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
-			var arrow6 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
-			var arrow7 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
-			var arrow8 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
-			arrow1.image_angle = 135;
-			arrow1.speed = -5;
-			arrow2.image_angle = 315;
-			arrow2.speed = 5;
-			arrow3.image_angle = 225;
-			arrow3.vspeed = 5;
-			arrow4.image_angle = 45;
-			arrow4.vspeed = -5;
-			arrow5.image_angle = 90;
-			arrow5.speed = -4;
-			arrow5.vspeed = -3;
-			arrow6.image_angle = 180;
-			arrow6.speed = -4;
-			arrow6.vspeed = 3;
-			arrow7.image_angle = 270;
-			arrow7.speed = 4;
-			arrow7.vspeed = 3;
-			arrow8.image_angle = 360;
-			arrow8.speed = 4;
-			arrow8.vspeed = -3;
-			
-			//delete arrow from amount
-			global.turn++;
-			global.arrowCount3--;
+			global.shootarrow = true;
+			alarm_set(2, 32);
 		}
 	}
 
@@ -330,9 +254,7 @@ if(global.canMove == true)
 			left_values = true;
 			left_move_progress = 0;
 			show_debug_message("x value: " + string(x));
-			global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 4;
 			change_fog();
-			global.turn += 1;
 
 		}
 	}
@@ -361,9 +283,7 @@ if(global.canMove == true)
 			Move_right = false;
 			right_values = true;
 			right_move_progress = 0;
-			global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 4;
 			change_fog();
-			global.turn += 1;
 		}
 	}
 
@@ -391,9 +311,7 @@ if(global.canMove == true)
 			Move_up = false;
 			up_values = true;
 			up_move_progress = 0;
-			global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 4;
 			change_fog();
-			global.turn += 1;
 		}
 	}
 
@@ -421,11 +339,79 @@ if(global.canMove == true)
 			Move_down = false;
 			down_values = true;
 			down_move_progress = 0;
-			global.gridOrg[# (x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32] = 4;
 			change_fog();
-			global.turn += 1;
 		}
 	}
+	
+	if(attack)
+	{
+		if(attack_values)
+		{
+			attack_start_x = x;
+			if(attackx > (x - 16 - (room_width div 4)) div 32)
+			{
+				attack_end_x = x + 10;
+			}
+			else if(attackx < (x - 16 - (room_width div 4)) div 32)
+			{
+				attack_end_x = x - 10;
+			}
+			else
+			{
+				attack_end_x = x;
+			}
+			attack_start_y = y;
+			
+			if(attacky > (y - 16 - (room_height div 4)) div 32)
+			{
+				attack_end_y = y + 10;
+			}
+			else if(attacky < (y - 16 - (room_height div 4)) div 32)
+			{
+				attack_end_y = y - 10;
+			}
+			else
+			{
+				attack_end_y = y;
+			}
+		}
+		
+		attack_values = false;
+		
+		if(attack_move_progress < attack_move_target && !moveBack)
+		{
+		    attack_move_progress += 1.25;
+		    var _progress_factor_down = (sin(attack_move_progress / attack_move_target * (pi / 2)));
+
+			// Apply the easing to the lerp for down movement
+			x = round(lerp(attack_start_x, attack_end_x, _progress_factor_down));
+			y = round(lerp(attack_start_y, attack_end_y, _progress_factor_down));
+		}
+		else if(!moveBack)
+		{
+			//Move_down = false;
+			//down_values = true;
+			attack_move_progress = 0;
+			moveBack = true;
+		}
+		
+		if(attack_move_progress < attack_move_target && moveBack)
+		{
+		    attack_move_progress += 1.25;
+		    var _progress_factor_down = (sin(attack_move_progress / attack_move_target * (pi / 2)));
+
+			// Apply the easing to the lerp for down movement
+			x = round(lerp(attack_end_x, attack_start_x, _progress_factor_down));
+			y = round(lerp(attack_end_y, attack_start_y, _progress_factor_down));
+		}
+		else if(moveBack)
+		{
+			attack = false;
+			attack_values = true;
+			attack_move_progress = 0;
+			moveBack = false;
+		}
+	} 
 	
 			
 		//always set player tile to be 0
@@ -453,6 +439,66 @@ if(global.hp <= 0)
 			global.activeArrow = 1;
 		}
 	}
+	
+//animation
+if(heal && sprite_index == spr_player && !attack && !teleport && !global.shootarrow)
+{
+	sprite_index = spr_playerHealth;
+	image_index = 0;
+}
+
+if(heal && sprite_index == spr_playerHealth && image_index > 3)
+{
+	heal = false;
+	sprite_index = spr_player;
+	image_index = 0;
+}
+
+if(image_index > 6 && sprite_index == spr_playerShoot && global.shootarrow && teleport)
+{
+	sprite_index = spr_playerTeleport;
+	image_index = 0;
+	teleport = false;
+}
+if(image_index > 14 && sprite_index == spr_playerTeleport && global.shootarrow)
+{
+	sprite_index = spr_player;
+	global.shootarrow = false;
+}
+
+if(global.shootarrow && !attack && (sprite_index == spr_player || sprite_index == spr_playerHealth))
+{
+	heal = false;
+	sprite_index = spr_playerShoot;
+	image_index = 0;
+}
+
+if(attack && (sprite_index == spr_player || sprite_index == spr_playerHealth) && !global.shootarrow)
+{
+	heal = false;
+	sprite_index = spr_playerAttack;
+	image_index = 0;
+}
+
+if(image_index > 2 && sprite_index == spr_playerAttack)
+{
+	sprite_index = spr_player;
+}
+
+if(image_index > 6 && sprite_index == spr_playerShoot && global.shootarrow)
+{
+	sprite_index = spr_player;
+	global.shootarrow = false;
+}
+
+if(sprite_index == spr_player || sprite_index == spr_playerHealth)
+{
+	isIdle = true;
+}
+else
+{
+	isIdle = false;
+}
 
 
 

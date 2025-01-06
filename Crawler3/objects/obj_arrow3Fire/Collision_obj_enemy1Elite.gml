@@ -4,3 +4,4 @@ if (colliding_id != noone)
 	colliding_id.hp -= 2;
 	colliding_id.damaged = true;
 }
+

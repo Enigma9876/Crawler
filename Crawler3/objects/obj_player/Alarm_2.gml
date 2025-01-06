@@ -1,0 +1,32 @@
+var arrow1 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
+			var arrow2 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
+			var arrow3 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
+			var arrow4 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
+			var arrow5 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
+			var arrow6 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
+			var arrow7 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
+			var arrow8 = instance_create_layer(x, y, "Instances_projectiles", obj_arrow3Fire);
+			arrow1.image_angle = 135;
+			arrow1.speed = -5;
+			arrow2.image_angle = 315;
+			arrow2.speed = 5;
+			arrow3.image_angle = 225;
+			arrow3.vspeed = 5;
+			arrow4.image_angle = 45;
+			arrow4.vspeed = -5;
+			arrow5.image_angle = 90;
+			arrow5.speed = -4;
+			arrow5.vspeed = -3;
+			arrow6.image_angle = 180;
+			arrow6.speed = -4;
+			arrow6.vspeed = 3;
+			arrow7.image_angle = 270;
+			arrow7.speed = 4;
+			arrow7.vspeed = 3;
+			arrow8.image_angle = 360;
+			arrow8.speed = 4;
+			arrow8.vspeed = -3;
+			
+			//delete arrow from amount
+			global.turn++;
+			global.arrowCount3--;

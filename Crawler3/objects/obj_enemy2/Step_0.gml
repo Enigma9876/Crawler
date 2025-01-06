@@ -1,8 +1,42 @@
+if(previoushp > hp)
+{
+	var damageDone = instance_create_layer(x, y, "Instances_Global", obj_damageTick);
+	damageDone.text = string(previoushp - hp);
+	damageDone.objectToFollow = id;
+	var slash = instance_create_layer(x, y, "Instances_Global", obj_slashEffect);
+	slash.objectToFollow = id;
+}
+
 if(hp <= 0)
 {
 	//die
 	if(!death)
 	{
+		if(goTowardsPlayer)
+		{
+			x = attack_start_x;
+			y = attack_start_y;
+		}
+		if(Move_left)
+		{
+			x = left_start_x;
+			y = left_start_y;
+		}
+		if(Move_right)
+		{
+			x = right_start_x;
+			y = right_start_y;
+		}
+		if(Move_down)
+		{
+			x = down_start_x;
+			y = down_start_y;
+		}
+		if(Move_up)
+		{
+			x = up_start_x;
+			y = up_start_y;
+		}
 		global.gridOrg[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 0;
 		var rand = irandom_range(1,2);
 		if(rand == 1)
@@ -25,9 +59,21 @@ else
 {
 	if(global.turn != last_turn_num)
 	{
-	
+		var playerx = undefined;
+		var playery = undefined;
+		for(var h = 0; h < ds_grid_height(global.gridOrg); h++)
+		{
+			for(var w = 0; w < ds_grid_width(global.gridOrg); w++)
+			{	
+				if(global.gridOrg[# w,h] == 4)
+				{
+					playerx = w;
+					playery = h;
+				}
+			}
+		}
 	   //list to store the found path
-	    var path = find_path((x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32, (obj_player.x - (room_width div 4)) div 32, (obj_player.y - (room_height div 4)) div 32);
+	    var path = find_path((x - 16 - (room_width div 4)) div 32, (y - 16 - (room_height div 4)) div 32, playerx, playery);
 		
 		//show_debug_message("path: " + string(path));
 	
@@ -37,8 +83,23 @@ else
 		   var position = path[1];
 		   var move_x = string_copy(position, 1, string_last_pos("_", position) - 1);
 		   var move_y = string_copy(position,  string_last_pos("_", position) + 1, string_length(position));
-		   if((x - 16 - (room_width div 4)) div 32 == (obj_player.x - 16 - (room_width div 4)) div 32 || (y - 16 - (room_height div 4)) div 32 == (obj_player.y - 16 - (room_height div 4)) div 32)
+		   
+		   if(global.gridRes[# move_x, move_y] == 0)
 		   {
+			   global.gridRes[# move_x, move_y] = 1;
+			   global.gridRes[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 0;
+			   checkifMove = true
+		   }
+		   if((((x - 16 - (room_width div 4)) div 32) == playerx) || (((y - 16 - (room_height div 4)) div 32) == playery))
+		   {
+			   if(obj_player.x < x)
+			   {
+				   image_xscale = -1;
+			   }
+			   else if(obj_player.x > x)
+			   {
+				   image_xscale = 1;
+			   }
 				var fireball = instance_create_layer(x, y, "Instances_projectiles", obj_fireball);
 				if((x - 16 - (room_width div 4)) div 32 == (obj_player.x - 16 - (room_width div 4)) div 32 && y > obj_player.y)
 				{
@@ -66,14 +127,9 @@ else
 					//fireball.image_angle = 360;
 					//fireball.speed = 5;
 				}
-					checkifMove = false;
-					attacking = true;
-		   }
-		   else if(global.gridRes[# move_x, move_y] == 0)
-		   {
-			   global.gridRes[# move_x, move_y] = 1;
-			   global.gridRes[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 0;
-			   checkifMove = true
+				checkifMove = true;
+				attacking = true;
+				goTowardsPlayer = true;
 		   }
 		   
 		   if(!checkifMove || global.gridOrg[# move_x, move_y] == 4)
@@ -136,10 +192,12 @@ else
 		left_values = false;
 		if (left_move_progress < left_move_target)
 		{
-		    left_move_progress++;
-		    var _progress_factor = left_move_progress / left_move_target;
-		    x = round(lerp(left_start_x, left_end_x, _progress_factor));
-		    y = round(lerp(left_start_y, left_end_y, _progress_factor));
+		    left_move_progress += 1.25;
+		    var _progress_factor = (sin(left_move_progress / left_move_target * (pi / 2)));
+
+	        // Apply the easing to the lerp
+	        x = round(lerp(left_start_x, left_end_x, _progress_factor));
+	        y = round(lerp(left_start_y, left_end_y, _progress_factor));
 			isAttacking = false;
 			attacking = false;
 		}
@@ -164,10 +222,14 @@ else
 		right_values = false;
 		if (right_move_progress < right_move_target)
 		{
-		    right_move_progress++;
-		    var _progress_factor = right_move_progress / right_move_target;
-		    x = round(lerp(right_start_x, right_end_x, _progress_factor));
-		    y = round(lerp(right_start_y, right_end_y, _progress_factor));
+		    right_move_progress += 1.25;
+		    var _progress_factor_right = (sin(right_move_progress / right_move_target * (pi / 2)));
+
+			// Apply the easing to the lerp for right movement
+			x = round(lerp(right_start_x, right_end_x, _progress_factor_right));
+			y = round(lerp(right_start_y, right_end_y, _progress_factor_right));
+			isAttacking = false;
+			attacking = false;
 		}
 		else
 		{
@@ -192,10 +254,12 @@ else
 		up_values = false;
 		if (up_move_progress < up_move_target)
 		{
-		    up_move_progress++;
-		    var _progress_factor = up_move_progress / up_move_target;
-		    x = round(lerp(up_start_x, up_end_x, _progress_factor));
-		    y = round(lerp(up_start_y, up_end_y, _progress_factor));
+		    up_move_progress += 1.25;
+		    var _progress_factor_up = (sin(up_move_progress / up_move_target * (pi / 2)));
+
+			// Apply the easing to the lerp for up movement
+			x = round(lerp(up_start_x, up_end_x, _progress_factor_up));
+			y = round(lerp(up_start_y, up_end_y, _progress_factor_up));
 			isAttacking = false;
 			attacking = false;
 		}
@@ -220,10 +284,12 @@ else
 		down_values = false;
 		if (down_move_progress < down_move_target)
 		{
-		    down_move_progress++;
-		    var _progress_factor = down_move_progress / down_move_target;
-		    x = round(lerp(down_start_x, down_end_x, _progress_factor));
-		    y = round(lerp(down_start_y, down_end_y, _progress_factor));
+		    down_move_progress += 1.25;
+		    var _progress_factor_down = (sin(down_move_progress / down_move_target * (pi / 2)));
+
+			// Apply the easing to the lerp for down movement
+			x = round(lerp(down_start_x, down_end_x, _progress_factor_down));
+			y = round(lerp(down_start_y, down_end_y, _progress_factor_down));
 			isAttacking = false;
 			attacking = false;
 		}
@@ -235,7 +301,76 @@ else
 			down_move_progress = 0;
 		}
 	}
+	
+	if(goTowardsPlayer)
+	{
+		if(attack_values)
+		{
+			attack_start_x = x;
+			if(move_x > (x - 16 - (room_width div 4)) div 32)
+			{
+				attack_end_x = x + 10;
+			}
+			else if(move_x < (x - 16 - (room_width div 4)) div 32)
+			{
+				attack_end_x = x - 10;
+			}
+			else
+			{
+				attack_end_x = x;
+			}
+			attack_start_y = y;
+			
+			if(move_y > (y - 16 - (room_height div 4)) div 32)
+			{
+				attack_end_y = y + 10;
+			}
+			else if(move_y < (y - 16 - (room_height div 4)) div 32)
+			{
+				attack_end_y = y - 10;
+			}
+			else
+			{
+				attack_end_y = y;
+			}
+		}
+		
+		attack_values = false;
+		
+		if(attack_move_progress < attack_move_target && !moveBack)
+		{
+		    attack_move_progress += 1.25;
+		    var _progress_factor_down = (sin(attack_move_progress / attack_move_target * (pi / 2)));
 
+			// Apply the easing to the lerp for down movement
+			x = round(lerp(attack_start_x, attack_end_x, _progress_factor_down));
+			y = round(lerp(attack_start_y, attack_end_y, _progress_factor_down));
+		}
+		else if(!moveBack)
+		{
+			//Move_down = false;
+			//down_values = true;
+			attack_move_progress = 0;
+			moveBack = true;
+		}
+		
+		if(attack_move_progress < attack_move_target && moveBack)
+		{
+		    attack_move_progress += 1.25;
+		    var _progress_factor_down = (sin(attack_move_progress / attack_move_target * (pi / 2)));
+
+			// Apply the easing to the lerp for down movement
+			x = round(lerp(attack_end_x, attack_start_x, _progress_factor_down));
+			y = round(lerp(attack_end_y, attack_start_y, _progress_factor_down));
+		}
+		else if(moveBack)
+		{
+			goTowardsPlayer = false;
+			attack_values = true;
+			attack_move_progress = 0;
+			moveBack = false;
+		}
+	} 
 
 		//update health position
 		if(hp > hp_max)
@@ -246,32 +381,12 @@ else
 		healthIm.image_xscale = (hp/hp_max) * healthBar_width;
 		healthIm.image_yscale = 1.5;
 
-		healthIm.x = x - 25;
+		healthIm.x = x - 24.8;
 		healthIm.y = y - 15;
 		border.x = x - 26;
 		border.y = y - 15;
 
-	if(damaged && !isAttacking)
-	{
-		image_index = 0;
-		damaged = false;
-		isDamaged = true;
-		sprite_index = spr_enemy2Damage;
-	}
-	else if(attacking && !isDamaged)
-	{
-		image_index = 0;
-		attacking = false;
-		isAttacking = true;
-		sprite_index = spr_enemy2Attack;
-	}
 
-	if(sprite_index == spr_enemy2Damage && image_index >= 2 && isDamaged)
-	{
-		damaged = false;
-		isDamaged = false;
-		sprite_index = spr_enemy2;
-	}
 	if(sprite_index == spr_enemy2Attack && image_index >= 2 && isAttacking)
 	{
 		attacking = false;
@@ -287,7 +402,18 @@ else
 	checkifMove = false;
 }
 
-if(sprite_index == spr_enemy2Death && image_index >= 3 && death)
+if(sprite_index == spr_enemy2Death && image_index >= 4 && death)
 {
 	instance_destroy(id, false);
 }
+
+if(sprite_index == spr_enemy2)
+{
+	isIdle = true;
+}
+else
+{
+	isIdle = false;
+}
+
+previoushp = hp;

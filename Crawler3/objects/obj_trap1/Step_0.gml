@@ -1,3 +1,8 @@
+if(moveCounter < global.turn && global.gridOrg[# w,h] == 4)
+{
+	canCheck = true;
+}
+
 if(canCheck && (global.gridOrg[# w,h] == 5 || global.gridOrg[# w,h] == 4))
 {
 	attack = true;
@@ -12,26 +17,23 @@ if(attack == true)
 	var instances = ds_list_create();
 	var n = collision_point_list(x + 16, y + 16, obj_enemy1, false, true, instances, false);
 	var n = collision_point_list(x + 16, y + 16, obj_enemy1Elite, false, true, instances, false);
+	var n = collision_point_list(x + 16, y + 16, obj_enemy2Elite, false, true, instances, false);
 	var n = collision_point_list(x + 16, y + 16, obj_enemy2, false, true, instances, false);
 	var n = collision_point_list(x + 16, y + 16, obj_enemy3, false, true, instances, false);
 	var i = 0;
 	repeat ds_list_size(instances)
 	{
 		instances[| i].hp -= 15;
-		instances[| i].damaged = true;
 		i++;
 	}
 	ds_list_destroy(instances);
 	
-	var instances = ds_list_create();
-	var n = collision_point_list(x + 16, y + 16, obj_player, false, true, instances, false);
-	var i = 0;
-	repeat ds_list_size(instances)
+	if(global.gridOrg[# w,h] == 4)
 	{
+		
 		global.hp -= 15;
 		i++;
 	}
-	ds_list_destroy(instances);
 	attack = false;
 	animation = true;
 }
@@ -47,8 +49,11 @@ else
 {
 	image_index = 0;
 }
-if(moveCounter < global.turn)
+
+if(moveCounter < global.turn && global.gridOrg[# w,h] != 4)
 {
 	canCheck = true;
 }
+
+
 moveCounter = global.turn;

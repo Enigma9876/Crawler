@@ -1,16 +1,19 @@
 x = obj_player.x + global.xdistance;
 y = obj_player.y + global.ydistance;
-
+if(!global.shootarrow)
+{
 	if(keyboard_check(ord("A")) || keyboard_check_pressed(vk_left))
 	{
+		obj_player.image_xscale = -1;
 		global.xdistance = -32;
 		global.ydistance = 0;
 	}
 	else if(keyboard_check(ord("D")) || keyboard_check_pressed(vk_right))
 	{
+		obj_player.image_xscale = 1;
 		global.xdistance = 32;
 		global.ydistance = 0;
-	}
+	} 
 	else if(keyboard_check(ord("W")) || keyboard_check_pressed(vk_up))
 	{
 		global.xdistance = 0;
@@ -21,16 +24,16 @@ y = obj_player.y + global.ydistance;
 		global.xdistance = 0;
 		global.ydistance = 32;
 	}
+}
 	
 	
 
-	if(global.canMove == true)
+	if(global.canMove && !global.shootarrow)
 	{
 		var w = ((x - (room_width div 4)) div 32);
 		var h = ((y - (room_height div 4)) div 32);
 		if(keyboard_check_pressed(vk_space))
 		{
-			global.canMove = false;
 			var left = global.grid[# w - 1,h];
 			var right = global.grid[# w + 1,h];
 			var up = global.grid[# w,h - 1];
@@ -50,6 +53,10 @@ y = obj_player.y + global.ydistance;
 					{
 						instances[| i].hp -= 15;
 						instances[| i].damaged = true;
+						instances[| i].xprevious = 0;
+						obj_player.attack = true;
+						obj_player.attackx = w;
+						obj_player.attacky = h;
 						i++
 					}
 					ds_list_destroy(instances);
@@ -186,6 +193,8 @@ y = obj_player.y + global.ydistance;
 						}
 						ds_list_destroy(instances);
 						ds_list_destroy(usedInstances);
+						global.turn += 1;
+						obj_player.xprevious = 0;
 				
 				}
 				global.gridPow[# w,h] = 0;
@@ -210,11 +219,13 @@ y = obj_player.y + global.ydistance;
 				//change door
 				if((left == -2 || left == 4) && (right == -2 || right == 4) && (up == -1 || up == 0 || up == 4) && (down == 0 || down == 4))
 				{
-					instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_doorclose1);
+					var door = instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_doorclose1);
+					door.xprevious = 0;
 				}
 				else if((left == 0 || left == 4) && (right == -1 || right == 0 || right == 4) && (up == -2 || up == 4) && (down == -2 || down == 4))
 				{ 
-						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_doorclose2);
+						var door = instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_doorclose2);
+						door.xprevious = 0;
 				}
 				global.turn += 1;
 				//update if any changes
@@ -328,6 +339,10 @@ y = obj_player.y + global.ydistance;
 				repeat ds_list_size(instances) 
 				{
 					instances[| i].destroy = true;
+					instances[| i].xprevious = 0;
+					obj_player.attack = true;
+					obj_player.attackx = w;
+					obj_player.attacky = h;
 					i++
 				}
 				ds_list_destroy(instances);

@@ -1,5 +1,10 @@
 if(destroy)
 {
+	if(image_index == 1)
+	{
+		var slash = instance_create_layer(x + 16, y + 16, "Instances_Global", obj_slashEffect);
+		slash.objectToFollow = id;
+	}
 	if(image_index >= 4)
 	{
 		stopDestroying = true;

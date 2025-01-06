@@ -84,6 +84,7 @@ function find_path(start_x, start_y, end_x, end_y)
 
 // Manhattan distance heuristic
 function manhattan_distance(x1, y1, x2, y2) {
+	//show_debug_message(string(abs(x1 - x2) + abs(y1 - y2)));
     return abs(x1 - x2) + abs(y1 - y2);
 }
 

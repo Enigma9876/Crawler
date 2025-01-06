@@ -13,3 +13,6 @@ border.image_yscale = 2;
 healthIm = instance_create_layer(healthBar_x, healthBar_y, "Instances_Global", obj_healthIm);
 healthIm.x = 38;
 healthIm.y = 16;
+
+pastHp = global.hp;
+
