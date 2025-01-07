@@ -26,8 +26,107 @@ if(!global.shootarrow)
 	}
 }
 	
+	var w = ((x - (room_width div 4)) div 32);
+	var h = ((y - (room_height div 4)) div 32);
+	if(global.gridOrg[# w, h] != 5 && keyboard_check_pressed(vk_space) && !global.shootarrow && (global.gridPow[# w,h] == 6 || global.gridPow[# w,h] == 7 || global.gridPow[# w,h] == 12 || global.gridPow[# w,h] == 2))
+	{
+		var add = true;
+		var instances = ds_list_create();
+					var usedInstances = ds_list_create();
+					for(var h2 = 16; h2 >= -16; h2--)
+					{
+						for(var w2 = 16; w2 >= -16; w2--)
+						{
+							var n = collision_point_list(x + w2, y + h2, obj_arrow, false, true, instances, false);
+							var n = collision_point_list(x + w2, y + h2, obj_arrow2, false, true, instances, false);
+							var n = collision_point_list(x + w2, y + h2, obj_arrow3, false, true, instances, false);
+							var n = collision_point_list(x + w2, y + h2, obj_potion2, false, true, instances, false);
+							var n = collision_point_list(x + w2, y + h2, obj_potion1, false, true, instances, false);
+							var n = collision_point_list(x + w2, y + h2, obj_key, false, true, instances, false);
+						}
+					}
+						var i = 0;
+						var otherItem = false;
+						repeat ds_list_size(instances)
+						{
+							if(add)
+							{
+								if(object_get_name(instances[| i].object_index) == "obj_arrow")
+								{
+									var text = instance_create_layer(obj_player.x, obj_player.y, "Instances_Global", obj_ItemPickup);
+									text.objectToFollow = obj_player;
+									text.text = "+1 arrow";
+									text.rarity = "common";
+									global.arrowCount ++;
+								}
+								if(object_get_name(instances[| i].object_index) == "obj_arrow2")
+								{
+									var text = instance_create_layer(obj_player.x, obj_player.y, "Instances_Global", obj_ItemPickup);
+									text.objectToFollow = obj_player;
+									text.text = "+1 multi arrow";
+									text.rarity = "epic";
+									global.arrowCount2 ++;
+								}
+								if(object_get_name(instances[| i].object_index) == "obj_arrow3")
+								{
+									var text = instance_create_layer(obj_player.x, obj_player.y, "Instances_Global", obj_ItemPickup);
+									text.objectToFollow = obj_player;
+									text.text = "+1 teleprot arrow";
+									text.rarity = "epic";
+									global.arrowCount3 ++;
+								}
+								if(object_get_name(instances[| i].object_index) == "obj_key")
+								{
+									var text = instance_create_layer(obj_player.x, obj_player.y, "Instances_Global", obj_ItemPickup);
+									text.objectToFollow = obj_player;
+									text.text = "+1 golden key";
+									text.rarity = "ledgendary";
+									global.keyCount ++;
+								}
+								if(object_get_name(instances[| i].object_index) == "obj_potion2")
+								{
+									var text = instance_create_layer(obj_player.x, obj_player.y, "Instances_Global", obj_ItemPickup);
+									text.objectToFollow = obj_player;
+									text.text = "+1 small potion";
+									text.rarity = "common";
+									global.potionCount2 ++;
+								}
+								if(object_get_name(instances[| i].object_index) == "obj_potion1")
+								{
+									var text = instance_create_layer(obj_player.x, obj_player.y, "Instances_Global", obj_ItemPickup);
+									text.objectToFollow = obj_player;
+									text.text = "+1 potion";
+									text.rarity = "epic";
+									global.potionCount1 ++;
+								}
+									
+								ds_list_add(usedInstances, instances[| i]);
+								instance_destroy(instances[| i]);
+								add = false;
+							}
+							
+							for(var j = 0; j < ds_list_size(usedInstances); j++)
+							{
+								if(usedInstances[| j] != instances[| i])
+								{
+									otherItem = true;
+								}
+							}
+							i++
+						}	
+						ds_list_destroy(instances);
+						ds_list_destroy(usedInstances);
+						
+						if(otherItem)
+							global.gridPow[# w,h] = 6;
+						else
+							global.gridPow[# w,h] = 0;
+					
+						//global.turn += 1;
+						//obj_player.xprevious = 0;
+	}
 	
-
+	
 	if(global.canMove && !global.shootarrow)
 	{
 		var w = ((x - (room_width div 4)) div 32);
@@ -38,7 +137,7 @@ if(!global.shootarrow)
 			var right = global.grid[# w + 1,h];
 			var up = global.grid[# w,h - 1];
 			var down = global.grid[# w,h + 1];
-			if(global.gridOrg[# w, h] == 5 || global.gridPow[# w,h] == 6 || global.gridPow[# w,h] == 7) //enemy
+			if(global.gridOrg[# w, h] == 5) //enemy
 			{
 				if(global.gridOrg[# w, h] == 5) //enemy
 				{
@@ -62,144 +161,8 @@ if(!global.shootarrow)
 					ds_list_destroy(instances);
 					global.turn += 1;
 				}
-					
-				//pickup arrow
-				else if(global.gridPow[# w,h] == 6 || global.gridPow[# w,h] == 7)
-				{
-					var instances = ds_list_create();
-					var usedInstances = ds_list_create();
-					for(var h2 = 16; h2 >= -16; h2--)
-					{
-						for(var w2 = 16; w2 >= -16; w2--)
-						{
-							var n = collision_point_list(x + w2, y + h2, obj_arrow, false, true, instances, false);
-						}
-					}
-						var i = 0;
-						repeat ds_list_size(instances)
-						{
-							var add = true;
-							for(var j = 0; j < ds_list_size(usedInstances);j++)
-							{
-								show_debug_message(usedInstances[| i]);
-								if(instances[| i] == usedInstances[| j])
-								{
-									add = false;
-								}
-							}
-							if(add)
-							{
-								ds_list_add(usedInstances, instances[| i]);
-								instance_destroy(instances[| i]);
-								global.arrowCount++;
-							}
-							i++
-						}
-						ds_list_destroy(instances);
-						ds_list_destroy(usedInstances);
-					var instances = ds_list_create();
-					var usedInstances = ds_list_create();
-					for(var h2 = 16; h2 >= -16; h2--)
-					{
-						for(var w2 = 16; w2 >= -16; w2--)
-						{
-							var n = collision_point_list(x + w2, y + h2, obj_arrow2, false, true, instances, false);
-						}
-					}
-						var i = 0;
-						repeat ds_list_size(instances)
-						{
-							var add = true;
-							for(var j = 0; j < ds_list_size(usedInstances);j++)
-							{
-								show_debug_message(usedInstances[| i]);
-								if(instances[| i] == usedInstances[| j])
-								{
-									add = false;
-								}
-							}
-							if(add)
-							{
-								ds_list_add(usedInstances, instances[| i]);
-								instance_destroy(instances[| i]);
-								global.arrowCount2++;
-							}
-							i++
-							
-						}
-						ds_list_destroy(instances);
-						ds_list_destroy(usedInstances);
-					var instances = ds_list_create();
-					var usedInstances = ds_list_create();
-					for(var h2 = 16; h2 >= -16; h2--)
-					{
-						for(var w2 = 16; w2 >= -16; w2--)
-						{
-							var n = collision_point_list(x + w2, y + h2, obj_arrow3, false, true, instances, false);
-						}
-					}
-						var i = 0;
-						repeat ds_list_size(instances)
-						{
-							var add = true;
-							for(var j = 0; j < ds_list_size(usedInstances);j++)
-							{
-								show_debug_message(usedInstances[| i]);
-								if(instances[| i] == usedInstances[| j])
-								{
-									add = false;
-								}
-							}
-							if(add)
-							{
-								ds_list_add(usedInstances, instances[| i]);
-								instance_destroy(instances[| i]);
-								global.arrowCount3++;
-							}
-							i++
-							
-						}
-						ds_list_destroy(instances);
-						ds_list_destroy(usedInstances);
-					var instances = ds_list_create();
-					var usedInstances = ds_list_create();
-					for(var h2 = 16; h2 >= -16; h2--)
-					{
-						for(var w2 = 16; w2 >= -16; w2--)
-						{
-							var n = collision_point_list(x + w2, y + h2, obj_potion2, false, true, instances, false);
-						}
-					}
-						var i = 0;
-						repeat ds_list_size(instances)
-						{
-							var add = true;
-							for(var j = 0; j < ds_list_size(usedInstances);j++)
-							{
-								show_debug_message(usedInstances[| i]);
-								if(instances[| i] == usedInstances[| j])
-								{
-									add = false;
-								}
-							}
-							if(add)
-							{
-								ds_list_add(usedInstances, instances[| i]);
-								instance_destroy(instances[| i]);
-								global.hp += 10;
-							}
-							i++
-							
-						}
-						ds_list_destroy(instances);
-						ds_list_destroy(usedInstances);
-						global.turn += 1;
-						obj_player.xprevious = 0;
-				
-				}
-				global.gridPow[# w,h] = 0;
 			}
-			else if(global.grid[# w, h] == -1)
+			else if(global.grid[# w, h] == -1 && !(global.gridPow[# w,h] == 6 || global.gridPow[# w,h] == 7 || global.gridPow[# w,h] == 12 || global.gridPow[# w,h] == 2))
 			{
 				//set to open door
 				global.grid[# w, h] = 1;
@@ -232,7 +195,7 @@ if(!global.shootarrow)
 				change_fog();
 			
 			}
-			else if(global.grid[# w, h] == 1)
+			else if(global.grid[# w, h] == 1 && !(global.gridPow[# w,h] == 6 || global.gridPow[# w,h] == 7 || global.gridPow[# w,h] == 12 || global.gridPow[# w,h] == 2))
 			{
 				//set to close door
 				global.grid[# w, h] = -1;
@@ -277,26 +240,8 @@ if(!global.shootarrow)
 			}
 			
 			
-			//pickup potion
-			if(global.gridOrg[# w,h] == 2)
-			{
-				global.gridOrg[# w,h] = 0;
-				var instances = ds_list_create();
-					var n = collision_point_list(x, y, obj_potion1, false, true, instances, false);
-					var i = 0;
-					repeat ds_list_size(instances) 
-					{
-						instance_destroy(instances[| i]);
-						i++
-						global.hp += 25;
-					}
-					ds_list_destroy(instances);
-					global.turn += 1;
-				
-			}
-			
 			//walk into ladder
-			if(global.grid[# w,h] == 9)
+			/*if(global.grid[# w,h] == 9)
 			{
 				if(room == rm_tutorialRoom)
 				{
@@ -328,7 +273,7 @@ if(!global.shootarrow)
 					destroy_room();
 				}
 				
-			}
+			} */
 			
 			if(global.grid[# w,h] == 3)
 			{
@@ -347,6 +292,39 @@ if(!global.shootarrow)
 				}
 				ds_list_destroy(instances);
 				global.turn += 1;
+			}
+			//chest
+			if(global.grid[# w,h] == 14 && global.keyCount > 0)
+			{
+				global.grid[# w,h] = 0;
+				var instances = ds_list_create();
+				var n = collision_point_list(x, y, obj_chest1, false, true, instances, false);
+				var i = 0;
+				repeat ds_list_size(instances) 
+				{
+					instances[| i].open = true;
+					instances[| i].xprevious = 0;
+					obj_player.openChest = true;
+					obj_player.attackx = w;
+					obj_player.attacky = h;
+					i++
+				}
+				ds_list_destroy(instances);
+				global.keyCount --;
+			}
+			else if(global.grid[# w,h] == 14 && global.keyCount == 0)
+			{
+				var instances = ds_list_create();
+				var n = collision_point_list(x, y, obj_chest1, false, true, instances, false);
+				var i = 0;
+				repeat ds_list_size(instances) 
+				{
+					var text = instance_create_layer(instances[| i].x - 48, instances[| i].y, "Instances_Global", obj_ItemPickup);
+					text.objectToFollow = instances[| i];
+					text.text = "need gold key";
+					i++
+				}
+				ds_list_destroy(instances);
 			}
 			
 		}

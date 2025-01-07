@@ -57,3 +57,13 @@ if(moveCounter < global.turn && global.gridOrg[# w,h] != 4)
 
 
 moveCounter = global.turn;
+
+/*if(image_index == 0)
+{
+	isIdle = true;
+
+}
+else
+{
+	isIdle = false;
+} */

@@ -206,23 +206,35 @@ if(global.canMove == true && !attack)
 	
 	else if(keyboard_check_pressed(ord("Q")) && !attack)
 	{
-		if(global.arrowCount > 0 && global.activeArrow == 1)
+		if(global.arrowCount > 0 && global.activeItem == 1)
 		{
 			arrowdirx = global.xdistance;
 			arrowdiry = global.ydistance;
 			global.shootarrow = true;
 			alarm_set(0, 32);
 		}
-		else if(global.arrowCount2 > 0 && global.activeArrow == 2)
+		else if(global.arrowCount2 > 0 && global.activeItem == 2)
 		{
 			global.shootarrow = true;
 			teleport = true;
 			alarm_set(1, 90);
 		}
-		else if(global.arrowCount3 > 0 && global.activeArrow == 3)
+		else if(global.arrowCount3 > 0 && global.activeItem == 3)
 		{
 			global.shootarrow = true;
 			alarm_set(2, 32);
+		}
+		else if(global.potionCount1 > 0 && global.activeItem == 4)
+		{
+			global.hp += 25;
+			global.potionCount1 --;
+			global.turn ++;
+		}
+		else if(global.potionCount2 > 0 && global.activeItem == 5)
+		{
+			global.hp += 10;
+			global.potionCount2 --;
+			global.turn ++;
 		}
 	}
 
@@ -343,7 +355,7 @@ if(global.canMove == true && !attack)
 		}
 	}
 	
-	if(attack)
+	if(attack || openChest)
 	{
 		if(attack_values)
 		{
@@ -407,6 +419,7 @@ if(global.canMove == true && !attack)
 		else if(moveBack)
 		{
 			attack = false;
+			openChest = false;
 			attack_values = true;
 			attack_move_progress = 0;
 			moveBack = false;
@@ -433,12 +446,33 @@ if(global.hp <= 0)
 
 	if(keyboard_check_pressed(ord("E")))
 	{
-		global.activeArrow++;
-		if(global.activeArrow > 3)
+		global.activeItem++;
+		if(global.activeItem > 5)
 		{
-			global.activeArrow = 1;
+			global.activeItem = 1;
 		}
 	}
+	if(keyboard_check_pressed(ord("1")))
+	{
+		global.activeItem = 1;
+	}
+	if(keyboard_check_pressed(ord("2")))
+	{
+		global.activeItem = 2;
+	}
+	if(keyboard_check_pressed(ord("3")))
+	{
+		global.activeItem = 3;
+	}
+	if(keyboard_check_pressed(ord("4")))
+	{
+		global.activeItem = 4;
+	}
+	if(keyboard_check_pressed(ord("5")))
+	{
+		global.activeItem = 5;
+	}
+	
 	
 //animation
 if(heal && sprite_index == spr_player && !attack && !teleport && !global.shootarrow)

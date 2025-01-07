@@ -1,0 +1,2 @@
+isIdle = true;
+open = false;

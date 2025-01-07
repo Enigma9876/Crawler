@@ -62,7 +62,6 @@ border.image_yscale = 1;
 healthIm = instance_create_layer(healthBar_x, healthBar_y, "Instances_FogOfWar", obj_enemyHealth);
 
 attacking = false;
-isAttacking = false;
 
 checkifMove = false;
 death = false;

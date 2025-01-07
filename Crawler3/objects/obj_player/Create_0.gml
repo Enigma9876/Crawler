@@ -67,3 +67,5 @@ arrowdiry = undefined;
 
 teleport = false;
 heal = false;
+
+openChest = false;

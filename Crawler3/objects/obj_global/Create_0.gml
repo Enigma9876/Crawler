@@ -8,12 +8,15 @@ randomize();
 	global.ydistance = -32;
 	global.gridOrg = ds_grid_create(0, 0);
 	global.gridPow = ds_grid_create(0,0);
-	global.activeArrow = 1;
+	global.activeItem = 1;
 	global.arrowCount = 15;
 	global.arrowCount2 = 3;
 	global.arrowCount3 = 4;
+	global.potionCount1 = 0;
+	global.potionCount2 = 0;
 	global.levelCount = 1;
 	global.consecutive = 0;
+	global.keyCount = 0;
 
 	// Create a reservation grid (same size as global.gridOrg)
 	global.reservationGrid = ds_grid_create(ds_grid_width(global.gridOrg), ds_grid_height(global.gridOrg));

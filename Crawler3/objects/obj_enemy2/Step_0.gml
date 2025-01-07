@@ -199,7 +199,6 @@ else
 	        // Apply the easing to the lerp
 	        x = round(lerp(left_start_x, left_end_x, _progress_factor));
 	        y = round(lerp(left_start_y, left_end_y, _progress_factor));
-			isAttacking = false;
 			attacking = false;
 		}
 		else
@@ -229,7 +228,6 @@ else
 			// Apply the easing to the lerp for right movement
 			x = round(lerp(right_start_x, right_end_x, _progress_factor_right));
 			y = round(lerp(right_start_y, right_end_y, _progress_factor_right));
-			isAttacking = false;
 			attacking = false;
 		}
 		else
@@ -238,7 +236,6 @@ else
 			right_values = true;
 			global.gridOrg[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 5;
 			right_move_progress = 0;
-			isAttacking = false;
 			attacking = false;
 		}
 	}
@@ -261,7 +258,6 @@ else
 			// Apply the easing to the lerp for up movement
 			x = round(lerp(up_start_x, up_end_x, _progress_factor_up));
 			y = round(lerp(up_start_y, up_end_y, _progress_factor_up));
-			isAttacking = false;
 			attacking = false;
 		}
 		else
@@ -291,7 +287,6 @@ else
 			// Apply the easing to the lerp for down movement
 			x = round(lerp(down_start_x, down_end_x, _progress_factor_down));
 			y = round(lerp(down_start_y, down_end_y, _progress_factor_down));
-			isAttacking = false;
 			attacking = false;
 		}
 		else
@@ -388,22 +383,23 @@ else
 		border.y = y - 15;
 
 
-	if(sprite_index == spr_enemy2Attack && image_index >= 2 && isAttacking)
+	if(sprite_index == spr_enemy2Attack && image_index > 2)
 	{
 		attacking = false;
-		isAttacking = false;
 		sprite_index = spr_enemy2;
 	}
-
-	if(sprite_index == spr_enemy2Attack && !isAttacking && !attacking)
+	
+	if(sprite_index == spr_enemy2 && attacking)
 	{
-		sprite_index = spr_enemy2;
+		sprite_index = spr_enemy2Attack;
+		image_index = 0;
+		
 	}
 
 	checkifMove = false;
 }
 
-if(sprite_index == spr_enemy2Death && image_index >= 3 && death)
+if(sprite_index == spr_enemy2Death && image_index > 3 && death)
 {
 	instance_destroy(id, false);
 }
