@@ -12,13 +12,19 @@ function tutorial_room()
 		}
 	}
 	
+	for(var h = 0; h < ds_grid_height(global.grid); h++)
+	{
+		for(var w = 0; w < ds_grid_width(global.grid); w++)
+		{
+				var fog = instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_FogOfWar", obj_Fog);
+		}
+	}
 	//set up above grid
 	for(var h = 0; h < ds_grid_height(global.grid); h++)
 	{
 		for(var w = 0; w < ds_grid_width(global.grid); w++)
 		{
 			//add fog
-			var fog = instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_FogOfWar", obj_Fog);
 			
 			//get adjacent tiles
 			var left = global.grid[# w - 1,h];
