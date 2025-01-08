@@ -1,5 +1,25 @@
-x = obj_player.x + global.xdistance;
-y = obj_player.y + global.ydistance;
+//x = obj_player.x + global.xdistance;
+//y = obj_player.y + global.ydistance;
+x = mouse_x - (mouse_x % 32) + 12;
+y = mouse_y - (mouse_y % 32) + 12;
+
+if (place_meeting(x, y, obj_Fog))
+{
+	var fog = instance_place(x, y, obj_Fog);
+	if(fog.image_index == 0 || fog.image_index == 1 || fog.image_index == 2)
+	{
+		visible = true;
+	}
+	else
+	{
+		visible = false;
+	}
+}
+else
+{
+	visible = false;
+}
+
 if(!global.shootarrow)
 {
 	if(keyboard_check(ord("A")) || keyboard_check_pressed(vk_left))
@@ -28,7 +48,7 @@ if(!global.shootarrow)
 	
 	var w = ((x - (room_width div 4)) div 32);
 	var h = ((y - (room_height div 4)) div 32);
-	if(global.gridOrg[# w, h] != 5 && keyboard_check_pressed(vk_space) && !global.shootarrow && (global.gridPow[# w,h] == 6 || global.gridPow[# w,h] == 7 || global.gridPow[# w,h] == 12 || global.gridPow[# w,h] == 2))
+	if(global.gridOrg[# w, h] != 5 && mouse_check_button_pressed(mb_left) && !global.shootarrow && (global.gridPow[# w,h] == 6 || global.gridPow[# w,h] == 7 || global.gridPow[# w,h] == 12 || global.gridPow[# w,h] == 2))
 	{
 		var add = true;
 		var instances = ds_list_create();
@@ -131,7 +151,7 @@ if(!global.shootarrow)
 	{
 		var w = ((x - (room_width div 4)) div 32);
 		var h = ((y - (room_height div 4)) div 32);
-		if(keyboard_check_pressed(vk_space))
+		if(mouse_check_button_pressed(mb_left))
 		{
 			var left = global.grid[# w - 1,h];
 			var right = global.grid[# w + 1,h];
