@@ -1,3 +1,4 @@
+/*
 if(obj_player.sprite_index != spr_playerShoot)
 {
 	if(room == rm_tutorialRoom)

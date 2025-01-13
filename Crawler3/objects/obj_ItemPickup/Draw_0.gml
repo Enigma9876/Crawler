@@ -5,5 +5,7 @@ else if(rarity == "epic")
 	draw_text_transformed_color(xvalue, y - yvalue,text,1,1,image_angle,c_purple,c_purple,c_purple,c_purple,image_alpha);
 else if(rarity == "ledgendary")
 	draw_text_transformed_color(xvalue, y - yvalue,text,1,1,image_angle,c_yellow,c_yellow,c_yellow,c_yellow,image_alpha);
+else if(rarity == "red")
+	draw_text_transformed_color(xvalue, y - yvalue,text,1,1,image_angle,c_red,c_red,c_red,c_red,image_alpha);
 else
 	draw_text_transformed_color(xvalue, y - yvalue,text,1,1,image_angle,c_white,c_white,c_white,c_white,image_alpha);

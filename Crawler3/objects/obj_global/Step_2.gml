@@ -2,7 +2,7 @@ var all_stopped = true;
 
 with (all) 
 {
-    if (x != xprevious || y != yprevious) {
+    if (object_index != obj_selection && x != xprevious || y != yprevious) {
         all_stopped = false; 
 		show_debug_message("Moving object: " + object_get_name(object_index) + " at position (" + string(x) + ", " + string(y) + ")");
         break; 
@@ -33,6 +33,11 @@ if(global.consecutive >= 2)
 	//global.consecutive = 0;
 }
 else
+{
+	global.canMove = false;
+}
+
+if(global.override)
 {
 	global.canMove = false;
 }

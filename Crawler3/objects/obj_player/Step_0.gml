@@ -1,5 +1,30 @@
 if(global.canMove == true && !attack)
 {
+	if(!global.shootarrow)
+	{
+		if(keyboard_check(ord("A")))
+		{
+			obj_player.image_xscale = -1;
+			global.xdistance = -32;
+			global.ydistance = 0;
+		}
+		else if(keyboard_check(ord("D")))
+		{
+			obj_player.image_xscale = 1;
+			global.xdistance = 32;
+			global.ydistance = 0;
+		} 
+		else if(keyboard_check(ord("W")))
+		{
+			global.xdistance = 0;
+			global.ydistance = -32;
+		}
+		else if(keyboard_check(ord("S")))
+		{
+			global.xdistance = 0;
+			global.ydistance = 32;
+		}
+	}
 	
 	//press and hold feature
 	if(keyboard_check(ord("W")))
@@ -15,7 +40,7 @@ if(global.canMove == true && !attack)
 				else
 				{
 					global.levelCount++;
-					global.gridOrg = ds_grid_create(0, 0);
+					global.gridOrg = ds_grid_create(0,0);
 					global.gridPow = ds_grid_create(0,0);
 					global.enemyCount = 0;
 				
@@ -38,6 +63,9 @@ if(global.canMove == true && !attack)
 					}
 				
 					destroy_room();
+					alarm_set(4,60);
+					global.override = true;
+					
 				}
 			}
 			else
@@ -52,6 +80,158 @@ if(global.canMove == true && !attack)
 			}
 
 		}
+		
+		
+		//check
+		if(checkCoolDown)
+		{
+			var w = ((x + global.xdistance - (room_width div 4)) div 32);
+			var h = ((y + global.ydistance - (room_height div 4)) div 32);
+			var left = global.grid[# w - 1,h];
+			var right = global.grid[# w + 1,h];
+			var up = global.grid[# w,h - 1];
+			var down = global.grid[# w,h + 1];
+			if(global.gridOrg[# w, h] == 5) //enemy
+			{
+				if(global.gridOrg[# w, h] == 5) //enemy
+				{
+				var instances = ds_list_create();
+					var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_enemy1, false, true, instances, false);
+					var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_enemy1Elite, false, true, instances, false);
+					var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_enemy2, false, true, instances, false);
+					var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_enemy2Elite, false, true, instances, false);
+					var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_enemy3, false, true, instances, false);
+					var i = 0;
+					repeat ds_list_size(instances) 
+					{
+						var chance = irandom_range(1,100);
+						
+						if(chance <= global.crit)
+						{
+							instances[| i].hp -= global.damage * 2;
+							var text = instance_create_layer(obj_player.x, obj_player.y, "Instances_Global", obj_ItemPickup);
+									text.objectToFollow = obj_player;
+									text.text = "CRIT";
+									text.rarity = "red";
+						}
+						else
+						instances[| i].hp -= global.damage;
+						instances[| i].damaged = true;
+						instances[| i].xprevious = 0;
+						obj_player.attack = true;
+						obj_player.attackx = w;
+						obj_player.attacky = h;
+						i++
+					}
+					ds_list_destroy(instances);
+					global.turn += 1;
+					alarm_set(3,10);
+					checkCoolDown = false;
+				}
+			}
+			else if(global.grid[# w, h] == -1 && !(global.gridPow[# w,h] == 6 || global.gridPow[# w,h] == 7 || global.gridPow[# w,h] == 12 || global.gridPow[# w,h] == 2))
+			{
+				//set to open door
+				global.grid[# w, h] = 1;
+				
+				//delete door
+				var instances = ds_list_create();
+				var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_Door1, false, true, instances, false);
+				var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_Door2, false, true, instances, false);
+				var i = 0;
+				repeat ds_list_size(instances) 
+				{
+					instance_destroy(instances[| i]);
+				    i++;
+				}
+				ds_list_destroy(instances);
+				
+				//change door
+				if((left == -2 || left == 4) && (right == -2 || right == 4) && (up == -1 || up == 0 || up == 4) && (down == 0 || down == 4))
+				{
+					var door = instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_doorclose1);
+					door.xprevious = 0;
+				}
+				else if((left == 0 || left == 4) && (right == -1 || right == 0 || right == 4) && (up == -2 || up == 4) && (down == -2 || down == 4))
+				{ 
+						var door = instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_doorclose2);
+						door.xprevious = 0;
+				}
+				global.turn += 1;
+				alarm_set(3,10);
+				checkCoolDown = false;
+				//update if any changes
+				change_fog();
+			
+			}
+			
+			if(global.grid[# w,h] == 3)
+			{
+				global.grid[# w,h] = 0;
+				var instances = ds_list_create();
+				var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_box1, false, true, instances, false);
+				var i = 0;
+				repeat ds_list_size(instances) 
+				{
+					instances[| i].destroy = true;
+					instances[| i].xprevious = 0;
+					obj_player.attack = true;
+					obj_player.attackx = w;
+					obj_player.attacky = h;
+					i++
+				}
+				ds_list_destroy(instances);
+				global.turn += 1;
+				alarm_set(3,10);
+				checkCoolDown = false;
+			}
+			//chest
+			if(global.grid[# w,h] == 14 && global.keyCount > 0)
+			{
+				global.grid[# w,h] = 0;
+				var instances = ds_list_create();
+				var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_chest1, false, true, instances, false);
+				var i = 0;
+				repeat ds_list_size(instances) 
+				{
+					instances[| i].open = true;
+					instances[| i].xprevious = 0;
+					obj_player.openChest = true;
+					obj_player.attackx = w;
+					obj_player.attacky = h;
+					i++
+				}
+				ds_list_destroy(instances);
+				global.keyCount --;
+				var index = ds_list_find_index(global.inventory, "key");
+	
+				if (index != -1)
+				{
+					ds_list_delete(global.inventory, index);
+				}
+				global.turn += 1;
+				alarm_set(3,10);
+				checkCoolDown = false;
+			}
+			else if(global.grid[# w,h] == 14 && global.keyCount == 0)
+			{
+				var instances = ds_list_create();
+				var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_chest1, false, true, instances, false);
+				var i = 0;
+				repeat ds_list_size(instances) 
+				{
+					var text = instance_create_layer(instances[| i].x - 48, instances[| i].y, "Instances_Global", obj_ItemPickup);
+					text.objectToFollow = instances[| i];
+					text.text = "need gold key";
+					i++
+				}
+				ds_list_destroy(instances);
+				alarm_set(3,10);
+				checkCoolDown = false;
+			}
+		}
+			
+			
 	}
 	else if(keyboard_check(ord("D")))
 	{
@@ -102,6 +282,156 @@ if(global.canMove == true && !attack)
 			}
 			
 		}
+		
+		//check
+		if(checkCoolDown)
+		{
+			var w = ((x + global.xdistance - (room_width div 4)) div 32);
+			var h = ((y + global.ydistance - (room_height div 4)) div 32);
+			var left = global.grid[# w - 1,h];
+			var right = global.grid[# w + 1,h];
+			var up = global.grid[# w,h - 1];
+			var down = global.grid[# w,h + 1];
+			if(global.gridOrg[# w, h] == 5) //enemy
+			{
+				if(global.gridOrg[# w, h] == 5) //enemy
+				{
+				var instances = ds_list_create();
+					var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_enemy1, false, true, instances, false);
+					var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_enemy1Elite, false, true, instances, false);
+					var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_enemy2, false, true, instances, false);
+					var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_enemy2Elite, false, true, instances, false);
+					var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_enemy3, false, true, instances, false);
+					var i = 0;
+					repeat ds_list_size(instances) 
+					{
+						var chance = irandom_range(1,100);
+						
+						if(chance <= global.crit)
+						{
+							instances[| i].hp -= global.damage * 2;
+							var text = instance_create_layer(obj_player.x, obj_player.y, "Instances_Global", obj_ItemPickup);
+									text.objectToFollow = obj_player;
+									text.text = "CRIT";
+									text.rarity = "red";
+						}
+						else
+						instances[| i].hp -= global.damage;
+						instances[| i].damaged = true;
+						instances[| i].xprevious = 0;
+						obj_player.attack = true;
+						obj_player.attackx = w;
+						obj_player.attacky = h;
+						i++
+					}
+					ds_list_destroy(instances);
+					global.turn += 1;
+					alarm_set(3,10);
+					checkCoolDown = false;
+				}
+			}
+			else if(global.grid[# w, h] == -1 && !(global.gridPow[# w,h] == 6 || global.gridPow[# w,h] == 7 || global.gridPow[# w,h] == 12 || global.gridPow[# w,h] == 2))
+			{
+				//set to open door
+				global.grid[# w, h] = 1;
+				
+				//delete door
+				var instances = ds_list_create();
+				var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_Door1, false, true, instances, false);
+				var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_Door2, false, true, instances, false);
+				var i = 0;
+				repeat ds_list_size(instances) 
+				{
+					instance_destroy(instances[| i]);
+				    i++;
+				}
+				ds_list_destroy(instances);
+				
+				//change door
+				if((left == -2 || left == 4) && (right == -2 || right == 4) && (up == -1 || up == 0 || up == 4) && (down == 0 || down == 4))
+				{
+					var door = instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_doorclose1);
+					door.xprevious = 0;
+				}
+				else if((left == 0 || left == 4) && (right == -1 || right == 0 || right == 4) && (up == -2 || up == 4) && (down == -2 || down == 4))
+				{ 
+						var door = instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_doorclose2);
+						door.xprevious = 0;
+				}
+				global.turn += 1;
+				alarm_set(3,10);
+				checkCoolDown = false;
+				//update if any changes
+				change_fog();
+			
+			}
+			
+			if(global.grid[# w,h] == 3)
+			{
+				show_debug_message("hit box");
+				global.grid[# w,h] = 0;
+				var instances = ds_list_create();
+				var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_box1, false, true, instances, false);
+				var i = 0;
+				repeat ds_list_size(instances) 
+				{
+					instances[| i].destroy = true;
+					instances[| i].xprevious = 0;
+					obj_player.attack = true;
+					obj_player.attackx = w;
+					obj_player.attacky = h;
+					i++
+				}
+				ds_list_destroy(instances);
+				global.turn += 1;
+				alarm_set(3,10);
+				checkCoolDown = false;
+			}
+			//chest
+			if(global.grid[# w,h] == 14 && global.keyCount > 0)
+			{
+				global.grid[# w,h] = 0;
+				var instances = ds_list_create();
+				var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_chest1, false, true, instances, false);
+				var i = 0;
+				repeat ds_list_size(instances) 
+				{
+					instances[| i].open = true;
+					instances[| i].xprevious = 0;
+					obj_player.openChest = true;
+					obj_player.attackx = w;
+					obj_player.attacky = h;
+					i++
+				}
+				ds_list_destroy(instances);
+				global.keyCount --;
+				var index = ds_list_find_index(global.inventory, "key");
+	
+				if (index != -1)
+				{
+					ds_list_delete(global.inventory, index);
+				}
+				global.turn += 1;
+				alarm_set(3,10);
+				checkCoolDown = false;
+			}
+			else if(global.grid[# w,h] == 14 && global.keyCount == 0)
+			{
+				var instances = ds_list_create();
+				var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_chest1, false, true, instances, false);
+				var i = 0;
+				repeat ds_list_size(instances) 
+				{
+					var text = instance_create_layer(instances[| i].x - 48, instances[| i].y, "Instances_Global", obj_ItemPickup);
+					text.objectToFollow = instances[| i];
+					text.text = "need gold key";
+					i++
+				}
+				ds_list_destroy(instances);
+				alarm_set(3,10);
+				checkCoolDown = false;
+			}
+		}
 	}
 	else if(keyboard_check(ord("S")))
 	{
@@ -150,6 +480,156 @@ if(global.canMove == true && !attack)
 				global.ydistance = 32;
 			}
 			
+		}
+		
+		//check
+		if(checkCoolDown)
+		{
+			var w = ((x + global.xdistance - (room_width div 4)) div 32);
+			var h = ((y + global.ydistance - (room_height div 4)) div 32);
+			var left = global.grid[# w - 1,h];
+			var right = global.grid[# w + 1,h];
+			var up = global.grid[# w,h - 1];
+			var down = global.grid[# w,h + 1];
+			if(global.gridOrg[# w, h] == 5) //enemy
+			{
+				if(global.gridOrg[# w, h] == 5) //enemy
+				{
+				var instances = ds_list_create();
+					var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_enemy1, false, true, instances, false);
+					var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_enemy1Elite, false, true, instances, false);
+					var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_enemy2, false, true, instances, false);
+					var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_enemy2Elite, false, true, instances, false);
+					var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_enemy3, false, true, instances, false);
+					var i = 0;
+					repeat ds_list_size(instances) 
+					{
+						var chance = irandom_range(1,100);
+						
+						if(chance <= global.crit)
+						{
+							instances[| i].hp -= global.damage * 2;
+							var text = instance_create_layer(obj_player.x, obj_player.y, "Instances_Global", obj_ItemPickup);
+									text.objectToFollow = obj_player;
+									text.text = "CRIT";
+									text.rarity = "red";
+						}
+						else
+						instances[| i].hp -= global.damage;
+						instances[| i].damaged = true;
+						instances[| i].xprevious = 0;
+						obj_player.attack = true;
+						obj_player.attackx = w;
+						obj_player.attacky = h;
+						i++
+					}
+					ds_list_destroy(instances);
+					global.turn += 1;
+					alarm_set(3,10);
+					checkCoolDown = false;
+				}
+			}
+			else if(global.grid[# w, h] == -1 && !(global.gridPow[# w,h] == 6 || global.gridPow[# w,h] == 7 || global.gridPow[# w,h] == 12 || global.gridPow[# w,h] == 2))
+			{
+				//set to open door
+				global.grid[# w, h] = 1;
+				
+				//delete door
+				var instances = ds_list_create();
+				var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_Door1, false, true, instances, false);
+				var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_Door2, false, true, instances, false);
+				var i = 0;
+				repeat ds_list_size(instances) 
+				{
+					instance_destroy(instances[| i]);
+				    i++;
+				}
+				ds_list_destroy(instances);
+				
+				//change door
+				if((left == -2 || left == 4) && (right == -2 || right == 4) && (up == -1 || up == 0 || up == 4) && (down == 0 || down == 4))
+				{
+					var door = instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_doorclose1);
+					door.xprevious = 0;
+				}
+				else if((left == 0 || left == 4) && (right == -1 || right == 0 || right == 4) && (up == -2 || up == 4) && (down == -2 || down == 4))
+				{ 
+						var door = instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_doorclose2);
+						door.xprevious = 0;
+				}
+				global.turn += 1;
+				alarm_set(3,10);
+				checkCoolDown = false;
+				//update if any changes
+				change_fog();
+			
+			}
+			
+			if(global.grid[# w,h] == 3)
+			{
+				show_debug_message("hit box");
+				global.grid[# w,h] = 0;
+				var instances = ds_list_create();
+				var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_box1, false, true, instances, false);
+				var i = 0;
+				repeat ds_list_size(instances) 
+				{
+					instances[| i].destroy = true;
+					instances[| i].xprevious = 0;
+					obj_player.attack = true;
+					obj_player.attackx = w;
+					obj_player.attacky = h;
+					i++
+				}
+				ds_list_destroy(instances);
+				global.turn += 1;
+				alarm_set(3,10);
+				checkCoolDown = false;
+			}
+			//chest
+			if(global.grid[# w,h] == 14 && global.keyCount > 0)
+			{
+				global.grid[# w,h] = 0;
+				var instances = ds_list_create();
+				var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_chest1, false, true, instances, false);
+				var i = 0;
+				repeat ds_list_size(instances) 
+				{
+					instances[| i].open = true;
+					instances[| i].xprevious = 0;
+					obj_player.openChest = true;
+					obj_player.attackx = w;
+					obj_player.attacky = h;
+					i++
+				}
+				ds_list_destroy(instances);
+				global.keyCount --;
+				var index = ds_list_find_index(global.inventory, "key");
+	
+				if (index != -1)
+				{
+					ds_list_delete(global.inventory, index);
+				}
+				global.turn += 1;
+				alarm_set(3,10);
+				checkCoolDown = false;
+			}
+			else if(global.grid[# w,h] == 14 && global.keyCount == 0)
+			{
+				var instances = ds_list_create();
+				var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_chest1, false, true, instances, false);
+				var i = 0;
+				repeat ds_list_size(instances) 
+				{
+					var text = instance_create_layer(instances[| i].x - 48, instances[| i].y, "Instances_Global", obj_ItemPickup);
+					text.objectToFollow = instances[| i];
+					text.text = "need gold key";
+					i++
+				}
+				ds_list_destroy(instances);
+				alarm_set(3,10);
+				checkCoolDown = false;
+			}
 		}
 	}
 	else if(keyboard_check(ord("A")))
@@ -202,39 +682,195 @@ if(global.canMove == true && !attack)
 
 		}
 		
+		//check
+		if(checkCoolDown)
+		{
+			var w = ((x + global.xdistance - (room_width div 4)) div 32);
+			var h = ((y + global.ydistance - (room_height div 4)) div 32);
+			var left = global.grid[# w - 1,h];
+			var right = global.grid[# w + 1,h];
+			var up = global.grid[# w,h - 1];
+			var down = global.grid[# w,h + 1];
+			if(global.gridOrg[# w, h] == 5) //enemy
+			{
+				if(global.gridOrg[# w, h] == 5) //enemy
+				{
+				var instances = ds_list_create();
+					var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_enemy1, false, true, instances, false);
+					var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_enemy1Elite, false, true, instances, false);
+					var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_enemy2, false, true, instances, false);
+					var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_enemy2Elite, false, true, instances, false);
+					var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_enemy3, false, true, instances, false);
+					var i = 0;
+					repeat ds_list_size(instances) 
+					{
+						var chance = irandom_range(1,100);
+						
+						if(chance <= global.crit)
+						{
+							instances[| i].hp -= global.damage * 2;
+							var text = instance_create_layer(obj_player.x, obj_player.y, "Instances_Global", obj_ItemPickup);
+									text.objectToFollow = obj_player;
+									text.text = "CRIT";
+									text.rarity = "red";
+						}
+						else
+						instances[| i].hp -= global.damage;
+						instances[| i].damaged = true;
+						instances[| i].xprevious = 0;
+						obj_player.attack = true;
+						obj_player.attackx = w;
+						obj_player.attacky = h;
+						i++
+					}
+					ds_list_destroy(instances);
+					global.turn += 1;
+					alarm_set(3,10);
+					checkCoolDown = false;
+				}
+			}
+			else if(global.grid[# w, h] == -1 && !(global.gridPow[# w,h] == 6 || global.gridPow[# w,h] == 7 || global.gridPow[# w,h] == 12 || global.gridPow[# w,h] == 2))
+			{
+				//set to open door
+				global.grid[# w, h] = 1;
+				
+				//delete door
+				var instances = ds_list_create();
+				var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_Door1, false, true, instances, false);
+				var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_Door2, false, true, instances, false);
+				var i = 0;
+				repeat ds_list_size(instances) 
+				{
+					instance_destroy(instances[| i]);
+				    i++;
+				}
+				ds_list_destroy(instances);
+				
+				//change door
+				if((left == -2 || left == 4) && (right == -2 || right == 4) && (up == -1 || up == 0 || up == 4) && (down == 0 || down == 4))
+				{
+					var door = instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_doorclose1);
+					door.xprevious = 0;
+				}
+				else if((left == 0 || left == 4) && (right == -1 || right == 0 || right == 4) && (up == -2 || up == 4) && (down == -2 || down == 4))
+				{ 
+						var door = instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_doorclose2);
+						door.xprevious = 0;
+				}
+				global.turn += 1;
+				alarm_set(3,10);
+				checkCoolDown = false;
+				//update if any changes
+				change_fog();
+			
+			}
+			
+			if(global.grid[# w,h] == 3)
+			{
+				show_debug_message("hit box");
+				global.grid[# w,h] = 0;
+				var instances = ds_list_create();
+				var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_box1, false, true, instances, false);
+				var i = 0;
+				repeat ds_list_size(instances) 
+				{
+					instances[| i].destroy = true;
+					instances[| i].xprevious = 0;
+					obj_player.attack = true;
+					obj_player.attackx = w;
+					obj_player.attacky = h;
+					i++
+				}
+				ds_list_destroy(instances);
+				global.turn += 1;
+				alarm_set(3,10);
+				checkCoolDown = false;
+			}
+			//chest
+			if(global.grid[# w,h] == 14 && global.keyCount > 0)
+			{
+				global.grid[# w,h] = 0;
+				var instances = ds_list_create();
+				var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_chest1, false, true, instances, false);
+				var i = 0;
+				repeat ds_list_size(instances) 
+				{
+					instances[| i].open = true;
+					instances[| i].xprevious = 0;
+					obj_player.openChest = true;
+					obj_player.attackx = w;
+					obj_player.attacky = h;
+					i++
+				}
+				ds_list_destroy(instances);
+				global.keyCount --;
+				var index = ds_list_find_index(global.inventory, "key");
+	
+				if (index != -1)
+				{
+					ds_list_delete(global.inventory, index);
+				}
+				global.turn += 1;
+				alarm_set(3,10);
+				checkCoolDown = false;
+			}
+			else if(global.grid[# w,h] == 14 && global.keyCount == 0)
+			{
+				var instances = ds_list_create();
+				var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_chest1, false, true, instances, false);
+				var i = 0;
+				repeat ds_list_size(instances) 
+				{
+					var text = instance_create_layer(instances[| i].x - 48, instances[| i].y, "Instances_Global", obj_ItemPickup);
+					text.objectToFollow = instances[| i];
+					text.text = "need gold key";
+					i++
+				}
+				ds_list_destroy(instances);
+				alarm_set(3,10);
+				checkCoolDown = false;
+			}
+		}
+		
 	}
 	
 	else if(keyboard_check_pressed(ord("Q")) && !attack)
 	{
-		if(global.arrowCount > 0 && global.activeItem == 1)
+		if(global.arrowCount > 0 && global.activeItem == "arrow")
 		{
 			arrowdirx = global.xdistance;
 			arrowdiry = global.ydistance;
 			global.shootarrow = true;
 			alarm_set(0, 32);
 		}
-		else if(global.arrowCount2 > 0 && global.activeItem == 2)
+		else if(global.arrowCount <= 0 && global.activeItem == "arrow")
+		{
+			var discardP = instance_create_layer(obj_player.x,obj_player.y, "Instances_Global", obj_ItemPickup);
+			discardP.text = "out of arrows";
+			discardP.objectToFollow = obj_player;
+		}
+		else if(global.arrowCount2 > 0 && global.activeItem == "arrow2")
 		{
 			global.shootarrow = true;
 			teleport = true;
 			alarm_set(1, 90);
 		}
-		else if(global.arrowCount3 > 0 && global.activeItem == 3)
+		else if(global.arrowCount2 <= 0 && global.activeItem == "arrow2")
+		{
+			var discardP = instance_create_layer(obj_player.x,obj_player.y, "Instances_Global", obj_ItemPickup);
+			discardP.text = "out of arrows";
+			discardP.objectToFollow = obj_player;
+		}
+		else if(global.arrowCount3 > 0 && global.activeItem == "arrow3")
 		{
 			global.shootarrow = true;
 			alarm_set(2, 32);
 		}
-		else if(global.potionCount1 > 0 && global.activeItem == 4)
+		else if(global.arrowCount3 <= 0 && global.activeItem == "arrow3")
 		{
-			global.hp += 25;
-			global.potionCount1 --;
-			global.turn ++;
-		}
-		else if(global.potionCount2 > 0 && global.activeItem == 5)
-		{
-			global.hp += 10;
-			global.potionCount2 --;
-			global.turn ++;
+			var discardP = instance_create_layer(obj_player.x,obj_player.y, "Instances_Global", obj_ItemPickup);
+			discardP.text = "out of arrows";
+			discardP.objectToFollow = obj_player;
 		}
 	}
 
@@ -443,35 +1079,6 @@ if(global.hp <= 0)
 	//die
 	room_goto (rm_main);
 }
-
-	if(keyboard_check_pressed(ord("E")))
-	{
-		global.activeItem++;
-		if(global.activeItem > 5)
-		{
-			global.activeItem = 1;
-		}
-	}
-	if(keyboard_check_pressed(ord("1")))
-	{
-		global.activeItem = 1;
-	}
-	if(keyboard_check_pressed(ord("2")))
-	{
-		global.activeItem = 2;
-	}
-	if(keyboard_check_pressed(ord("3")))
-	{
-		global.activeItem = 3;
-	}
-	if(keyboard_check_pressed(ord("4")))
-	{
-		global.activeItem = 4;
-	}
-	if(keyboard_check_pressed(ord("5")))
-	{
-		global.activeItem = 5;
-	}
 	
 	
 //animation

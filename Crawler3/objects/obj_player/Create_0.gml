@@ -69,3 +69,6 @@ teleport = false;
 heal = false;
 
 openChest = false;
+
+checkCoolDown = true;
+ladderLock = false;

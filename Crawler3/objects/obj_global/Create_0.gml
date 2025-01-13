@@ -2,6 +2,7 @@
 randomize(); 
 
 	//globals
+	global.override = false
 	global.turn = 0;
 	global.enemyCount = 0;
 	global.xdistance = 0;
@@ -9,14 +10,37 @@ randomize();
 	global.gridOrg = ds_grid_create(0, 0);
 	global.gridPow = ds_grid_create(0,0);
 	global.activeItem = 1;
-	global.arrowCount = 15;
-	global.arrowCount2 = 3;
-	global.arrowCount3 = 4;
+	global.arrowCount = 0;
+	global.arrowCount2 = 0;
+	global.arrowCount3 = 0;
 	global.potionCount1 = 0;
 	global.potionCount2 = 0;
 	global.levelCount = 1;
 	global.consecutive = 0;
 	global.keyCount = 0;
+	global.damage = 0;
+	global.activeWeapon = "sword1";
+	global.crit = 0;
+	global.armor1Count = 0;
+	global.armor2Count = 0;
+	global.armor3Count = 0;
+	global.armor4Count = 0;
+	global.activeArmor = undefined;
+	
+	//items
+	global.sword1Count = 1;
+	global.sword2Count = 0;
+	global.sword3Count = 0;
+	global.sword4Count = 0;
+	
+	global.ring1Count = 0;
+	global.ring2Count = 0;
+	global.ring3Count = 0;
+	global.ring4Count = 0;
+	global.activeRing1 = undefined;
+	global.activeRing2 = undefined;
+	
+	global.inventory = ds_list_create();
 
 	// Create a reservation grid (same size as global.gridOrg)
 	global.reservationGrid = ds_grid_create(ds_grid_width(global.gridOrg), ds_grid_height(global.gridOrg));
