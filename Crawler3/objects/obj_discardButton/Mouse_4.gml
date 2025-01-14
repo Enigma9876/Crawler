@@ -165,6 +165,61 @@ if(collision_enabled)
 		}
 	
 	}
+	else if(name == "ring" && global.ring1Count > 0)
+	{
+		global.ring1Count--;
+		var index = ds_list_find_index(global.inventory, "ring1");
+	
+		if (index != -1)
+		{
+			ds_list_delete(global.inventory, index);
+		}
+	
+	}
+	else if(name == "ruby ring" && global.ring2Count > 0)
+	{
+		global.ring2Count--;
+		var index = ds_list_find_index(global.inventory, "ring2");
+	
+		if (index != -1)
+		{
+			ds_list_delete(global.inventory, index);
+		}
+	
+	}
+	else if(name == "slash ring" && global.ring3Count > 0)
+	{
+		global.ring3Count--;
+		var index = ds_list_find_index(global.inventory, "ring3");
+	
+		if (index != -1)
+		{
+			ds_list_delete(global.inventory, index);
+		}
+	
+	}
+	else if(name == "shield ring" && global.ring4Count > 0)
+	{
+		global.ring4Count--;
+		var index = ds_list_find_index(global.inventory, "ring4");
+	
+		if (index != -1)
+		{
+			ds_list_delete(global.inventory, index);
+		}
+	
+	}
+	else if(name == "multi orbs" && global.ring5Count > 0)
+	{
+		global.ring5Count--;
+		var index = ds_list_find_index(global.inventory, "ring5");
+	
+		if (index != -1)
+		{
+			ds_list_delete(global.inventory, index);
+		}
+	
+	}
 	instance_destroy(id, false);
 }
 

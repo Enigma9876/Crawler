@@ -309,7 +309,7 @@ function tutorial_room()
 			}
 			if((w == 39 && h == 4))
 			{
-				instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_Enemies", obj_enemy1Elite);
+				instance_create_layer((w * 32) + (room_width div 4) + 16, (h * 32) + (room_height div 4) + 16, "Instances_Enemies", obj_enemy1);
 				global.gridOrg[# w,h] = 5;
 			}
 			if((w == 42 && h == 4))

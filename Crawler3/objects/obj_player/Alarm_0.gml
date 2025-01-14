@@ -1,32 +1,16 @@
+// Calculate the angle to shoot the arrow based on arrowdirx and arrowdiry
+var angle_to_target = point_direction(x, y, arrowdirx, arrowdiry);
+
+// Create the arrow instance
 var arrow = instance_create_layer(x, y, "Instances_projectiles", obj_arrowFire);
-			if(arrowdirx = -32 && arrowdiry = 0)
-			{
-				arrow.image_angle = 135;
-				arrow.speed = -10;
-			}
-			else if(arrowdirx = 32 && arrowdiry = 0)
-			{
-				arrow.image_angle = 315;
-				arrow.speed = 10;
-			}
-			else if(arrowdirx = 0 && arrowdiry = 32)
-			{
-				arrow.image_angle = 225;
-				arrow.vspeed = 10;
-			}
-			else if(arrowdirx = 0 && arrowdiry = -32)
-			{
-				arrow.image_angle = 45;
-				arrow.vspeed = -10;
-			}
-			else
-			{
-				//default to right if problem
-				arrow.image_angle = 315;
-				arrow.speed = 10;
-			}
-			
-			
-			//delete arrow from amount
-			global.turn++;
-			global.arrowCount--;
+
+// Set the arrow's image angle to face the target direction, adjusted by 45 degrees
+arrow.image_angle = angle_to_target - 45; // Adjust by 45 degrees to correct the tilt
+
+// Set the arrow's speed and direction
+arrow.direction = angle_to_target;
+arrow.speed = 10; // Set this to the desired speed
+
+// Update arrow count and turn
+global.turn++;
+global.arrowCount--;

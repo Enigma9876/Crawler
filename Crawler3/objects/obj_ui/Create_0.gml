@@ -1,6 +1,10 @@
 inventoryOpen = false;
 spotsTaken = ds_grid_create(5,4); //tracks what things are in what places in the inventory
 spotsEquipped = array_create(5, string);
+for (var i = 0; i < array_length(spotsEquipped); i++) 
+{
+    spotsEquipped[i] = 0;
+}
 
 //selection boxes
 for(var h = 0; h < ds_grid_height(spotsTaken); h++)
@@ -145,3 +149,92 @@ ring5.mask_index = noone;
 ring5.image_speed = 0;
 
 
+sword1display = instance_create_layer(0,0, "Instances_Global", obj_sword1);
+sword1display.visible = false;
+sword1display.mask_index = noone;
+sword1display.image_speed = 0;
+
+sword2display = instance_create_layer(0,0, "Instances_Global", obj_sword2);
+sword2display.visible = false;
+sword2display.mask_index = noone;
+sword2display.image_speed = 0;
+
+sword3display = instance_create_layer(0,0, "Instances_Global", obj_sword3);
+sword3display.visible = false;
+sword3display.mask_index = noone;
+sword3display.image_speed = 0;
+
+sword4display = instance_create_layer(0,0, "Instances_Global", obj_sword4);
+sword4display.visible = false;
+sword4display.mask_index = noone;
+sword4display.image_speed = 0;
+
+armor1display = instance_create_layer(0,0, "Instances_Global", obj_armor1);
+armor1display.visible = false;
+armor1display.mask_index = noone;
+armor1display.image_speed = 0;
+
+armor2display = instance_create_layer(0,0, "Instances_Global", obj_armor2);
+armor2display.visible = false;
+armor2display.mask_index = noone;
+armor2display.image_speed = 0;
+
+armor3display = instance_create_layer(0,0, "Instances_Global", obj_armor3);
+armor3display.visible = false;
+armor3display.mask_index = noone;
+armor3display.image_speed = 0;
+
+armor4display = instance_create_layer(0,0, "Instances_Global", obj_armor4);
+armor4display.visible = false;
+armor4display.mask_index = noone;
+armor4display.image_speed = 0;
+
+ring1display = instance_create_layer(0,0, "Instances_Global", obj_ring1);
+ring1display.visible = false;
+ring1display.mask_index = noone;
+ring1display.image_speed = 0;
+
+ring2display = instance_create_layer(0,0, "Instances_Global", obj_ring2);
+ring2display.visible = false;
+ring2display.mask_index = noone;
+ring2display.image_speed = 0;
+
+ring3display = instance_create_layer(0,0, "Instances_Global", obj_ring3);
+ring3display.visible = false;
+ring3display.mask_index = noone;
+ring3display.image_speed = 0;
+
+ring4display = instance_create_layer(0,0, "Instances_Global", obj_ring4);
+ring4display.visible = false;
+ring4display.mask_index = noone;
+ring4display.image_speed = 0;
+
+ring5display = instance_create_layer(0,0, "Instances_Global", obj_ring5);
+ring5display.visible = false;
+ring5display.mask_index = noone;
+ring5display.image_speed = 0;
+
+ring1display2 = instance_create_layer(0,0, "Instances_Global", obj_ring1);
+ring1display2.visible = false;
+ring1display2.mask_index = noone;
+ring1display2.image_speed = 0;
+
+ring2display2 = instance_create_layer(0,0, "Instances_Global", obj_ring2);
+ring2display2.visible = false;
+ring2display2.mask_index = noone;
+ring2display2.image_speed = 0;
+
+ring3display2 = instance_create_layer(0,0, "Instances_Global", obj_ring3);
+ring3display2.visible = false;
+ring3display2.mask_index = noone;
+ring3display2.image_speed = 0;
+
+ring4display2 = instance_create_layer(0,0, "Instances_Global", obj_ring4);
+ring4display2.visible = false;
+ring4display2.mask_index = noone;
+ring4display2.image_speed = 0;
+
+ring5display2 = instance_create_layer(0,0, "Instances_Global", obj_ring5);
+ring5display2.visible = false;
+ring5display2.mask_index = noone;
+ring5display2.image_speed = 0;

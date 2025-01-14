@@ -42,8 +42,6 @@ if(global.override)
 	global.canMove = false;
 }
 
-
-
 // Debug: Output the result to the console (optional)
 /*if (global.canMove) {
     show_debug_message("All objects are stationary.");

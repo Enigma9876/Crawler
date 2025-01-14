@@ -2,7 +2,8 @@
 randomize(); 
 
 	//globals
-	global.override = false
+	global.override = false;
+	global.lockChgDir = false;
 	global.turn = 0;
 	global.enemyCount = 0;
 	global.xdistance = 0;
@@ -28,7 +29,7 @@ randomize();
 	global.activeArmor = undefined;
 	
 	//items
-	global.sword1Count = 1;
+	global.sword1Count = 0;
 	global.sword2Count = 0;
 	global.sword3Count = 0;
 	global.sword4Count = 0;
@@ -37,6 +38,7 @@ randomize();
 	global.ring2Count = 0;
 	global.ring3Count = 0;
 	global.ring4Count = 0;
+	global.ring5Count = 0;
 	global.activeRing1 = undefined;
 	global.activeRing2 = undefined;
 	

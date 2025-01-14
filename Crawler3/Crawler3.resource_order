@@ -37,7 +37,7 @@
     {"name":"obj_damageHeal","order":91,"path":"objects/obj_damageHeal/obj_damageHeal.yy",},
     {"name":"obj_damageTick","order":88,"path":"objects/obj_damageTick/obj_damageTick.yy",},
     {"name":"obj_discardButton","order":108,"path":"objects/obj_discardButton/obj_discardButton.yy",},
-    {"name":"obj_display","order":106,"path":"objects/obj_display/obj_display.yy",},
+    {"name":"obj_display","order":125,"path":"objects/obj_display/obj_display.yy",},
     {"name":"obj_Door1","order":16,"path":"objects/obj_Door1/obj_Door1.yy",},
     {"name":"obj_Door2","order":17,"path":"objects/obj_Door2/obj_Door2.yy",},
     {"name":"obj_doorclose1","order":63,"path":"objects/obj_doorclose1/obj_doorclose1.yy",},

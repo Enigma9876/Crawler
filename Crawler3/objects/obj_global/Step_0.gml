@@ -55,8 +55,61 @@ for(var i = 0; i < ds_list_size(global.inventory); i++)
 		bonusDamage += 2;
 		
 	}
+	
+	if(array_get(obj_ui.spotsEquipped,0) == "ring1")
+	{
+		bonusHealth += 7;
+		bonusDamage += 1;
+	}
+	else if(array_get(obj_ui.spotsEquipped,0) == "ring2")
+	{
+		bonusCrit += 4;
+		bonusDamage += 2;
+	}
+	else if(array_get(obj_ui.spotsEquipped,0) == "ring3")
+	{
+		bonusCrit += 8;
+		bonusDamage += 3;
+	}
+	else if(array_get(obj_ui.spotsEquipped,0) == "ring4")
+	{
+		bonusHealth += 25;
+	}
+	else if(array_get(obj_ui.spotsEquipped,0) == "ring5")
+	{
+		bonusCrit += 5;
+		bonusHealth += 15;
+		bonusDamage += 5;
+	}
+	
+	if(array_get(obj_ui.spotsEquipped,1) == "ring1")
+	{
+		bonusHealth += 7;
+		bonusDamage += 1;
+	}
+	else if(array_get(obj_ui.spotsEquipped,1) == "ring2")
+	{
+		bonusCrit += 4;
+		bonusDamage += 2;
+	}
+	else if(array_get(obj_ui.spotsEquipped,1) == "ring3")
+	{
+		bonusCrit += 8;
+		bonusDamage += 3;
+	}
+	else if(array_get(obj_ui.spotsEquipped,1) == "ring4")
+	{
+		bonusHealth += 25;
+	}
+	else if(array_get(obj_ui.spotsEquipped,1) == "ring5")
+	{
+		bonusCrit += 5;
+		bonusHealth += 15;
+		bonusDamage += 5;
+	}
 
 	global.crit = bonusCrit;
 	global.hp_max = bonusHealth;
 	global.damage = bonusDamage;
+	
 

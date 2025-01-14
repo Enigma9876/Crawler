@@ -17,7 +17,8 @@ else
 {
 	visible = false;
 }
-
+if(visible == true)
+{
 	var w = ((x - (room_width div 4)) div 32);
 	var h = ((y - (room_height div 4)) div 32);
 	if(global.gridOrg[# w, h] != 5 && mouse_check_button_pressed(mb_left) && !global.shootarrow && (global.gridPow[# w,h] == 6 || global.gridPow[# w,h] == 7 || global.gridPow[# w,h] == 12 || global.gridPow[# w,h] == 2))
@@ -256,7 +257,7 @@ else
 	
 	//close door
 	
-			if(mouse_check_button_pressed(mb_left) && global.canMove && global.gridOrg[# w, h] != 4 && global.grid[# w, h] == 1 && !(global.gridPow[# w,h] == 6 || global.gridPow[# w,h] == 7 || global.gridPow[# w,h] == 12 || global.gridPow[# w,h] == 2))
+			if(mouse_check_button_pressed(mb_left) && global.canMove && global.gridOrg[# w, h] != 4 && global.gridOrg[# w, h] != 5 && global.grid[# w, h] == 1 && global.gridPow[# w,h] != 6 && global.gridPow[# w,h] != 7 && global.gridPow[# w,h] != 12 && global.gridPow[# w,h] != 2)
 			{
 				var left = global.grid[# w - 1,h];
 				var right = global.grid[# w + 1,h];
@@ -321,6 +322,7 @@ else
 				//update if any changes
 				change_fog();
 			}
+}
 	
 	
 	

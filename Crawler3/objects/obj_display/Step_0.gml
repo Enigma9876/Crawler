@@ -271,6 +271,116 @@ else if(name == "armor4 eq" && !getName)
 	oneButton = true;
 	getName = true;
 }
+else if(name == "ring1" && !getName)
+{
+	b1 = instance_create_layer(x - 59,y + 22, "Instances_signButtons", obj_EquipButton);
+	b1.image_xscale = 0.92;
+	b1.image_yscale = 0.92;
+	b1.name = "ring1";
+	b2 = instance_create_layer(x + 9,y + 23, "Instances_signButtons", obj_discardButton);
+	b2.image_xscale = 0.92;
+	b2.image_yscale = 0.92;
+	b2.name = "ring";
+	getName = true;
+}
+else if(name == "ring1 eq" && !getName)
+{
+	b1 = instance_create_layer(x - 59,y + 22, "Instances_signButtons", obj_unequipButton);
+	b1.image_xscale = 0.92;
+	b1.image_yscale = 0.92;
+	b1.name = "ring1";
+	oneButton = true;
+	getName = true;
+	b1.numberBox = numberBox;
+}
+else if(name == "ring2" && !getName)
+{
+	b1 = instance_create_layer(x - 59,y + 22, "Instances_signButtons", obj_EquipButton);
+	b1.image_xscale = 0.92;
+	b1.image_yscale = 0.92;
+	b1.name = "ring2";
+	b2 = instance_create_layer(x + 9,y + 23, "Instances_signButtons", obj_discardButton);
+	b2.image_xscale = 0.92;
+	b2.image_yscale = 0.92;
+	b2.name = "ruby ring";
+	getName = true;
+}
+else if(name == "ring2 eq" && !getName)
+{
+	b1 = instance_create_layer(x - 59,y + 22, "Instances_signButtons", obj_unequipButton);
+	b1.image_xscale = 0.92;
+	b1.image_yscale = 0.92;
+	b1.name = "ring2";
+	oneButton = true;
+	getName = true;
+	b1.numberBox = numberBox;
+}
+else if(name == "ring3" && !getName)
+{
+	b1 = instance_create_layer(x - 59,y + 22, "Instances_signButtons", obj_EquipButton);
+	b1.image_xscale = 0.92;
+	b1.image_yscale = 0.92;
+	b1.name = "ring3";
+	b2 = instance_create_layer(x + 9,y + 23, "Instances_signButtons", obj_discardButton);
+	b2.image_xscale = 0.92;
+	b2.image_yscale = 0.92;
+	b2.name = "slash ring";
+	getName = true;
+}
+else if(name == "ring3 eq" && !getName)
+{
+	b1 = instance_create_layer(x - 59,y + 22, "Instances_signButtons", obj_unequipButton);
+	b1.image_xscale = 0.92;
+	b1.image_yscale = 0.92;
+	b1.name = "ring3";
+	oneButton = true;
+	getName = true;
+	b1.numberBox = numberBox;
+}
+else if(name == "ring4" && !getName)
+{
+	b1 = instance_create_layer(x - 59,y + 22, "Instances_signButtons", obj_EquipButton);
+	b1.image_xscale = 0.92;
+	b1.image_yscale = 0.92;
+	b1.name = "ring4";
+	b2 = instance_create_layer(x + 9,y + 23, "Instances_signButtons", obj_discardButton);
+	b2.image_xscale = 0.92;
+	b2.image_yscale = 0.92;
+	b2.name = "shield ring";
+	getName = true;
+}
+else if(name == "ring4 eq" && !getName)
+{
+	b1 = instance_create_layer(x - 59,y + 22, "Instances_signButtons", obj_unequipButton);
+	b1.image_xscale = 0.92;
+	b1.image_yscale = 0.92;
+	b1.name = "ring4";
+	oneButton = true;
+	getName = true;
+	b1.numberBox = numberBox;
+}
+else if(name == "ring5" && !getName)
+{
+	b1 = instance_create_layer(x - 59,y + 22, "Instances_signButtons", obj_EquipButton);
+	b1.image_xscale = 0.92;
+	b1.image_yscale = 0.92;
+	b1.name = "ring5";
+	b2 = instance_create_layer(x + 9,y + 23, "Instances_signButtons", obj_discardButton);
+	b2.image_xscale = 0.92;
+	b2.image_yscale = 0.92;
+	b2.name = "multi orbs";
+	getName = true;
+}
+else if(name == "ring5 eq" && !getName)
+{
+	b1 = instance_create_layer(x - 59,y + 22, "Instances_signButtons", obj_unequipButton);
+	b1.image_xscale = 0.92;
+	b1.image_yscale = 0.92;
+	b1.name = "ring5";
+	b1.numberBox = numberBox;
+	oneButton = true;
+	getName = true;
+}
 
 if(!oneButton && getName && obj_ui.inventoryOpen)
 {

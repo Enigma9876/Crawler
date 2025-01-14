@@ -96,6 +96,39 @@ else if(name == "armor4" || name == "armor4 eq")
 	draw_text_transformed_color(x - 25, y - 15, "Crit: 3%",0.75,0.75,image_angle, c_white,c_white,c_white,c_white, image_alpha);
 	draw_text_transformed_color(x - 60, y, "This armor used belonged to the\nchampion of Greece",0.5,0.5,image_angle, c_white,c_white,c_white,c_white, image_alpha);
 }
-
-
+else if(name == "ring1" || name == "ring1 eq")
+{
+	draw_sprite_stretched(spr_ring1, 0, x - 62,y - 32,32,32);
+	draw_text_transformed_color(x - 25, y - 32, "Health: 7",0.75,0.75,image_angle, c_white,c_white,c_white,c_white, image_alpha);
+	draw_text_transformed_color(x - 25, y - 20, "Damage: 1",0.75,0.75,image_angle, c_white,c_white,c_white,c_white, image_alpha);
+	draw_text_transformed_color(x - 60, y, "Normal ring, pretty ordinary,\nnothing special, or is it?",0.5,0.5,image_angle, c_white,c_white,c_white,c_white, image_alpha);
+}
+else if(name == "ring2" || name == "ring2 eq")
+{
+	draw_sprite_stretched(spr_ring2, 0, x - 62,y - 32,32,32);
+	draw_text_transformed_color(x - 25, y - 32, "Crit: 4%",0.75,0.75,image_angle, c_white,c_white,c_white,c_white, image_alpha);
+	draw_text_transformed_color(x - 25, y - 20, "Damage: 2",0.75,0.75,image_angle, c_white,c_white,c_white,c_white, image_alpha);
+	draw_text_transformed_color(x - 60, y, "Embues a strong power within\nusers",0.5,0.5,image_angle, c_white,c_white,c_white,c_white, image_alpha);
+}
+else if(name == "ring3" || name == "ring3 eq")
+{
+	draw_sprite_stretched(spr_ring3, 0, x - 62,y - 32,32,32);
+	draw_text_transformed_color(x - 25, y - 32, "Crit: 8%",0.75,0.75,image_angle, c_white,c_white,c_white,c_white, image_alpha);
+	draw_text_transformed_color(x - 25, y - 20, "Damage: 3",0.75,0.75,image_angle, c_white,c_white,c_white,c_white, image_alpha);
+	draw_text_transformed_color(x - 60, y, "Ring used by an alpha bear,\ngrants great power",0.5,0.5,image_angle, c_white,c_white,c_white,c_white, image_alpha);
+}
+else if(name == "ring4" || name == "ring4 eq")
+{
+	draw_sprite_stretched(spr_ring4, 0, x - 62,y - 32,32,32);
+	draw_text_transformed_color(x - 25, y - 32, "Health: 25",0.75,0.75,image_angle, c_white,c_white,c_white,c_white, image_alpha);
+	draw_text_transformed_color(x - 25, y - 17, "Protects user from\neven the worst\nenemies and challenges",0.5,0.5,image_angle, c_white,c_white,c_white,c_white, image_alpha);
+}
+else if(name == "ring5" || name == "ring5 eq")
+{
+	draw_sprite_stretched(spr_ring5, 0, x - 62,y - 32,32,32);
+	draw_text_transformed_color(x - 25, y - 38, "Damage: 5",0.75,0.75,image_angle, c_white,c_white,c_white,c_white, image_alpha);
+	draw_text_transformed_color(x - 25, y - 27, "Health: 15",0.75,0.75,image_angle, c_white,c_white,c_white,c_white, image_alpha);
+	draw_text_transformed_color(x - 25, y - 15, "Crit: 5%",0.75,0.75,image_angle, c_white,c_white,c_white,c_white, image_alpha);
+	draw_text_transformed_color(x - 60, y, "The most ledgendary artifact\never, contains the power of gods",0.5,0.5,image_angle, c_white,c_white,c_white,c_white, image_alpha);
+}
 

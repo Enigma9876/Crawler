@@ -27,7 +27,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_ring1",
+    "path":"sprites/spr_ring1/spr_ring1.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

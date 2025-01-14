@@ -5,3 +5,4 @@ getName = false;
 b1 = undefined;
 b2 = undefined;
 oneButton = false;
+numberBox = undefined

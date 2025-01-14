@@ -54,6 +54,10 @@ if(hp <= 0)
 			global.gridPow[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 12;
 			instance_create_layer(x, y, "Instances_Enemies", obj_key);
 		}
+		instance_create_layer(x, y , "Instances_Enemies", obj_arrow);
+		instance_create_layer(x, y , "Instances_Enemies", obj_arrow);
+		instance_create_layer(x, y , "Instances_Enemies", obj_arrow);
+		instance_create_layer(x, y , "Instances_Enemies", obj_arrow);
 		death = true;
 		sprite_index = spr_enemy1Death;
 		image_index = 0;

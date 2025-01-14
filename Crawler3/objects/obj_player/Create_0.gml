@@ -72,3 +72,4 @@ openChest = false;
 
 checkCoolDown = true;
 ladderLock = false;
+

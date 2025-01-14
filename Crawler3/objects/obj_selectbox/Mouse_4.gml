@@ -38,3 +38,19 @@ else if(index_x == 3 && index_y == undefined && collision_enabled && global.acti
 	display.image_yscale = 5;
 	display.name = string(array_get(obj_ui.spotsEquipped, 3)) + " eq";
 }
+else if(index_x == 0 && index_y == undefined && collision_enabled && global.activeRing1 != undefined)
+{
+	var display = instance_create_layer(x + 60,y - 30, "Instances_signs", obj_display);
+	display.image_xscale = 5;
+	display.image_yscale = 5;
+	display.name = string(array_get(obj_ui.spotsEquipped, 0)) + " eq";
+	display.numberBox = index_x;
+}
+else if(index_x == 1 && index_y == undefined && collision_enabled && global.activeRing2 != undefined)
+{
+	var display = instance_create_layer(x + 60,y - 30, "Instances_signs", obj_display);
+	display.image_xscale = 5;
+	display.image_yscale = 5;
+	display.name = string(array_get(obj_ui.spotsEquipped, 1)) + " eq";
+	display.numberBox = index_x;
+}
