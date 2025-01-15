@@ -17,12 +17,32 @@ else
 {
 	visible = false;
 }
+
+if(!instance_exists(obj_player) || obj_player.death == true || global.pause)
+{
+	visible = false;
+}
 if(visible == true)
 {
 	var w = ((x - (room_width div 4)) div 32);
 	var h = ((y - (room_height div 4)) div 32);
 	if(global.gridOrg[# w, h] != 5 && mouse_check_button_pressed(mb_left) && !global.shootarrow && (global.gridPow[# w,h] == 6 || global.gridPow[# w,h] == 7 || global.gridPow[# w,h] == 12 || global.gridPow[# w,h] == 2))
 	{
+		var rand = irandom_range(1,2);
+		if(rand == 1)
+		{
+			if(!global.mute)
+			{
+				audio_play_sound(snd_itemPickup,0,false);
+			}
+		}
+		if(rand == 2)
+		{
+			if(!global.mute)
+			{
+				audio_play_sound(snd_itemPickUp2,0,false);
+			}
+		}
 		var add = true;
 		var instances = ds_list_create();
 					var usedInstances = ds_list_create();

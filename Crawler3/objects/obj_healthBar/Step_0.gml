@@ -1,5 +1,9 @@
 if(pastHp < global.hp)
 {
+	if(!global.mute)
+						{
+						audio_play_sound(snd_heal,0,false);
+						}
 	var damageHeal = instance_create_layer(obj_player.x, obj_player.y, "Instances_Global", obj_damageHeal);
 	damageHeal.text = string(global.hp - pastHp);
 	damageHeal.objectToFollow = obj_player.id;
@@ -8,6 +12,10 @@ if(pastHp < global.hp)
 if(global.hp > global.hp_max)
 {
 	global.hp = global.hp_max;
+}
+if(global.hp < 0)
+{
+	global.hp = 0;
 }
 
 

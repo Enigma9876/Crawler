@@ -41,8 +41,14 @@ randomize();
 	global.ring5Count = 0;
 	global.activeRing1 = undefined;
 	global.activeRing2 = undefined;
+	global.death = false;
+	global.pause = false;
 	
 	global.inventory = ds_list_create();
+	if(!global.mute)
+	{
+						//audio_play_sound(snd_underTone,0,true);
+	}
 
 	// Create a reservation grid (same size as global.gridOrg)
 	global.reservationGrid = ds_grid_create(ds_grid_width(global.gridOrg), ds_grid_height(global.gridOrg));
@@ -75,10 +81,7 @@ if(room == rm_level1)
 }
 else if(room == rm_tutorialRoom)
 {
-	global.arrowCount = 0;
-	global.arrowCount2 = 0;
-	global.arrowCount3 = 0;
-	global.grid = ds_grid_create(45, 45);
+	global.grid = ds_grid_create(25, 25);
 	global.grid_width = 45;  // Number of cells in the grid's width
 	global.grid_height = 35; // Number of cells in the grid's height
 	ds_grid_clear(global.grid, 10);
@@ -87,66 +90,48 @@ else if(room == rm_tutorialRoom)
 				for(var h1 = 0; h1 < ds_grid_height(global.grid); h1++)
 				{
 					//set borders to 1 (walls/no-walkables)
-					if(w1 <= 8 || h1 <= 8)
+					if(w1 <= 5 || h1 <= 5)
 					{
 						global.grid[# w1, h1] = 0;
 					}
-					if(w1 == 0 || h1 == 0 || (w1 == 8 && h1 > 8) || (h1 == 8 && w1 >= 8) || (w1 == ds_grid_width(global.grid) - 1 && h1 <= 8) || (h1 == ds_grid_height(global.grid) - 1 && w1 <= 8))
+					if(w1 == 0 || h1 == 0 || (w1 == 5 && h1 > 5) || (h1 == 5 && w1 >= 5) || (w1 == ds_grid_width(global.grid) - 1 && h1 <= 5) || (h1 == ds_grid_height(global.grid) - 1 && w1 <= 5))
 					{
 						global.grid[# w1,h1] = -2;
 					}
-					if(w1 <= 8 && h1 == 9)
+					if(w1 <= 4 && h1 == 6)
 					{
 						global.grid[# w1,h1] = -2;
 					}
-					if(w1 == 4 && h1 == 9)
+					if(w1 == 3 && h1 == 6)
 					{
 						global.grid[# w1, h1] = -1;
 					}
-					if(w1 <= 8 && h1 == 25)
+					if(w1 <= 5 && h1 == 16)
 					{
 						global.grid[# w1,h1] = -2;
 					}
-					if(w1 == 4 && h1 == 25)
-					{
-						global.grid[# w1, h1] = -1;
-					}
-					if((w1 == 10 || w1 == 11) && h1 <= 8)
+					if((w1 == 6 || w1 == 14) && h1 <= 4)
 					{
 						global.grid[# w1,h1] = -2;
 					}
-					if(h1 == 4 && w1 == 10)
-					{
-						global.grid[# w1, h1] = -1;
-					}
-					if(h1 == 4 && w1 == 11)
-					{
-						global.grid[# w1, h1] = 0;
-					}
-					if((w1 == 18 || w1 == 19) && h1 <= 8)
+					if((w1 == 7 || w1 == 15) && h1 <= 4)
 					{
 						global.grid[# w1,h1] = -2;
 					}
-					if(h1 == 4 && w1 == 18)
+					if((w1 == 6 || w1 == 7) && h1 == 2)
 					{
 						global.grid[# w1, h1] = -1;
 					}
-					if(h1 == 4 && w1 == 19)
-					{
-						global.grid[# w1, h1] = 0;
-					}
-					if((w1 == 28 || w1 == 29) && h1 <= 8)
-					{
-						global.grid[# w1,h1] = -2;
-					}
-					if(h1 == 4 && w1 == 28)
+					if((w1 == 14 || w1 == 15) && h1 == 2)
 					{
 						global.grid[# w1, h1] = -1;
 					}
-					if(h1 == 4 && w1 == 29)
+					if(h1 == 16 && w1 == 3)
 					{
-						global.grid[# w1, h1] = 0;
+						global.grid[# w1, h1] = -1;
 					}
+
+
 					
 				}
 			}

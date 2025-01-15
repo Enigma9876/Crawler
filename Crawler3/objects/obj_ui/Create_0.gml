@@ -1,6 +1,9 @@
 inventoryOpen = false;
 spotsTaken = ds_grid_create(5,4); //tracks what things are in what places in the inventory
 spotsEquipped = array_create(5, string);
+var button = instance_create_layer(35,350, "Instances_Inventory", obj_pauseButton);
+button.image_xscale = 1;
+button.image_yscale = 1;
 for (var i = 0; i < array_length(spotsEquipped); i++) 
 {
     spotsEquipped[i] = 0;

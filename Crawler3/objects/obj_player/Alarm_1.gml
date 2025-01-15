@@ -22,7 +22,6 @@
 			obj_player.y = (real(hPos) * 32) + (room_height div 4) + 16;
 			global.gridOrg[# wPos,hPos] = 4;
 			
-			
 			//delete arrow from amount
 			global.turn++;
 			global.arrowCount2--;

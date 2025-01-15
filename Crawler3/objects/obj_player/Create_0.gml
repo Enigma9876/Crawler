@@ -73,3 +73,5 @@ openChest = false;
 checkCoolDown = true;
 ladderLock = false;
 
+death = false
+

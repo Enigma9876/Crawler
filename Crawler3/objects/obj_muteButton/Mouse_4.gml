@@ -1,0 +1,1 @@
+global.mute = !global.mute;

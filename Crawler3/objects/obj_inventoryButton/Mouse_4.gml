@@ -1,9 +1,14 @@
-obj_ui.inventoryOpen = !obj_ui.inventoryOpen;
-if(obj_ui.inventoryOpen)
+if(!global.death && !global.pause)
 {
-	image_index = 1;
+	
+	obj_ui.inventoryOpen = !obj_ui.inventoryOpen;
+	if(obj_ui.inventoryOpen)
+	{
+		image_index = 1;
+	}
+	else
+	{
+			image_index = 0;
+	}
 }
-else
-{
-		image_index = 0;
-}
+

@@ -12,6 +12,10 @@ if(hp <= 0)
 	//die
 	if(!death)
 	{
+			if(!global.mute)
+			{
+				audio_play_sound(snd_enemyDeath,0,false);
+			}
 		if(goTowardsPlayer)
 		{
 			x = attack_start_x;
@@ -39,25 +43,42 @@ if(hp <= 0)
 		}
 		global.gridOrg[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 0;
 		var rand = irandom_range(1,11);
-		if(rand <= 0)
+		if(rand <= 4)
 		{
 			global.gridPow[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 6;
 			instance_create_layer(x, y , "Instances_Enemies", obj_arrow);
 		}
-		else if(rand <= 0)
+		else if(rand <= 5)
 		{
 			global.gridPow[# ((x - (room_width div 4)) div 32), ((y - (room_height div 4)) div 32)] = 7;
 			instance_create_layer(x - 16, y - 16, "Instances_Enemies", obj_potion2);
+		}
+		else if(rand <= 6)
+		{
+			global.gridPow[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 12;
+			instance_create_layer(x, y, "Instances_Enemies", obj_key);
+		}
+		else if(rand <= 7)
+		{
+			global.gridPow[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 12;
+			instance_create_layer(x, y, "Instances_Enemies", obj_ring1);
+		}
+		else if(rand <= 8)
+		{
+			global.gridPow[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 12;
+			instance_create_layer(x, y, "Instances_Enemies", obj_ring2);
+		}
+		else if(rand <= 9)
+		{
+			global.gridPow[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 12;
+			instance_create_layer(x, y, "Instances_Enemies", obj_armor1);
 		}
 		else if(rand <= 11)
 		{
 			global.gridPow[# ((x - 16 - (room_width div 4)) div 32), ((y - 16 - (room_height div 4)) div 32)] = 12;
 			instance_create_layer(x, y, "Instances_Enemies", obj_key);
 		}
-		instance_create_layer(x, y , "Instances_Enemies", obj_arrow);
-		instance_create_layer(x, y , "Instances_Enemies", obj_arrow);
-		instance_create_layer(x, y , "Instances_Enemies", obj_arrow);
-		instance_create_layer(x, y , "Instances_Enemies", obj_arrow);
+		
 		death = true;
 		sprite_index = spr_enemy1Death;
 		image_index = 0;
@@ -110,6 +131,10 @@ else
 			   {
 				   image_xscale = 1;
 			   }
+			   	if(!global.mute)
+				{
+					audio_play_sound(snd_skeletonAttack,0,false);
+				}
 				global.hp -= 7;
 				checkifMove = true;
 				attacking = true;

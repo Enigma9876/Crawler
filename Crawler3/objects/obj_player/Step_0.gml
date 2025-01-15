@@ -68,8 +68,13 @@ if(global.canMove == true && !attack)
 						destroy_room();
 						if (obj_global.alarm[0] < 0) 
 						{
-							obj_global.alarm[0] = 20;
+							instance_create_layer(x,y,"Instances_deathscreen", obj_roomTrans);
+							obj_global.alarm[0] = 76;
 							obj_global.alarm[1] = 1;
+						}
+						if(!global.mute)
+						{
+						audio_play_sound(snd_nextScreen,0,false);
 						}
 						global.override = true;
 					
@@ -131,6 +136,28 @@ if(global.canMove == true && !attack)
 						obj_player.attackx = w;
 						obj_player.attacky = h;
 						i++
+						var rand = irandom_range(1,3);
+						if(rand == 1)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack1,0,false);
+							}
+						}
+						if(rand == 2)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack2,0,false);
+							}
+						}
+						if(rand == 2)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack2,0,false);
+							}
+						}
 					}
 					ds_list_destroy(instances);
 					global.turn += 1;
@@ -176,6 +203,28 @@ if(global.canMove == true && !attack)
 			
 			if(global.grid[# w,h] == 3)
 			{
+										var rand = irandom_range(1,3);
+						if(rand == 1)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack1,0,false);
+							}
+						}
+						if(rand == 2)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack2,0,false);
+							}
+						}
+						if(rand == 2)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack2,0,false);
+							}
+						}
 				global.grid[# w,h] = 0;
 				var instances = ds_list_create();
 				var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_box1, false, true, instances, false);
@@ -284,8 +333,13 @@ if(global.canMove == true && !attack)
 						destroy_room();
 						if (obj_global.alarm[0] < 0) 
 						{
-							obj_global.alarm[0] = 20;
+							instance_create_layer(x,y,"Instances_deathscreen", obj_roomTrans);
+							obj_global.alarm[0] = 76;
 							obj_global.alarm[1] = 1;
+						}
+						if(!global.mute)
+						{
+						audio_play_sound(snd_nextScreen,0,false);
 						}
 						global.override = true;
 					}
@@ -343,8 +397,30 @@ if(global.canMove == true && !attack)
 						obj_player.attack = true;
 						obj_player.attackx = w;
 						obj_player.attacky = h;
-						i++
+												var rand = irandom_range(1,3);
+						if(rand == 1)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack1,0,false);
+							}
+						}
+						if(rand == 2)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack2,0,false);
+							}
+						}
+						if(rand == 2)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack2,0,false);
+							}
+						}
 					}
+						i++
 					ds_list_destroy(instances);
 					global.turn += 1;
 					alarm_set(3,10);
@@ -389,7 +465,28 @@ if(global.canMove == true && !attack)
 			
 			if(global.grid[# w,h] == 3)
 			{
-				show_debug_message("hit box");
+										var rand = irandom_range(1,3);
+						if(rand == 1)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack1,0,false);
+							}
+						}
+						if(rand == 2)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack2,0,false);
+							}
+						}
+						if(rand == 2)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack2,0,false);
+							}
+						}
 				global.grid[# w,h] = 0;
 				var instances = ds_list_create();
 				var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_box1, false, true, instances, false);
@@ -495,8 +592,13 @@ if(global.canMove == true && !attack)
 						destroy_room();
 						if (obj_global.alarm[0] < 0) 
 						{
-							obj_global.alarm[0] = 20;
+							instance_create_layer(x,y,"Instances_deathscreen", obj_roomTrans);
+							obj_global.alarm[0] = 76;
 							obj_global.alarm[1] = 1;
+						}
+						if(!global.mute)
+						{
+						audio_play_sound(snd_nextScreen,0,false);
 						}
 						global.override = true;
 					}
@@ -554,6 +656,28 @@ if(global.canMove == true && !attack)
 						obj_player.attack = true;
 						obj_player.attackx = w;
 						obj_player.attacky = h;
+										var rand = irandom_range(1,3);
+						if(rand == 1)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack1,0,false);
+							}
+						}
+						if(rand == 2)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack2,0,false);
+							}
+						}
+						if(rand == 2)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack2,0,false);
+							}
+						}
 						i++
 					}
 					ds_list_destroy(instances);
@@ -600,6 +724,28 @@ if(global.canMove == true && !attack)
 			
 			if(global.grid[# w,h] == 3)
 			{
+								var rand = irandom_range(1,3);
+						if(rand == 1)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack1,0,false);
+							}
+						}
+						if(rand == 2)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack2,0,false);
+							}
+						}
+						if(rand == 2)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack2,0,false);
+							}
+						}
 				show_debug_message("hit box");
 				global.grid[# w,h] = 0;
 				var instances = ds_list_create();
@@ -707,8 +853,13 @@ if(global.canMove == true && !attack)
 						destroy_room();
 						if (obj_global.alarm[0] < 0) 
 						{
-							obj_global.alarm[0] = 20;
+							instance_create_layer(x,y,"Instances_deathscreen", obj_roomTrans);
+							obj_global.alarm[0] = 76;
 							obj_global.alarm[1] = 1;
+						}
+						if(!global.mute)
+						{
+						audio_play_sound(snd_nextScreen,0,false);
 						}
 						global.override = true;
 					}
@@ -766,6 +917,28 @@ if(global.canMove == true && !attack)
 						obj_player.attack = true;
 						obj_player.attackx = w;
 						obj_player.attacky = h;
+										var rand = irandom_range(1,3);
+						if(rand == 1)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack1,0,false);
+							}
+						}
+						if(rand == 2)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack2,0,false);
+							}
+						}
+						if(rand == 2)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack2,0,false);
+							}
+						}
 						i++
 					}
 					ds_list_destroy(instances);
@@ -812,7 +985,28 @@ if(global.canMove == true && !attack)
 			
 			if(global.grid[# w,h] == 3)
 			{
-				show_debug_message("hit box");
+								var rand = irandom_range(1,3);
+						if(rand == 1)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack1,0,false);
+							}
+						}
+						if(rand == 2)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack2,0,false);
+							}
+						}
+						if(rand == 2)
+						{
+							if(!global.mute)
+							{
+								audio_play_sound(snd_attack2,0,false);
+							}
+						}
 				global.grid[# w,h] = 0;
 				var instances = ds_list_create();
 				var n = collision_point_list(x + global.xdistance, y + global.ydistance, obj_box1, false, true, instances, false);
@@ -883,6 +1077,10 @@ if(global.canMove == true && !attack)
 	{
 		if(global.arrowCount > 0 && global.activeItem == "arrow")
 		{
+			if(!global.mute)
+			{
+				audio_play_sound(snd_woosh,0,false,1);
+			}
 			arrowdirx = obj_selection.x;
 			arrowdiry = obj_selection.y;
 			if(arrowdirx > x)
@@ -919,6 +1117,10 @@ if(global.canMove == true && !attack)
 		}
 		else if(global.arrowCount3 > 0 && global.activeItem == "arrow3")
 		{
+			if(!global.mute)
+			{
+				audio_play_sound(snd_woosh,0,false,1);
+			}
 			arrowdirx = obj_selection.x;
 			arrowdiry = obj_selection.y;
 			if(arrowdirx > x)
@@ -1138,8 +1340,25 @@ if(global.canMove == true && !attack)
 		
 if(global.hp <= 0)
 {
-	//die
-	room_goto (rm_main);
+	if(!global.mute)
+			{
+				audio_play_sound(snd_playerDeath,0,false);
+			}
+	if(!death)
+	{
+		//die
+		global.override = true;
+		sprite_index = spr_playerDeath;
+		image_index = 0;
+		death = true;
+		instance_create_layer(x,y,"Instances_deathscreen", obJ_deathScreen);
+		global.death = true;
+	}
+}
+
+if(sprite_index == spr_playerDeath && image_index > 3)
+{
+	instance_destroy(id, false);
 }
 	
 	
@@ -1159,6 +1378,10 @@ if(heal && sprite_index == spr_playerHealth && image_index > 3)
 
 if(image_index > 6 && sprite_index == spr_playerShoot && global.shootarrow && teleport)
 {
+				if(!global.mute)
+			{
+				audio_play_sound(snd_teleport,0,false);
+			}
 	sprite_index = spr_playerTeleport;
 	image_index = 0;
 	teleport = false;

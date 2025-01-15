@@ -112,4 +112,38 @@ for(var i = 0; i < ds_list_size(global.inventory); i++)
 	global.hp_max = bonusHealth;
 	global.damage = bonusDamage;
 	
+	if(global.pause)
+	{
+		global.override = true;
+	}
+	
+	
+	var rand = irandom_range(1,5000);
+	if(rand == 1)
+	{
+		if(!global.mute)
+		{
+			audio_play_sound(snd_background1,0,false);
+		}
+	}
+	if(rand == 2)
+	{
+		if(!global.mute)
+		{
+			audio_play_sound(snd_background2,0,false);
+		}
+	}
+	if(rand == 3)
+	{
+		if(!global.mute)
+		{
+			audio_play_sound(snd_background3,0,false);
+		}
+	}
+	
+	if(global.mute)
+	{
+		audio_stop_all();
+	}
+	
 
