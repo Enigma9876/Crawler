@@ -26,7 +26,7 @@ if(visible == true)
 {
 	var w = ((x - (room_width div 4)) div 32);
 	var h = ((y - (room_height div 4)) div 32);
-	if(global.gridOrg[# w, h] != 5 && mouse_check_button_pressed(mb_left) && !global.shootarrow && (global.gridPow[# w,h] == 6 || global.gridPow[# w,h] == 7 || global.gridPow[# w,h] == 12 || global.gridPow[# w,h] == 2))
+	if(global.grid[# w, h] != 11 && global.gridOrg[# w, h] != 5 && mouse_check_button_pressed(mb_left) && !global.shootarrow && (global.gridPow[# w,h] == 6 || global.gridPow[# w,h] == 7 || global.gridPow[# w,h] == 12 || global.gridPow[# w,h] == 2))
 	{
 		var rand = irandom_range(1,2);
 		if(rand == 1)
@@ -343,6 +343,27 @@ if(visible == true)
 				change_fog();
 			}
 }
+
+			var w = ((x - (room_width div 4)) div 32);
+	var h = ((y - (room_height div 4)) div 32);	
+	if(global.grid[# w, h] == 11 && sign1 == undefined)
+	{
+		var instances = ds_list_create();
+		sign1 = instance_create_layer(obj_player.x, obj_player.y - 64,"Instances_SignPopup", obj_display);
+		sign1.image_xscale = 7;
+		sign1.image_yscale = 7;
+	
+	}
+	else if(instance_exists(sign1) && global.grid[# w, h] != 11)
+	{
+		instance_destroy(sign1.id,false)
+		sign1 = undefined;
+	}
+	if(instance_exists(sign1) && sign1 != undefined)
+	{
+		sign1.x = obj_player.x;
+		sign1.y = obj_player.y - 64;
+	}
 	
 	
 	

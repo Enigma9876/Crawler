@@ -264,7 +264,7 @@ function tutorial_room()
 						instance_create_layer((w * 32) + (room_width div 4), (h * 32) + (room_height div 4), "Instances_WallandFloor", obj_floor4);
 				}
 			}
-			if((w == 2 && h == 21) || (w == 2 && h == 13) || (w == 2 && h == 5) || (w == 9 && h == 1))
+			if((w == 2 && h == 21) || (w == 2 && h == 17) || (w == 2 && h == 13) || (w == 5 && h == 1) || (w == 2 && h == 5) || (w == 9 && h == 1))
 			{
 				global.grid[# w,h] = 11;
 				instance_create_layer((real(w) * 32) + (room_width div 4), (real(h) * 32) + (room_height div 4), "Instances_player", obj_sign1);
