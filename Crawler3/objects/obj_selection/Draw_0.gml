@@ -2,6 +2,7 @@ draw_self();
 draw_set_font(Font);
 var w = ((x - (room_width div 4)) div 32);
 var h = ((y - (room_height div 4)) div 32);	
+show_debug_message("x: " + string(x) + " y: " + string(y));
 if(global.grid[# w, h] == 11)
 {
 	var instances = ds_list_create();
@@ -9,10 +10,10 @@ if(global.grid[# w, h] == 11)
 	var i = 0;
 	repeat ds_list_size(instances) 
 	{
-				draw_sprite_stretched(spr_signshow, -1, 0, 100, 250, 125);
-		if(x == 652 && y == 1484)
+		draw_sprite_stretched(spr_signshow, -1, obj_player.x - 116, obj_player.y - 196, 250, 125);
+		if(x == 588 && y == 1196)
 		{
-			draw_text(10, 110, "WASD to move\n\nARROW KEYS to change\nselection");
+			draw_text(obj_player.x - 100, obj_player.y - 186, "WASD to move\n\nMove mouse to change\nselection");
 		}
 		else if(x == 620 && y == 1356)
 		{
