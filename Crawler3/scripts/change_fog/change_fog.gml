@@ -578,42 +578,6 @@ function change_fog()
 				//show_debug_message(right2);
 			}
 		}
-		
-		/*for(var h = 0; h < ds_grid_height(gridFog); h++)
-		{
-			for(var w = 0; w < ds_grid_width(gridFog); w++)
-			{
-				var pos2 = undefined;
-				var left2 = undefined;
-				var right2 = undefined;
-				var up2 = undefined;
-				var down2 = undefined;
-				
-				var pos = gridFog[# w, h];
-				var left = gridFog[# w - 1, h];
-				var right = gridFog[# w + 1, h];
-				var up = gridFog[# w, h - 1];
-				var down = gridFog[# w, h + 1];
-				
-				if(pos != undefined)
-					pos2 = layer_instance_get_instance(pos).image_index;
-				if(left != undefined)
-					left2 = layer_instance_get_instance(left).image_index;
-				if(right != undefined)
-					right2 = layer_instance_get_instance(right).image_index;
-				if(up != undefined)
-					up2 = layer_instance_get_instance(up).image_index;
-				if (down != undefined) 
-				{
-					down2 = layer_instance_get_instance(down).image_index;
-				}		
-				
-				if(pos2 == 2 && (left2 == 3 || right2 == 3 || up2 == 3 || down2 == 3))
-				{
-					layer_instance_get_instance(gridFog[# w, h]).image_index = 1;
-				}
-			}
-		} */
 				
 }
 	
